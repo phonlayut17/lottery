@@ -1,9 +1,7 @@
-import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
 import React, { useState, useRef } from 'react';
 import { Modal } from "react-bootstrap";
 import '../index.js';
@@ -40,12 +38,6 @@ const NumberRunLottery = (props) => {
     const handleOneRemoveAll = () => {
         setOneList([]);
     };
-
-    // const handleNumberRunDataRemove = (index) => {
-    //     const list = [...newListItem];
-    //     list.splice(index, 1);
-    //     setNewListItem(list);
-    // };
 
     const handleOneRemove = (index) => {
         const list = [...oneList];
@@ -90,119 +82,76 @@ const NumberRunLottery = (props) => {
 
     return (
         <Col>
-            <div className="App">
+            <Row>
+                {oneList.map((item, b) => (
+                    <Col sm={1} onClick={() => handleOneRemove(b)}>
+                        <Button variant="danger" onClick={() => handleOneRemove(b)}>
+                            {item}
+                        </Button>
+                        <br />
+                        <br />
+                    </Col>
+                ))}
+            </Row>
+            <br />
+            <form onSubmit={addToList}>
                 <Row>
-                    {oneList.map((item, b) => (
-                        <Col sm={1} onClick={() => handleOneRemove(b)}>
-                            <Button variant="danger" onClick={() => handleOneRemove(b)}>
-                                {item}
-                            </Button>
-                            <br />
-                            <br />
-                        </Col>
-                    ))}
+                    <Col sm>
+
+                    </Col>
+                    <Col sm></Col>
+                    <Col sm>
+                        {Array.isArray(oneList) && oneList.length > 0 && (
+                            <Row>
+                                <Button variant="light" onClick={() => handleOneRemoveAll()}>
+                                    🗑️ ลบเลขทั้งหมด
+                                </Button>
+                            </Row>
+                        )}
+                    </Col>
                 </Row>
                 <br />
-                <form onSubmit={addToList}>
-                    <Container>
-                        <Card fluid className="color-card" style={{ paddingTop: 16, paddingLeft: 16, paddingRight: 16, paddingBottom: 16, backgroundColor: '#D50000' }}>
-                            <Container>
-                                <Row>
-                                    <Col sm={2}>
-
-                                    </Col>
-                                    <Col sm></Col>
-                                    <Col sm={2}>
-                                        {Array.isArray(oneList) && oneList.length > 0 && (
-                                            <Button variant="light" onClick={() => handleOneRemoveAll()}>
-                                                🗑️ ลบเลขทั้งหมด
-                                            </Button>
-                                        )}
-                                    </Col>
-                                </Row>
-                                <br />
-                                <Row>
-                                    <Col sm={4}>
-                                        <Form.Label style={{ color: 'white' }}>ใส่เลข</Form.Label>
-                                        <Form.Group controlId="formNumber">
-                                            <Form.Control type="number" ref={input} onChange={(e) => handleOneChange(e)} placeholder="ระบุเลข" maxLength={2} />
-                                        </Form.Group>
-                                    </Col>
-                                    <Col sm={3}>
-                                        <Form.Label style={{ color: 'white' }}>บน</Form.Label>
-                                        <Form.Group controlId="formNumberTop">
-                                            <Form.Control name="numberTop"
-                                                type="number"
-                                                id="numberTop"
-                                                ref={inputTop}
-                                                maxLength={3}
-                                                placeholder="ระบุเลข" />
-                                        </Form.Group>
-                                    </Col>
-                                    <Col sm={3}>
-                                        <Form.Label style={{ color: 'white' }}>ล่าง</Form.Label>
-                                        <Form.Group controlId="formNumberBottom">
-                                            <Form.Control name="numberBottom"
-                                                type="number"
-                                                maxLength={3}
-                                                ref={inputBottom}
-                                                id="numberBottom"
-                                                placeholder="ระบุเลข" />
-                                        </Form.Group>
-                                    </Col>
-                                    <Col sm={2}>
-                                        <Form.Label style={{ color: '#D50000' }}>กลับ</Form.Label>
-                                        <Form.Group controlId="formNumber">
-                                            <Button variant="success" type="sumbit" tabIndex="0" onKeyDown={(e) => handleKeyDown(e)}>
-                                                🎰 เพิ่มบิล
-                                            </Button>
-                                        </Form.Group>
-                                    </Col>
-                                </Row>
-                                {/* <br />
-                                    <Row>
-                                        {serviceList.length !== 1 && (
-                                            <Button variant="light" onClick={() => handleServiceRemove(index)}>
-                                                ลบบิล
-                                            </Button>
-                                        )}
-                                    </Row> */}
-                            </Container>
-                        </Card>
-                        <br />
-                    </Container>
-                </form>
-                {/* <Card fluid className="color-card" style={{ paddingTop: 16, paddingLeft: 16, paddingRight: 16, paddingBottom: 16, backgroundColor: '#FFFFFF' }}>
-                    {newListItem.map((item, b) => (
-                        <Col>
-                            <Row key={b}>
-                                <Col sm={11}>
-                                    <Card fluid className="color-card" style={{ paddingTop: 16, paddingLeft: 16, paddingRight: 16, paddingBottom: 16, backgroundColor: '#FFFFFF' }}>
-                                        <Row>
-                                            <Col sm={4}>
-                                                <h4><b>ประเภท : {item.type}</b></h4>
-                                            </Col>
-                                            <Col sm>
-                                                <h4><b>เลข : {item.data}</b></h4>
-                                            </Col>
-                                        </Row>
-                                        <br />
-                                        <Row sm={3}>
-                                            <h4><b>ราคา : บน {item.top} x ล่าง {item.bottom} x โต๊ด {item.toot}</b></h4>
-                                        </Row>
-                                    </Card>
-                                </Col>
-                                <Col sm>
-                                    <Button variant="danger" onClick={() => handleNumberRunDataRemove(b)}>
-                                        ลบบิล
-                                    </Button>
-                                </Col>
+                <Row>
+                    <Col sm>
+                        <Form.Label style={{ color: 'black' }}>ใส่เลข</Form.Label>
+                        <Form.Group controlId="formNumber">
+                            <Form.Control type="number" ref={input} onChange={(e) => handleOneChange(e)} placeholder="ระบุเลข" maxLength={2} />
+                        </Form.Group>
+                    </Col>
+                    <Col sm>
+                        <Form.Label style={{ color: 'black' }}>บน</Form.Label>
+                        <Form.Group controlId="formNumberTop">
+                            <Form.Control name="numberTop"
+                                type="number"
+                                id="numberTop"
+                                ref={inputTop}
+                                maxLength={3}
+                                placeholder="ระบุเลข" />
+                        </Form.Group>
+                    </Col>
+                    <Col sm>
+                        <Form.Label style={{ color: 'black' }}>ล่าง</Form.Label>
+                        <Form.Group controlId="formNumberBottom">
+                            <Form.Control name="numberBottom"
+                                type="number"
+                                maxLength={3}
+                                ref={inputBottom}
+                                id="numberBottom"
+                                placeholder="ระบุเลข" />
+                        </Form.Group>
+                    </Col>
+                    <Col sm>
+                        <Form.Label style={{ color: 'transparent' }}>กลับ</Form.Label>
+                        <Form.Group controlId="formNumber">
+                            <Row>
+                                <Button variant="success" type="sumbit" tabIndex="0" onKeyDown={(e) => handleKeyDown(e)}>
+                                    🎰 เพิ่มบิล
+                                </Button>
                             </Row>
-                            <br />
-                        </Col>
-                    ))}
-                </Card> */}
-            </div >
+                        </Form.Group>
+                    </Col>
+                </Row>
+            </form>
             <br />
             <Modal show={showModal} onHide={handleCloseModal} centered>
                 {/* <Modal.Header closeButton>
@@ -214,7 +163,7 @@ const NumberRunLottery = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="danger" onClick={handleCloseModal}>
-                        Close
+                        ปิด
                     </Button>
                 </Modal.Footer>
             </Modal>

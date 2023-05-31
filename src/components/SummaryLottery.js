@@ -2,7 +2,8 @@ import React from 'react';
 import MasterPage from "../pages/MasterPage";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
+// import Button from 'react-bootstrap/Button';
+import { IoTrashBinOutline } from "react-icons/io5";
 
 const SummaryLottery = ({ summaryList, setSummaryList, setTotal, showList, setShowList, addToSummaryList, minusPrice }) => {
 
@@ -119,23 +120,24 @@ const SummaryLottery = ({ summaryList, setSummaryList, setTotal, showList, setSh
                                 {item.id === "7" && (
                                     <h5>บน x ล่าง x โต๊ด</h5>
                                 )}
-                                {item.id === "1" ? `${item.top} x ${item.bottom}` : item.id === "2" ? `${item.top} x ${item.bottom} x ${item.toot}` : item.id === "3" ? `${item.top} x ${item.bottom}` : item.id === "7" ? `${item.top} x ${item.bottom} x ${item.toot}` : `${item.top} x ${item.bottom}`}
+                                <b>{item.id === "1" ? `${item.top} x ${item.bottom}` : item.id === "2" ? `${item.top} x ${item.bottom} x ${item.toot}` : item.id === "3" ? `${item.top} x ${item.bottom}` : item.id === "7" ? `${item.top} x ${item.bottom} x ${item.toot}` : `${item.top} x ${item.bottom}`}</b>
                             </Col>
 
-                            <Col sm={8}>{item.number.join(', ')}</Col>
+                            <Col sm={8} style={{ backgroundColor: '#FFFFFF' }}>{item.number.join(', ')}</Col>
                             <Col sm>
-                                <Row>
+                                {/* <Row>
                                     <Button variant="danger" onClick={() => handleServiceRemove(index, item.id === "2" || item.id === "7" ? (parseInt(item.top) + parseInt(item.toot)) * item.number.length : (parseInt(item.top) + parseInt(item.bottom)) * item.number.length)}>
                                         ❌ ลบบิล
                                     </Button>
-                                </Row>
+                                </Row> */}
+                                <IoTrashBinOutline size={35} style={{ color: '#D50000' }} onClick={() => handleServiceRemove(index, item.id === "2" || item.id === "7" ? (parseInt(item.top) + parseInt(item.toot)) * item.number.length : (parseInt(item.top) + parseInt(item.bottom)) * item.number.length)} />
                             </Col>
                             <hr></hr>
                         </Row>
                     ))}
                 </Col>
             </Col>
-        </MasterPage>
+        </MasterPage >
     );
 }
 

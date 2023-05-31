@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { IoTrashBinOutline } from "react-icons/io5";
 
 const TotalLottery = ({ summaryList, setSummaryList, lotteryType, setTotal, setShowList, comment }) => {
 
@@ -51,7 +52,7 @@ const TotalLottery = ({ summaryList, setSummaryList, lotteryType, setTotal, setS
             <br />
             <br />
             <br />
-            <h2 align="center">ประเภทหวย - {lotteryType === "hanoi-normal" ? "ฮานอย ปกติ 🇻🇳" : lotteryType === "hanoi-privilege" ? "ฮานอย พิเศษ 🇻🇳" : lotteryType === "hanoi-vip" ? "ฮานอย VIP 🇻🇳 🅥🅘🅟" : "ลาว VIP 🇱🇦 🅥🅘🅟"}</h2>
+            <h2 align="center">ประเภทหวย - {lotteryType === "hanoi-normal" ? "ฮานอย 🇻🇳" : lotteryType === "hanoi-privilege" ? "ฮานอย พิเศษ 🇻🇳" : lotteryType === "hanoi-vip" ? "ฮานอย VIP 🇻🇳 🅥🅘🅟" : "ลาว VIP 🇱🇦 🅥🅘🅟"}</h2>
             <br />
             <h4 style={{ textAlign: "center" }}>
                 หมายเหตุ {comment === "" ? "-" : comment}
@@ -77,9 +78,10 @@ const TotalLottery = ({ summaryList, setSummaryList, lotteryType, setTotal, setS
                             <td>99.00</td>
                             <td>0.00</td>
                             <td>
-                                <Button variant="danger" onClick={() => handleServiceRemove(index)}>
+                                {/* <Button variant="danger" onClick={() => handleServiceRemove(index)}>
                                     ❌ ลบบิล
-                                </Button>
+                                </Button> */}
+                                <IoTrashBinOutline size={35} style={{ color: '#D50000' }} onClick={() => handleServiceRemove(index)} />
                             </td>
                         </tr>
                     ))}

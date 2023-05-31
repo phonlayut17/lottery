@@ -1,9 +1,7 @@
-import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
 import React, { useState, useRef, useEffect } from 'react';
 import { Modal } from "react-bootstrap";
 
@@ -126,8 +124,8 @@ const ThreeLottery = (props) => {
 
     const calculateNumber = (data, type) => {
         if (type === 1) {
-            setThreeList([...threeList, data[0] + data[1] + data[2]]);
-            threeList.push(data[0] + data[1] + data[2]);
+            // setThreeList([...threeList, data[0] + data[1] + data[2]]);
+            // threeList.push(data[0] + data[1] + data[2]);
             setThreeList([...threeList, data[0] + data[2] + data[1]]);
             threeList.push(data[0] + data[2] + data[1]);
             setThreeList([...threeList, data[1] + data[0] + data[2]]);
@@ -172,127 +170,86 @@ const ThreeLottery = (props) => {
 
     return (
         <Col>
-            <div className="App">
+            <Row>
+                {threeList.map((item, b) => (
+                    <Col align="center" sm={1} onClick={() => handleThreeRemove(b)}>
+                        <Button variant="danger" onClick={() => handleThreeRemove(b)}>
+                            {item}
+                        </Button>
+                        <br />
+                        <br />
+                    </Col>
+                ))}
+            </Row>
+            <br />
+            <form onSubmit={addToList}>
                 <Row>
-                    {threeList.map((item, b) => (
-                        <Col sm={1} onClick={() => handleThreeRemove(b)}>
-                            <Button variant="danger" onClick={() => handleThreeRemove(b)}>
-                                {item}
-                            </Button>
-                            <br />
-                            <br />
-                        </Col>
-                    ))}
+                    <Col align="left" sm>
+                        <Button variant="light" onClick={() => addDoubleToList()}>
+                            9️⃣9️⃣9️⃣ เลขตอง
+                        </Button>
+                    </Col>
+                    <Col sm></Col>
+                    <Col align="right" sm>
+                        {Array.isArray(threeList) && threeList.length > 0 && (
+                            <Row>
+                                <Button variant="light" onClick={() => handleThreeRemoveAll()}>
+                                    🗑️ ลบเลขทั้งหมด
+                                </Button>
+                            </Row>
+                        )}
+                    </Col>
                 </Row>
                 <br />
-                <form onSubmit={addToList}>
-                    <Container>
-                        <Card fluid className="color-card" style={{ paddingTop: 16, paddingLeft: 16, paddingRight: 16, paddingBottom: 16, backgroundColor: '#D50000' }}>
-                            <Container>
-                                <Row>
-                                    <Col sm={2}>
-                                        <Button variant="light" onClick={() => addDoubleToList()}>
-                                            9️⃣9️⃣9️⃣ เลขตอง
-                                        </Button>
-                                    </Col>
-                                    <Col sm></Col>
-                                    <Col sm={2}>
-                                        {Array.isArray(threeList) && threeList.length > 0 && (
-                                            <Button variant="light" onClick={() => handleThreeRemoveAll()}>
-                                                🗑️ ลบเลขทั้งหมด
-                                            </Button>
-                                        )}
-                                    </Col>
-                                </Row>
-                                <br />
-                                <Row>
-                                    <Col sm={3}>
-                                        <Form.Label style={{ color: 'white' }}>ใส่เลข</Form.Label>
-                                        <Form.Group controlId="formNumber">
-                                            <Form.Control type="number" ref={input} onChange={(e) => handleThreeChange(e)} placeholder="ระบุเลข" maxLength={2} />
-                                        </Form.Group>
-                                    </Col>
-                                    <Col sm>
-                                        <Form.Label style={{ color: '#D50000' }}>กลับ</Form.Label>
-                                        <Form.Group controlId="formNumber">
-                                            <Button variant="light" onClick={() => convertPositionNumber()}>
-                                                🔁 กลับเลข
-                                            </Button>
-                                        </Form.Group>
-                                    </Col>
-                                    <Col sm={3}>
-                                        <Form.Label style={{ color: 'white' }}>บน</Form.Label>
-                                        <Form.Group controlId="formNumberTop">
-                                            <Form.Control name="numberTop"
-                                                type="number"
-                                                id="numberTop"
-                                                ref={inputTop}
-                                                maxLength={3} min={0}
-                                                placeholder="ระบุเลข" />
-                                        </Form.Group>
-                                    </Col>
-                                    <Col sm={3}>
-                                        <Form.Label style={{ color: 'white' }}>โต๊ด</Form.Label>
-                                        <Form.Group controlId="formNumberDouble">
-                                            <Form.Control name="numberDouble"
-                                                type="number"
-                                                maxLength={3} min={0}
-                                                ref={inputDouble}
-                                                id="numberDouble"
-                                                placeholder="ระบุเลข" />
-                                        </Form.Group>
-                                    </Col>
-                                    <Col sm>
-                                        <Form.Label style={{ color: '#D50000' }}>กลับ</Form.Label>
-                                        <Button variant="success" type="sumbit" tabIndex="0" onKeyDown={(e) => handleKeyDown(e)}>
-                                            🎰 เพิ่มบิล
-                                        </Button>
-                                    </Col>
-                                </Row>
-                                {/* <br />
-                                    <Row>
-                                        {serviceList.length !== 1 && (
-                                            <Button variant="light" onClick={() => handleServiceRemove(index)}>
-                                                ลบบิล
-                                            </Button>
-                                        )}
-                                    </Row> */}
-                            </Container>
-                        </Card>
-                        <br />
-                    </Container>
-                </form>
-                {/* <Card fluid className="color-card" style={{ paddingTop: 16, paddingLeft: 16, paddingRight: 16, paddingBottom: 16, backgroundColor: '#FFFFFF' }}>
-                    {newListItem.map((item, b) => (
-                        <Col>
-                            <Row key={b}>
-                                <Col sm={11}>
-                                    <Card fluid className="color-card" style={{ paddingTop: 16, paddingLeft: 16, paddingRight: 16, paddingBottom: 16, backgroundColor: '#FFFFFF' }}>
-                                        <Row>
-                                            <Col sm={4}>
-                                                <h4><b>ประเภท : {item.type}</b></h4>
-                                            </Col>
-                                            <Col sm>
-                                                <h4><b>เลข : {item.data}</b></h4>
-                                            </Col>
-                                        </Row>
-                                        <br />
-                                        <Row sm={3}>
-                                            <h4><b>ราคา : บน {item.top} x ล่าง {item.bottom} x โต๊ด {item.toot}</b></h4>
-                                        </Row>
-                                    </Card>
-                                </Col>
-                                <Col sm>
-                                    <Button variant="danger" onClick={() => handleThreeDataRemove(b)}>
-                                        ลบบิล
-                                    </Button>
-                                </Col>
+                <Row>
+                    <Col sm>
+                        <Form.Label style={{ color: 'black' }}>ใส่เลข</Form.Label>
+                        <Form.Group controlId="formNumber">
+                            <Form.Control type="number" ref={input} onChange={(e) => handleThreeChange(e)} placeholder="ระบุเลข" maxLength={2} />
+                        </Form.Group>
+                    </Col>
+                    <Col sm>
+                        <Form.Label style={{ color: 'transparent' }}>กลับ</Form.Label>
+                        <Form.Group controlId="formNumber">
+                            <Row>
+                                <Button variant="light" onClick={() => convertPositionNumber()}>
+                                    🔁 กลับเลข
+                                </Button>
                             </Row>
-                            <br />
-                        </Col>
-                    ))}
-                </Card> */}
-            </div >
+                        </Form.Group>
+                    </Col>
+                    <Col sm>
+                        <Form.Label style={{ color: 'black' }}>บน</Form.Label>
+                        <Form.Group controlId="formNumberTop">
+                            <Form.Control name="numberTop"
+                                type="number"
+                                id="numberTop"
+                                ref={inputTop}
+                                maxLength={3} min={0}
+                                placeholder="ระบุเลข" />
+                        </Form.Group>
+                    </Col>
+                    <Col sm>
+                        <Form.Label style={{ color: 'black' }}>โต๊ด</Form.Label>
+                        <Form.Group controlId="formNumberDouble">
+                            <Form.Control name="numberDouble"
+                                type="number"
+                                maxLength={3} min={0}
+                                ref={inputDouble}
+                                id="numberDouble"
+                                placeholder="ระบุเลข" />
+                        </Form.Group>
+                    </Col>
+                    <Col sm>
+                        <Form.Label style={{ color: 'transparent' }}>กลับ</Form.Label>
+                        <Row>
+                            <Button variant="success" type="sumbit" tabIndex="0" onKeyDown={(e) => handleKeyDown(e)}>
+                                🎰 เพิ่มบิล
+                            </Button>
+                        </Row>
+                    </Col>
+                </Row>
+            </form>
             <br />
             <Modal show={showModal} onHide={handleCloseModal} centered>
                 {/* <Modal.Header closeButton>
@@ -304,7 +261,7 @@ const ThreeLottery = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="danger" onClick={handleCloseModal}>
-                        Close
+                        ปิด
                     </Button>
                 </Modal.Footer>
             </Modal>

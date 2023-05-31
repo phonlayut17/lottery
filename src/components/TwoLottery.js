@@ -1,9 +1,7 @@
-import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
 import React, { useState, useRef, useEffect } from 'react';
 import { Modal } from "react-bootstrap";
 
@@ -135,123 +133,92 @@ const TwoLottery = (props) => {
 
     return (
         <Col>
-            <div className="App">
-                <Row>
-                    {twoList.map((item, b) => (
-                        <Col sm={1} onClick={() => handleTwoRemove(b)}>
-                            <Button variant="danger" onClick={() => handleTwoRemove(b)}>
-                                {item}
-                            </Button>
-                            <br />
-                            <br />
-                        </Col>
-                    ))}
-                </Row>
-                <br />
-                <form onSubmit={addToList}>
-                    <Container>
-                        <Card fluid className="color-card" style={{ paddingTop: 16, paddingLeft: 16, paddingRight: 16, paddingBottom: 16, backgroundColor: '#D50000' }}>
-                            <Container>
-                                <Row>
-                                    <Col sm={2}>
-                                        <Button variant="light" onClick={() => addDoubleToList()}>
-                                            9️⃣9️⃣ เลขเบิ้ล
-                                        </Button>
-                                    </Col>
-                                    <Col sm></Col>
-                                    <Col sm={2}>
-                                        {Array.isArray(twoList) && twoList.length > 0 && (
-                                            <Button variant="light" onClick={() => handleTwoRemoveAll()}>
-                                                🗑️ ลบเลขทั้งหมด
-                                            </Button>
-                                        )}
-                                    </Col>
-                                </Row>
-                                <br />
-                                <Row>
-                                    <Col sm={3}>
-                                        <Form.Label style={{ color: 'white' }}>ใส่เลข</Form.Label>
-                                        <Form.Group controlId="formNumber">
-                                            <Form.Control type="number" ref={input} onChange={(e) => handleTwoChange(e)} placeholder="ระบุเลข" maxLength={2} />
-                                        </Form.Group>
-                                    </Col>
-                                    <Col sm>
-                                        <Form.Label style={{ color: '#D50000' }}>กลับ</Form.Label>
-                                        <Form.Group controlId="formNumber">
-                                            <Button variant="light" onClick={() => convertPositionNumber()}>
-                                                🔁 กลับเลข
-                                            </Button>
-                                        </Form.Group>
-                                    </Col>
-                                    <Col sm={3}>
-                                        <Form.Label style={{ color: 'white' }}>บน</Form.Label>
-                                        <Form.Group controlId="formNumberTop">
-                                            <Form.Control name="numberTop"
-                                                type="number"
-                                                id="numberTop"
-                                                ref={inputTop}
-                                                maxLength={3}
-                                                min={0}
-                                                placeholder="ระบุเลข" />
-                                        </Form.Group>
-                                    </Col>
-                                    <Col sm={3}>
-                                        <Form.Label style={{ color: 'white' }}>ล่าง</Form.Label>
-                                        <Form.Group controlId="formNumberBottom">
-                                            <Form.Control name="numberBottom"
-                                                type="number"
-                                                maxLength={3}
-                                                ref={inputBottom}
-                                                id="numberBottom"
-                                                min={0}
-                                                placeholder="ระบุเลข" />
-                                        </Form.Group>
-                                    </Col>
-                                    <Col sm>
-                                        <Form.Label style={{ color: '#D50000' }}>กลับ</Form.Label>
-                                        <Form.Group controlId="formNumber">
-                                            <Button variant="success" type="submit" tabIndex="0" onKeyDown={(e) => handleKeyDown(e)}>
-                                                🎰 เพิ่มบิล
-                                            </Button>
-                                        </Form.Group>
-                                    </Col>
-                                </Row>
-                            </Container>
-                        </Card>
+            <Row>
+                {twoList.map((item, b) => (
+                    <Col sm={1} onClick={() => handleTwoRemove(b)}>
+                        <Button variant="danger" onClick={() => handleTwoRemove(b)}>
+                            {item}
+                        </Button>
                         <br />
-                    </Container>
-                </form>
-                {/* <Card fluid className="color-card" style={{ paddingTop: 16, paddingLeft: 16, paddingRight: 16, paddingBottom: 16, backgroundColor: '#FFFFFF' }}>
-                    {newListItem.map((item, b) => (
-                        <Col>
-                            <Row key={b}>
-                                <Col sm={11}>
-                                    <Card fluid className="color-card" style={{ paddingTop: 16, paddingLeft: 16, paddingRight: 16, paddingBottom: 16, backgroundColor: '#FFFFFF' }}>
-                                        <Row>
-                                            <Col sm={4}>
-                                                <h4><b>ประเภท : {item.type}</b></h4>
-                                            </Col>
-                                            <Col sm>
-                                                <h4><b>เลข : {item.data}</b></h4>
-                                            </Col>
-                                        </Row>
-                                        <br />
-                                        <Row sm={3}>
-                                            <h4><b>ราคา : บน {item.top} x ล่าง {item.bottom}</b></h4>
-                                        </Row>
-                                    </Card>
-                                </Col>
-                                <Col sm>
-                                    <Button variant="danger" onClick={() => handleServiceRemove(b)}>
-                                        ลบบิล
-                                    </Button>
-                                </Col>
-                            </Row>
-                            <br />
+                        <br />
+                    </Col>
+                ))}
+            </Row>
+            <br />
+            <form onSubmit={addToList}>
+                <Col>
+                    <Row>
+                        <Col align="left" sm>
+                            <Button variant="light" onClick={() => addDoubleToList()}>
+                                9️⃣9️⃣ เลขเบิ้ล
+                            </Button>
                         </Col>
-                    ))}
-                </Card> */}
-            </div >
+                        <Col sm></Col>
+                        <Col align="right" sm>
+                            {Array.isArray(twoList) && twoList.length > 0 && (
+                                <Row>
+                                    <Button variant="light" onClick={() => handleTwoRemoveAll()}>
+                                        🗑️ ลบเลขทั้งหมด
+                                    </Button>
+                                </Row>
+                            )}
+                        </Col>
+                    </Row>
+                    <br />
+                    <Row>
+                        <Col sm>
+                            <Form.Label style={{ color: 'black' }}>ใส่เลข</Form.Label>
+                            <Form.Group controlId="formNumber">
+                                <Form.Control type="number" ref={input} onChange={(e) => handleTwoChange(e)} placeholder="ระบุเลข" maxLength={2} />
+                            </Form.Group>
+                        </Col>
+                        <Col sm>
+                            <Form.Label style={{ color: 'transparent' }}>กลับ</Form.Label>
+                            <Form.Group controlId="formNumber">
+                                <Row>
+                                    <Button variant="light" onClick={() => convertPositionNumber()}>
+                                        🔁 กลับเลข
+                                    </Button>
+                                </Row>
+                            </Form.Group>
+                        </Col>
+                        <Col sm>
+                            <Form.Label style={{ color: 'black' }}>บน</Form.Label>
+                            <Form.Group controlId="formNumberTop">
+                                <Form.Control name="numberTop"
+                                    type="number"
+                                    id="numberTop"
+                                    ref={inputTop}
+                                    maxLength={3}
+                                    min={0}
+                                    placeholder="ระบุเลข" />
+                            </Form.Group>
+                        </Col>
+                        <Col sm>
+                            <Form.Label style={{ color: 'black' }}>ล่าง</Form.Label>
+                            <Form.Group controlId="formNumberBottom">
+                                <Form.Control name="numberBottom"
+                                    type="number"
+                                    maxLength={3}
+                                    ref={inputBottom}
+                                    id="numberBottom"
+                                    min={0}
+                                    placeholder="ระบุเลข" />
+                            </Form.Group>
+                        </Col>
+                        <Col sm>
+                            <Form.Label style={{ color: 'transparent' }}>กลับ</Form.Label>
+                            <Form.Group controlId="formNumber">
+                                <Row>
+                                    <Button variant="success" type="submit" tabIndex="0" onKeyDown={(e) => handleKeyDown(e)}>
+                                        🎰 เพิ่มบิล
+                                    </Button>
+                                </Row>
+                            </Form.Group>
+                        </Col>
+                    </Row>
+                </Col>
+            </form>
             <br />
             <Modal show={showModal} onHide={handleCloseModal} centered>
                 {/* <Modal.Header closeButton>
@@ -263,7 +230,7 @@ const TwoLottery = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="danger" onClick={handleCloseModal}>
-                        Close
+                        ปิด
                     </Button>
                 </Modal.Footer>
             </Modal>

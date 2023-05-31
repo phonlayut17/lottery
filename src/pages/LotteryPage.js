@@ -6,7 +6,7 @@ import ThreeLottery from "../../src/components/ThreeLottery";
 import SixBackLottery from "../../src/components/SixBackLottery";
 import NineteenDoorLottery from "../../src/components/NineteenDoorLottery";
 import NumberRunLottery from "../../src/components/NumberRunLottery";
-import WinNummberLottery from "../../src/components/WinNumberLottery";
+// import WinNummberLottery from "../../src/components/WinNumberLottery";
 import SummaryLottery from "../../src/components/SummaryLottery";
 import TypeLottery from "../../src/components/TypeLottery";
 import TotalLottery from "../../src/components/TotalLottery";
@@ -202,13 +202,13 @@ function LotteryPage() {
             />
           </Container>
         ) : (
-          <Row>
+          <Row style={{ paddingTop: 100, paddingLeft: 16, }}>
             <Col sm={6}>
-              <Container fluid style={{ paddingTop: 16, paddingLeft: 16, paddingRight: 16, paddingBottom: 16, backgroundColor: lotteryType === "hanoi-normal" ? "#E8988B" : lotteryType === "hanoi-privilege" ? "#D3E0EA" : lotteryType === "hanoi-vip" ? "#A1CAE2" : lotteryType === "lao-normal" ? "#E4A0F7" : "#FBEDBE" }}>
+              <Container fluid style={{ borderRadius: '10px', paddingTop: 16, paddingLeft: 16, paddingRight: 16, paddingBottom: 16, backgroundColor: lotteryType === "hanoi-normal" ? "#E8988B" : lotteryType === "hanoi-privilege" ? "#D3E0EA" : lotteryType === "hanoi-vip" ? "#A1CAE2" : lotteryType === "lao-normal" ? "#E4A0F7" : "#FBEDBE" }}>
                 <TypeLottery setSummaryList={setSummaryList} setLotteryType={setLotteryType} lotteryType={lotteryType} />
               </Container>
-              {/* <br /> */}
-              <Container fluid style={{ paddingTop: 16, paddingLeft: 16, paddingRight: 16, paddingBottom: 16, backgroundColor: lotteryType === "hanoi-normal" ? "#E8988B" : lotteryType === "hanoi-privilege" ? "#D3E0EA" : lotteryType === "hanoi-vip" ? "#A1CAE2" : lotteryType === "lao-normal" ? "#E4A0F7" : "#FBEDBE" }}>
+              <br />
+              <Container fluid style={{ borderRadius: '10px', paddingTop: 16, paddingLeft: 16, paddingRight: 16, paddingBottom: 16, backgroundColor: lotteryType === "hanoi-normal" ? "#E8988B" : lotteryType === "hanoi-privilege" ? "#D3E0EA" : lotteryType === "hanoi-vip" ? "#A1CAE2" : lotteryType === "lao-normal" ? "#E4A0F7" : "#FBEDBE" }}>
                 <Container>
                   <Col>
                     <Row className="d-flex justify-content-between align-items-center">
@@ -248,24 +248,24 @@ function LotteryPage() {
                         >
                           เลขวิ่ง
                         </Button>
-                        <Button
+                        {/* <Button
                           variant={key === 'win-number' ? 'danger' : 'light'}
                           onClick={() => handleTabSelect('win-number')}
                           style={{ marginRight: '16px' }}
                         >
                           วินเลข
-                        </Button>
+                        </Button> */}
                       </div>
                     </Row>
                     <br />
-                    <Container fluid style={{ paddingTop: 16, paddingLeft: 16, paddingRight: 16, paddingBottom: 16 }}>
+                    <Container fluid style={{ paddingTop: 16, paddingBottom: 16 }}>
                       <div className="">
                         {key === 'two-lottery' && <TwoLottery setSummaryList={setSummaryList} showList={showList} setShowList={setShowList} calculatePrice={calculatePrice} />}
                         {key === 'three-lottery' && <ThreeLottery setSummaryList={setSummaryList} showList={showList} setShowList={setShowList} calculatePrice={calculatePrice} />}
                         {key === 'six-back' && <SixBackLottery setSummaryList={setSummaryList} showList={showList} setShowList={setShowList} calculatePrice={calculatePrice} />}
                         {key === 'nineteen-door' && <NineteenDoorLottery setSummaryList={setSummaryList} showList={showList} setShowList={setShowList} calculatePrice={calculatePrice} />}
                         {key === 'number-run' && <NumberRunLottery setSummaryList={setSummaryList} showList={showList} setShowList={setShowList} calculatePrice={calculatePrice} />}
-                        {key === 'win-number' && <WinNummberLottery setSummaryList={setSummaryList} showList={showList} setShowList={setShowList} calculatePrice={calculatePrice} />}
+                        {/* {key === 'win-number' && <WinNummberLottery setSummaryList={setSummaryList} showList={showList} setShowList={setShowList} calculatePrice={calculatePrice} />} */}
                       </div>
                     </Container>
                     <br />
@@ -273,9 +273,11 @@ function LotteryPage() {
                       <SummaryLottery summaryList={summaryList} setSummaryList={setSummaryList} lotteryType={lotteryType} setTotal={setTotal} showList={showList} setShowList={setShowList} addToSummaryList={addToSummaryList} minusPrice={minusPrice} />
                     </Container>
                     <br />
-                    <Comment comment={comment} setComment={setComment} lotteryType={lotteryType} price={price} setPrice={setPrice} />
                   </Col>
                 </Container>
+              </Container>
+              <Container fluid style={{ paddingTop: 16, paddingLeft: 16, paddingRight: 16, paddingBottom: 16, backgroundColor: "#FFFFFF" }}>
+                <Comment comment={comment} setComment={setComment} lotteryType={lotteryType} price={price} setPrice={setPrice} />
               </Container>
             </Col>
             <Col sm={6}>
@@ -287,7 +289,7 @@ function LotteryPage() {
             </Col>
           </Row>
         )}
-      </body>
+      </body >
       {/* <footer style={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 0 }}>
         <Footer />
       </footer> */}

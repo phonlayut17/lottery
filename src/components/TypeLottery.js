@@ -3,6 +3,11 @@ import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
+import laos from '../images/laos.png';
+import laosVip from '../images/laos-vip.png';
+import vietnam from '../images/vietnam.png';
+import vietnamPrivilege from '../images/vietnam-privilege.png';
+import vietnamVip from '../images/vietnam-vip.png';
 
 const TypeLottery = (props) => {
 
@@ -26,17 +31,38 @@ const TypeLottery = (props) => {
                         <Form.Select value={myLottery} className="form-control" onChange={(e) => (setLotteryType(e))}>
                             <option value="">--กรุณาเลือกประเภท--</option>
                             <option value="hanoi-privilege">ฮานอย พิเศษ 🇻🇳</option>
-                            <option value="hanoi-normal">ฮานอย ปกติ 🇻🇳</option>
+                            <option value="hanoi-normal">ฮานอย 🇻🇳</option>
                             <option value="hanoi-vip">ฮานอย VIP 🇻🇳 🅥🅘🅟</option>
-                            <option value="lao-normal">ลาว ปกติ 🇱🇦</option>
+                            <option value="lao-normal">ลาว 🇱🇦</option>
                             <option value="lao-vip">ลาว VIP 🇱🇦 🅥🅘🅟</option>
                         </Form.Select>
                     </form>
                 </Row>
                 <br />
-                <h4 align="start">แทงเร็ว</h4>
-                <br />
-                <h4 align="left">[หวยรายวัน] {myLottery === "hanoi-normal" ? "ฮานอย ปกติ 🇻🇳" : myLottery === "hanoi-privilege" ? "ฮานอย พิเศษ 🇻🇳" : myLottery === "hanoi-vip" ? "ฮานอย VIP 🇻🇳 🅥🅘🅟" : myLottery === "lao-normal" ? "ลาว ปกติ 🇱🇦" : "ลาว VIP 🇱🇦 🅥🅘🅟"}</h4>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <h4>
+                        [หวยรายวัน] - &nbsp;
+                        {myLottery === "hanoi-normal" ? "ฮานอย" :
+                            myLottery === "hanoi-privilege" ? "ฮานอย พิเศษ" :
+                                myLottery === "hanoi-vip" ? "ฮานอย VIP" :
+                                    myLottery === "lao-normal" ? "ลาว" :
+                                        "ลาว VIP"}
+                    </h4>
+                    &nbsp;
+                    <img
+                        align="top"
+                        src={
+                            props.lotteryType === "hanoi-normal" ? vietnam :
+                                props.lotteryType === "hanoi-privilege" ? vietnamPrivilege :
+                                    props.lotteryType === "hanoi-vip" ? vietnamVip :
+                                        props.lotteryType === "lao-normal" ? laos :
+                                            props.lotteryType === "lao-vip" ? laosVip : ""
+                        }
+                        alt=""
+                        width={40}
+                        height={40}
+                    />
+                </div>
             </Col>
         </Container>
     );
