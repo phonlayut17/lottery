@@ -2,8 +2,8 @@ import React from 'react';
 import MasterPage from "../pages/MasterPage";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-// import Button from 'react-bootstrap/Button';
-import { IoTrashBinOutline } from "react-icons/io5";
+import Button from 'react-bootstrap/Button';
+// import { IoTrashBinOutline } from "react-icons/io5";
 
 const SummaryLottery = ({ summaryList, setSummaryList, setTotal, showList, setShowList, addToSummaryList, minusPrice }) => {
 
@@ -124,13 +124,13 @@ const SummaryLottery = ({ summaryList, setSummaryList, setTotal, showList, setSh
                             </Col>
 
                             <Col sm={8} style={{ backgroundColor: '#FFFFFF' }}>{item.number.join(', ')}</Col>
-                            <Col sm>
-                                {/* <Row>
+                            <Col sm style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <Row>
                                     <Button variant="danger" onClick={() => handleServiceRemove(index, item.id === "2" || item.id === "7" ? (parseInt(item.top) + parseInt(item.toot)) * item.number.length : (parseInt(item.top) + parseInt(item.bottom)) * item.number.length)}>
-                                        ❌ ลบบิล
+                                        ลบ
                                     </Button>
-                                </Row> */}
-                                <IoTrashBinOutline size={35} style={{ color: '#D50000' }} onClick={() => handleServiceRemove(index, item.id === "2" || item.id === "7" ? (parseInt(item.top) + parseInt(item.toot)) * item.number.length : (parseInt(item.top) + parseInt(item.bottom)) * item.number.length)} />
+                                </Row>
+                                {/* <IoTrashBinOutline size={35} style={{ color: '#D50000' }} onClick={() => handleServiceRemove(index, item.id === "2" || item.id === "7" ? (parseInt(item.top) + parseInt(item.toot)) * item.number.length : (parseInt(item.top) + parseInt(item.bottom)) * item.number.length)} /> */}
                             </Col>
                             <hr></hr>
                         </Row>

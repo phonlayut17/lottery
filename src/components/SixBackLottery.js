@@ -164,14 +164,14 @@ const SixBackLottery = (props) => {
                     <Col sm>
                         <Form.Label style={{ color: 'black' }}>ใส่เลข</Form.Label>
                         <Form.Group controlId="formNumber">
-                            <Form.Control type="number" ref={input} onChange={(e) => handleThreeChange(e)} placeholder="ระบุเลข" maxLength={2} />
+                            <Form.Control type="text" ref={input} onChange={(e) => handleThreeChange(e)} placeholder="ระบุเลข" maxLength={2} />
                         </Form.Group>
                     </Col>
                     <Col sm>
                         <Form.Label style={{ color: 'black' }}>บน</Form.Label>
                         <Form.Group controlId="formNumberTop">
                             <Form.Control name="numberTop"
-                                type="number"
+                                type="text"
                                 id="numberTop"
                                 ref={inputTop}
                                 maxLength={3}

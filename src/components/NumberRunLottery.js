@@ -115,14 +115,14 @@ const NumberRunLottery = (props) => {
                     <Col sm>
                         <Form.Label style={{ color: 'black' }}>ใส่เลข</Form.Label>
                         <Form.Group controlId="formNumber">
-                            <Form.Control type="number" ref={input} onChange={(e) => handleOneChange(e)} placeholder="ระบุเลข" maxLength={2} />
+                            <Form.Control type="text" ref={input} onChange={(e) => handleOneChange(e)} placeholder="ระบุเลข" maxLength={2} />
                         </Form.Group>
                     </Col>
                     <Col sm>
                         <Form.Label style={{ color: 'black' }}>บน</Form.Label>
                         <Form.Group controlId="formNumberTop">
                             <Form.Control name="numberTop"
-                                type="number"
+                                type="text"
                                 id="numberTop"
                                 ref={inputTop}
                                 maxLength={3}
@@ -133,7 +133,7 @@ const NumberRunLottery = (props) => {
                         <Form.Label style={{ color: 'black' }}>ล่าง</Form.Label>
                         <Form.Group controlId="formNumberBottom">
                             <Form.Control name="numberBottom"
-                                type="number"
+                                type="text"
                                 maxLength={3}
                                 ref={inputBottom}
                                 id="numberBottom"
