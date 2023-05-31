@@ -33,6 +33,12 @@ const ThreeLottery = (props) => {
             e.preventDefault();
             setThreeList([...threeList, input.current.value]);
             input.current.value = "";
+        } else if (e.target.value.length > 3) {
+            const inputValue = e.target.value;
+            const regex = /[.\-\/+=]/g;
+            const substrings = inputValue.split(regex).filter(Boolean);
+            setThreeList((prevList) => [...prevList, ...substrings]);
+            input.current.value = "";
         }
     };
 
@@ -205,7 +211,7 @@ const ThreeLottery = (props) => {
                     <Col sm>
                         <Form.Label style={{ color: 'black' }}>ใส่เลข</Form.Label>
                         <Form.Group controlId="formNumber">
-                            <Form.Control type="text" ref={input} onChange={(e) => handleThreeChange(e)} placeholder="ระบุเลข" maxLength={2} />
+                            <Form.Control type="text" ref={input} onChange={(e) => handleThreeChange(e)} placeholder="ระบุเลข" />
                         </Form.Group>
                     </Col>
                     <Col sm>

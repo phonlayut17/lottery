@@ -37,6 +37,18 @@ const SixBackLottery = (props) => {
                 convertPositionNumber(data, 2);
             }
             input.current.value = "";
+        } else if (e.target.value.length > 3) {
+            const inputValue = e.target.value;
+            const regex = /[.\-\/+=]/g;
+            const substrings = inputValue.split(regex).filter(Boolean);
+            substrings.forEach((subData) => {
+                if (subData.charAt(0) !== subData.charAt(1) && subData.charAt(0) !== subData.charAt(2) && subData.charAt(1) !== subData.charAt(2)) {
+                    convertPositionNumber(subData, 1);
+                } else if (subData.charAt(0) === subData.charAt(1) || subData.charAt(0) === subData.charAt(2) || subData.charAt(1) === subData.charAt(2)) {
+                    convertPositionNumber(subData, 2);
+                }
+            });
+            input.current.value = "";
         }
     };
 
@@ -164,7 +176,7 @@ const SixBackLottery = (props) => {
                     <Col sm>
                         <Form.Label style={{ color: 'black' }}>ใส่เลข</Form.Label>
                         <Form.Group controlId="formNumber">
-                            <Form.Control type="text" ref={input} onChange={(e) => handleThreeChange(e)} placeholder="ระบุเลข" maxLength={2} />
+                            <Form.Control type="text" ref={input} onChange={(e) => handleThreeChange(e)} placeholder="ระบุเลข" />
                         </Form.Group>
                     </Col>
                     <Col sm>

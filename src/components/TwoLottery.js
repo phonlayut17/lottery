@@ -33,14 +33,14 @@ const TwoLottery = (props) => {
             e.preventDefault();
             setTwoList([...twoList, input.current.value]);
             input.current.value = "";
+        } else if (e.target.value.length > 2) {
+            const inputValue = e.target.value;
+            const regex = /[.\-\/+=]/g;
+            const substrings = inputValue.split(regex).filter(Boolean);
+            setTwoList((prevList) => [...prevList, ...substrings]);
+            input.current.value = "";
         }
     };
-
-    // const handleServiceRemove = (index) => {
-    //     const list = [...newListItem];
-    //     list.splice(index, 1);
-    //     setNewListItem(list);
-    // };
 
     const handleTwoRemoveAll = () => {
         setTwoList([]);
@@ -52,10 +52,18 @@ const TwoLottery = (props) => {
         setTwoList(list);
     };
 
+    const checkFormatData = () => {
+        const regex = /[.\-\/+=*]/g;
+        const filteredList = twoList.filter((item) => !regex.test(item));
+        setTwoList([]);
+        setTwoList(filteredList);
+    };
+
     const addToList = e => {
         e.preventDefault();
         if (twoList !== null && twoList.length !== 0) {
             if (twoList !== null && twoList.length !== 0 && inputTop.current.value !== 0 && inputBottom.current.value !== 0 && inputTop.current.value.trim() !== "" && inputBottom.current.value.trim() !== "") {
+                checkFormatData();
                 props.setShowList([
                     ...props.showList,
                     {
@@ -169,7 +177,7 @@ const TwoLottery = (props) => {
                         <Col sm>
                             <Form.Label style={{ color: 'black' }}>ใส่เลข</Form.Label>
                             <Form.Group controlId="formNumber">
-                                <Form.Control type="text" ref={input} onChange={(e) => handleTwoChange(e)} placeholder="ระบุเลข" maxLength={2} />
+                                <Form.Control type="text" pattern="[0-9]" ref={input} onChange={(e) => handleTwoChange(e)} placeholder="ระบุเลข" />
                             </Form.Group>
                         </Col>
                         <Col sm>
