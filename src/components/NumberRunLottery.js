@@ -154,9 +154,6 @@ const NumberRunLottery = (props) => {
             </form>
             <br />
             <Modal show={showModal} onHide={handleCloseModal} centered>
-                {/* <Modal.Header closeButton>
-                    <Modal.Title>Modal Title</Modal.Title>
-                </Modal.Header> */}
                 <Modal.Body>
                     {/* Modal content */}
                     <p>{showError}</p>
