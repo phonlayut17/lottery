@@ -42,7 +42,11 @@ const SixBackLottery = (props) => {
             const regex = /[.\-\/+=]/g;
             const substrings = inputValue.split(regex).filter(Boolean);
             substrings.forEach((subData) => {
-                if (subData.charAt(0) !== subData.charAt(1) && subData.charAt(0) !== subData.charAt(2) && subData.charAt(1) !== subData.charAt(2)) {
+                if (subData.charAt(0) === subData.charAt(1) && subData.charAt(0) === subData.charAt(2) && subData.charAt(1) === subData.charAt(2)) {
+                    setSixList([...sixList, subData[0] + subData[0] + subData[0]]);
+                    sixList.push(subData[0] + subData[0] + subData[0]);
+                }
+                else if (subData.charAt(0) !== subData.charAt(1) && subData.charAt(0) !== subData.charAt(2) && subData.charAt(1) !== subData.charAt(2)) {
                     convertPositionNumber(subData, 1);
                 } else if (subData.charAt(0) === subData.charAt(1) || subData.charAt(0) === subData.charAt(2) || subData.charAt(1) === subData.charAt(2)) {
                     convertPositionNumber(subData, 2);
@@ -72,17 +76,19 @@ const SixBackLottery = (props) => {
         e.preventDefault();
         if (sixList !== null && sixList.length !== 0) {
             if (sixList !== null && sixList.length !== 0 && inputTop.current.value !== 0 && inputTop.current.value.trim() !== "") {
+                const regex = /[.\-\/+=*]/g;
+                const filteredList = sixList.filter((item) => !regex.test(item));
                 props.setShowList([
                     ...props.showList,
                     {
                         id: "3",
-                        number: sixList,
+                        number: filteredList,
                         top: inputTop.current.value,
                         bottom: 0,
                         toot: 0
                     }
                 ]);
-                props.calculatePrice(parseInt(inputTop.current.value), parseInt(sixList.length));
+                props.calculatePrice(parseInt(inputTop.current.value), parseInt(filteredList.length));
                 inputTop.current.value = "";
                 handleSixRemoveAll();
             } else if (inputTop.current.value.trim() === "") {

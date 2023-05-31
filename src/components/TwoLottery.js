@@ -52,29 +52,23 @@ const TwoLottery = (props) => {
         setTwoList(list);
     };
 
-    const checkFormatData = () => {
-        const regex = /[.\-\/+=*]/g;
-        const filteredList = twoList.filter((item) => !regex.test(item));
-        setTwoList([]);
-        setTwoList(filteredList);
-    };
-
     const addToList = e => {
         e.preventDefault();
         if (twoList !== null && twoList.length !== 0) {
             if (twoList !== null && twoList.length !== 0 && inputTop.current.value !== 0 && inputBottom.current.value !== 0 && inputTop.current.value.trim() !== "" && inputBottom.current.value.trim() !== "") {
-                checkFormatData();
+                const regex = /[.\-\/+=*]/g;
+                const filteredList = twoList.filter((item) => !regex.test(item));
                 props.setShowList([
                     ...props.showList,
                     {
                         id: "1",
-                        number: twoList,
+                        number: filteredList,
                         top: inputTop.current.value,
                         bottom: inputBottom.current.value,
                         toot: 0
                     }
                 ]);
-                props.calculatePrice(parseInt(inputTop.current.value) + parseInt(inputBottom.current.value), parseInt(twoList.length));
+                props.calculatePrice(parseInt(inputTop.current.value) + parseInt(inputBottom.current.value), parseInt(filteredList.length));
                 inputTop.current.value = "";
                 inputBottom.current.value = "";
                 handleTwoRemoveAll();

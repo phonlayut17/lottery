@@ -62,17 +62,19 @@ const ThreeLottery = (props) => {
         e.preventDefault();
         if (threeList !== null && threeList.length !== 0) {
             if (threeList !== null && threeList.length !== 0 && inputTop.current.value !== 0 && inputDouble.current.value !== 0 && inputTop.current.value.trim() !== "" && inputDouble.current.value.trim() !== "") {
+                const regex = /[.\-\/+=*]/g;
+                const filteredList = threeList.filter((item) => !regex.test(item));
                 props.setShowList([
                     ...props.showList,
                     {
                         id: "2",
-                        number: threeList,
+                        number: filteredList,
                         top: inputTop.current.value,
                         bottom: 0,
                         toot: inputDouble.current.value
                     }
                 ]);
-                props.calculatePrice(parseInt(inputTop.current.value) + parseInt(inputDouble.current.value), parseInt(threeList.length));
+                props.calculatePrice(parseInt(inputTop.current.value) + parseInt(inputDouble.current.value), parseInt(filteredList.length));
                 inputTop.current.value = "";
                 inputDouble.current.value = "";
                 handleThreeRemoveAll();
