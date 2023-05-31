@@ -17,6 +17,11 @@ const History = () => {
                         <th scope="col"><h4>ลบโพย</h4></th>
                     </tr>
                 </thead>
+                <tbody class="text-center">
+                    <tr>
+                        <td colspan="7">❌ ยังไม่เปิดใช้งาน ❌</td>
+                    </tr>
+                </tbody>
             </table>
         </Col>
     );

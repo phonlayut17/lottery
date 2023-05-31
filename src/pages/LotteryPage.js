@@ -281,7 +281,7 @@ function LotteryPage() {
               </Container>
             </Col>
             <Col sm={6}>
-              <Container fluid style={{ paddingTop: 90, paddingLeft: 16, paddingRight: 16, paddingBottom: 16 }}>
+              <Container fluid style={{ paddingLeft: 16, paddingRight: 16, paddingBottom: 16 }}>
                 <Container>
                   <History />
                 </Container>
