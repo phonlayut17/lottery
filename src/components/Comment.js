@@ -20,6 +20,7 @@ const Comment = (props) => {
 
     const removeAll = () => {
         props.setShowList([]);
+        props.clearPrice();
     };
 
     return (
@@ -50,7 +51,7 @@ const Comment = (props) => {
             <br />
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <h3 align="center">
-                    [หวยรายวัน] - &nbsp;
+                    [หวยต่างประเทศ] - &nbsp;
                     {props.lotteryType === "hanoi-normal" ? "ฮานอย" :
                         props.lotteryType === "hanoi-privilege" ? "ฮานอย พิเศษ" :
                             props.lotteryType === "hanoi-vip" ? "ฮานอย VIP" :

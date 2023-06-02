@@ -45,6 +45,11 @@ function LotteryPage() {
     setTotalPrice(newTotalPrice);
   };
 
+  const clearPrice = () => {
+    setPrice(0.00);
+    setTotalPrice(0.00);
+  };
+
   const addToSummaryList = () => {
     setSummaryList([]);
     showList.forEach((showListData) => {
@@ -277,7 +282,7 @@ function LotteryPage() {
                 </Container>
               </Container>
               <Container fluid style={{ paddingTop: 16, paddingLeft: 16, paddingRight: 16, paddingBottom: 16, backgroundColor: "#FFFFFF" }}>
-                <Comment comment={comment} setComment={setComment} lotteryType={lotteryType} showList={showList} setShowList={setShowList} price={price} setPrice={setPrice} />
+                <Comment comment={comment} setComment={setComment} lotteryType={lotteryType} showList={showList} setShowList={setShowList} price={price} setPrice={setPrice} clearPrice={clearPrice} />
               </Container>
             </Col>
             <Col sm={6}>
