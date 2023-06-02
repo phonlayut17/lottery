@@ -238,7 +238,7 @@ const ThreeLottery = (props) => {
                     <Col sm>
                         <Form.Label style={{ color: 'black' }}>ใส่เลข</Form.Label>
                         <Form.Group controlId="formNumber">
-                            <Form.Control type="text" ref={props.inputThree} onChange={(e) => handleThreeChange(e)} placeholder="ระบุเลข" onKeyDown={handleSkipFocus} />
+                            <Form.Control type="text" ref={props.inputThree} onChange={(e) => handleThreeChange(e)} placeholder="ระบุเลข" onKeyDown={handleSkipFocus} autoFocus/>
                         </Form.Group>
                     </Col>
                     <Col sm>

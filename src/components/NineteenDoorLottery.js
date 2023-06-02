@@ -167,7 +167,7 @@ const NineteenDoorLottery = (props) => {
                 <Row>
                     <Col sm>
                         <Form.Label style={{ color: 'black' }}>ใส่เลข</Form.Label>
-                        <Form.Control type="text" ref={props.inputNineteen} onChange={(e) => handleNineteenChange(e)} placeholder="ระบุเลข" maxLength={2} />
+                        <Form.Control type="text" ref={props.inputNineteen} onChange={(e) => handleNineteenChange(e)} placeholder="ระบุเลข" maxLength={2} autoFocus/>
                     </Col>
                     <Col sm>
                         <Form.Label style={{ color: 'black' }}>บน</Form.Label>

@@ -186,7 +186,7 @@ const SixBackLottery = (props) => {
                     <Col sm>
                         <Form.Label style={{ color: 'black' }}>ใส่เลข</Form.Label>
                         <Form.Group controlId="formNumber">
-                            <Form.Control type="text" ref={props.inputSix} onChange={(e) => handleThreeChange(e)} placeholder="ระบุเลข" />
+                            <Form.Control type="text" ref={props.inputSix} onChange={(e) => handleThreeChange(e)} placeholder="ระบุเลข" autoFocus/>
                         </Form.Group>
                     </Col>
                     <Col sm>

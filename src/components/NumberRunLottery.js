@@ -128,7 +128,7 @@ const NumberRunLottery = (props) => {
                     <Col sm>
                         <Form.Label style={{ color: 'black' }}>ใส่เลข</Form.Label>
                         <Form.Group controlId="formNumber">
-                            <Form.Control type="text" ref={props.inputNumber} onChange={(e) => handleOneChange(e)} placeholder="ระบุเลข" maxLength={2} />
+                            <Form.Control type="text" ref={props.inputNumber} onChange={(e) => handleOneChange(e)} placeholder="ระบุเลข" maxLength={2} autoFocus />
                         </Form.Group>
                     </Col>
                     <Col sm>
