@@ -79,8 +79,8 @@ const ThreeLottery = (props) => {
                         if (inputDouble.current.value.trim() == "") {
                             inputDouble.current.value = 0;
                         }
-                        // const regex = /[.\-\/+=*,x\s]/g;
-                        const filteredList = threeList.filter((item) => /^\d{3}$/.test(item) && item.length === 3);
+                        const regex = /[.\-\/+=*,x\s]/g;
+                        const filteredList = threeList.filter((item) => /^\d{3}$/.test(item) && !regex.test(item) && item.length === 3);
                         props.setShowList([
                             ...props.showList,
                             {

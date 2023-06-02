@@ -80,8 +80,8 @@ const SixBackLottery = (props) => {
         e.preventDefault();
         if (sixList !== null && sixList.length !== 0) {
             if (sixList !== null && sixList.length !== 0 && inputTop.current.value !== 0 && inputTop.current.value.trim() !== "") {
-                // const regex = /[.\-\/+=*,x\s]/g;
-                const filteredList = sixList.filter((item) => /^\d{3}$/.test(item) && item.length === 3);
+                const regex = /[.\-\/+=*,x\s]/g;
+                const filteredList = sixList.filter((item) => /^\d{3}$/.test(item) && !regex.test(item) && item.length === 3);
                 props.setShowList([
                     ...props.showList,
                     {
