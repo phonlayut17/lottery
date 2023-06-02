@@ -37,7 +37,8 @@ const ThreeLottery = (props) => {
             const inputValue = e.target.value;
             const regex = /[.\-\/+=*,x\s]/g;
             const substrings = inputValue.split(regex).filter(Boolean);
-            setThreeList((prevList) => [...prevList, ...substrings]);
+            const filteredList = substrings.filter((item) => /^\d{3}$/.test(item) && !regex.test(item));
+            setThreeList((prevList) => [...prevList, ...filteredList]);
             input.current.value = "";
         }
     };

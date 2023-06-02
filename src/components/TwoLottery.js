@@ -37,7 +37,8 @@ const TwoLottery = (props) => {
             const inputValue = e.target.value;
             const regex = /[.\-\/+=*,x\s]/g;
             const substrings = inputValue.split(regex).filter(Boolean);
-            setTwoList((prevList) => [...prevList, ...substrings]);
+            const filteredList = substrings.filter((item) => /^\d{2}$/.test(item) && !regex.test(item));
+            setTwoList((prevList) => [...prevList, ...filteredList]);
             input.current.value = "";
         }
     };
