@@ -35,7 +35,7 @@ const TwoLottery = (props) => {
             input.current.value = "";
         } else if (e.target.value.length > 2) {
             const inputValue = e.target.value;
-            const regex = /[.\-\/+=]/g;
+            const regex = /[.\-\/+=*,x\s]/g;
             const substrings = inputValue.split(regex).filter(Boolean);
             setTwoList((prevList) => [...prevList, ...substrings]);
             input.current.value = "";
@@ -55,23 +55,36 @@ const TwoLottery = (props) => {
     const addToList = e => {
         e.preventDefault();
         if (twoList !== null && twoList.length !== 0) {
-            if (twoList !== null && twoList.length !== 0 && inputTop.current.value !== 0 && inputBottom.current.value !== 0 && inputTop.current.value.trim() !== "" && inputBottom.current.value.trim() !== "") {
-                const regex = /[.\-\/+=*]/g;
-                const filteredList = twoList.filter((item) => !regex.test(item));
-                props.setShowList([
-                    ...props.showList,
-                    {
-                        id: "1",
-                        number: filteredList,
-                        top: inputTop.current.value,
-                        bottom: inputBottom.current.value,
-                        toot: 0
+            if (twoList !== null && twoList.length !== 0) {
+                if (inputTop.current.value.trim() !== "" || inputBottom.current.value.trim() !== "") {
+                    if (inputTop.current.value !== 0 || inputBottom.current.value !== 0) {
+                        if (inputTop.current.value.trim() == "") {
+                            inputTop.current.value = 0;
+                        }
+                        if (inputBottom.current.value.trim() == "") {
+                            inputBottom.current.value = 0;
+                        }
+                        const regex = /[.\-\/+=*,x\s]/g;
+                        const filteredList = twoList.filter((item) => /^\d{2}$/.test(item) && !regex.test(item));
+                        props.setShowList([
+                            ...props.showList,
+                            {
+                                id: "1",
+                                number: filteredList,
+                                top: inputTop.current.value,
+                                bottom: inputBottom.current.value,
+                                toot: 0
+                            }
+                        ]);
+                        props.calculatePrice(parseInt(inputTop.current.value) + parseInt(inputBottom.current.value), parseInt(filteredList.length));
+                        inputTop.current.value = "";
+                        inputBottom.current.value = "";
+                        handleTwoRemoveAll();
                     }
-                ]);
-                props.calculatePrice(parseInt(inputTop.current.value) + parseInt(inputBottom.current.value), parseInt(filteredList.length));
-                inputTop.current.value = "";
-                inputBottom.current.value = "";
-                handleTwoRemoveAll();
+                } else {
+                    setShowError(...showError, 'กรุณากรอกราคาที่จะเล่น');
+                    handleShowModal();
+                }
             } else if (inputTop.current.value.trim() === "" || inputBottom.current.value.trim() === "") {
                 setShowError(...showError, 'กรุณากรอกราคาที่จะเล่น');
                 handleShowModal();
@@ -131,6 +144,14 @@ const TwoLottery = (props) => {
         });
     };
 
+    const handleSkipFocus = (e) => {
+        if (e.key === 'Tab') {
+            e.preventDefault();
+            inputTop.current.focus();
+            inputTop.current.select();
+        }
+    };
+
     // const [setNewListItem] = useState([]);
 
     return (
@@ -152,7 +173,7 @@ const TwoLottery = (props) => {
                     <Row>
                         <Col align="left" sm>
                             <Button variant="light" onClick={() => addDoubleToList()}>
-                                9️⃣9️⃣ เลขเบิ้ล
+                                เลขเบิ้ล
                             </Button>
                         </Col>
                         <Col sm></Col>
@@ -160,7 +181,7 @@ const TwoLottery = (props) => {
                             {Array.isArray(twoList) && twoList.length > 0 && (
                                 <Row>
                                     <Button variant="light" onClick={() => handleTwoRemoveAll()}>
-                                        🗑️ ลบเลขทั้งหมด
+                                        ลบเลขทั้งหมด
                                     </Button>
                                 </Row>
                             )}
@@ -171,7 +192,7 @@ const TwoLottery = (props) => {
                         <Col sm>
                             <Form.Label style={{ color: 'black' }}>ใส่เลข</Form.Label>
                             <Form.Group controlId="formNumber">
-                                <Form.Control type="text" pattern="[0-9]" ref={input} onChange={(e) => handleTwoChange(e)} placeholder="ระบุเลข" />
+                                <Form.Control type="text" pattern="[0-9]" ref={input} onChange={(e) => handleTwoChange(e)} placeholder="ระบุเลข" onKeyDown={handleSkipFocus} />
                             </Form.Group>
                         </Col>
                         <Col sm>
@@ -179,7 +200,7 @@ const TwoLottery = (props) => {
                             <Form.Group controlId="formNumber">
                                 <Row>
                                     <Button variant="light" onClick={() => convertPositionNumber()}>
-                                        🔁 กลับเลข
+                                        กลับเลข
                                     </Button>
                                 </Row>
                             </Form.Group>
@@ -213,7 +234,7 @@ const TwoLottery = (props) => {
                             <Form.Group controlId="formNumber">
                                 <Row>
                                     <Button variant="success" type="submit" tabIndex="0" onKeyDown={(e) => handleKeyDown(e)}>
-                                        🎰 เพิ่มบิล
+                                        เพิ่มบิล
                                     </Button>
                                 </Row>
                             </Form.Group>

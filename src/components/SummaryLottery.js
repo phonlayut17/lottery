@@ -77,7 +77,7 @@ const SummaryLottery = ({ summaryList, setSummaryList, setTotal, showList, setSh
                 <Col>
                     {showList.map((item, index) => (
                         <Row key={index} align="center">
-                            <Col sm={2}>
+                            <Col sm={4}>
                                 {item.id === "1" && (
                                     <h5>2 ตัว</h5>
                                 )}
@@ -123,7 +123,7 @@ const SummaryLottery = ({ summaryList, setSummaryList, setTotal, showList, setSh
                                 <b>{item.id === "1" ? `${item.top} x ${item.bottom}` : item.id === "2" ? `${item.top} x ${item.bottom} x ${item.toot}` : item.id === "3" ? `${item.top} x ${item.bottom}` : item.id === "7" ? `${item.top} x ${item.bottom} x ${item.toot}` : `${item.top} x ${item.bottom}`}</b>
                             </Col>
 
-                            <Col sm={8} style={{ backgroundColor: '#FFFFFF' }}>{item.number.join(', ')}</Col>
+                            <Col sm={6} style={{ backgroundColor: '#FFFFFF' }}>{item.number.join(', ')}</Col>
                             <Col sm style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                 <Row>
                                     <Button variant="danger" onClick={() => handleServiceRemove(index, item.id === "2" || item.id === "7" ? (parseInt(item.top) + parseInt(item.toot)) * item.number.length : (parseInt(item.top) + parseInt(item.bottom)) * item.number.length)}>

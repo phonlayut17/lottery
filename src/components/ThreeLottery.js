@@ -35,7 +35,7 @@ const ThreeLottery = (props) => {
             input.current.value = "";
         } else if (e.target.value.length > 3) {
             const inputValue = e.target.value;
-            const regex = /[.\-\/+=]/g;
+            const regex = /[.\-\/+=*,x\s]/g;
             const substrings = inputValue.split(regex).filter(Boolean);
             setThreeList((prevList) => [...prevList, ...substrings]);
             input.current.value = "";
@@ -58,26 +58,47 @@ const ThreeLottery = (props) => {
         setThreeList(list);
     };
 
+    const handleSkipFocus = (e) => {
+        if (e.key === 'Tab') {
+            e.preventDefault();
+            inputTop.current.focus();
+            inputTop.current.select();
+        }
+    };
+
     const addToList = e => {
         e.preventDefault();
         if (threeList !== null && threeList.length !== 0) {
-            if (threeList !== null && threeList.length !== 0 && inputTop.current.value !== 0 && inputDouble.current.value !== 0 && inputTop.current.value.trim() !== "" && inputDouble.current.value.trim() !== "") {
-                const regex = /[.\-\/+=*]/g;
-                const filteredList = threeList.filter((item) => !regex.test(item));
-                props.setShowList([
-                    ...props.showList,
-                    {
-                        id: "2",
-                        number: filteredList,
-                        top: inputTop.current.value,
-                        bottom: 0,
-                        toot: inputDouble.current.value
+            if (threeList !== null && threeList.length !== 0) {
+                if (inputTop.current.value.trim() !== "" || inputDouble.current.value.trim() !== "") {
+                    if (inputTop.current.value !== 0 || inputDouble.current.value !== 0) {
+                        if (inputTop.current.value.trim() == "") {
+                            inputTop.current.value = 0;
+                        }
+                        if (inputDouble.current.value.trim() == "") {
+                            inputDouble.current.value = 0;
+                        }
+                        // const regex = /[.\-\/+=*,x\s]/g;
+                        const filteredList = threeList.filter((item) => /^\d{3}$/.test(item) && item.length === 3);
+                        props.setShowList([
+                            ...props.showList,
+                            {
+                                id: "2",
+                                number: filteredList,
+                                top: inputTop.current.value,
+                                bottom: 0,
+                                toot: inputDouble.current.value
+                            }
+                        ]);
+                        props.calculatePrice(parseInt(inputTop.current.value) + parseInt(inputDouble.current.value), parseInt(filteredList.length));
+                        inputTop.current.value = "";
+                        inputDouble.current.value = "";
+                        handleThreeRemoveAll();
                     }
-                ]);
-                props.calculatePrice(parseInt(inputTop.current.value) + parseInt(inputDouble.current.value), parseInt(filteredList.length));
-                inputTop.current.value = "";
-                inputDouble.current.value = "";
-                handleThreeRemoveAll();
+                } else {
+                    setShowError(...showError, 'กรุณากรอกราคาที่จะเล่น');
+                    handleShowModal();
+                }
             } else if (inputTop.current.value.trim() === "" || inputDouble.current.value.trim() === "") {
                 setShowError(...showError, 'กรุณากรอกราคาที่จะเล่น');
                 handleShowModal();
@@ -122,7 +143,10 @@ const ThreeLottery = (props) => {
 
     const convertPositionNumber = () => {
         threeList.forEach((threeData) => {
-            if (threeData[0] !== threeData[1] && threeData[0] !== threeData[2] && threeData[1] !== threeData[2]) {
+            if (threeData[0] === threeData[1] && threeData[0] === threeData[2] && threeData[1] === threeData[2]) {
+                return;
+            }
+            else if (threeData[0] !== threeData[1] && threeData[0] !== threeData[2] && threeData[1] !== threeData[2]) {
                 calculateNumber(threeData, 1);
             } else if (threeData[0] === threeData[1] || threeData[0] === threeData[2] || threeData[1] === threeData[2]) {
                 calculateNumber(threeData, 2);
@@ -194,7 +218,7 @@ const ThreeLottery = (props) => {
                 <Row>
                     <Col align="left" sm>
                         <Button variant="light" onClick={() => addDoubleToList()}>
-                            9️⃣9️⃣9️⃣ เลขตอง
+                            เลขตอง
                         </Button>
                     </Col>
                     <Col sm></Col>
@@ -202,7 +226,7 @@ const ThreeLottery = (props) => {
                         {Array.isArray(threeList) && threeList.length > 0 && (
                             <Row>
                                 <Button variant="light" onClick={() => handleThreeRemoveAll()}>
-                                    🗑️ ลบเลขทั้งหมด
+                                    ลบเลขทั้งหมด
                                 </Button>
                             </Row>
                         )}
@@ -213,7 +237,7 @@ const ThreeLottery = (props) => {
                     <Col sm>
                         <Form.Label style={{ color: 'black' }}>ใส่เลข</Form.Label>
                         <Form.Group controlId="formNumber">
-                            <Form.Control type="text" ref={input} onChange={(e) => handleThreeChange(e)} placeholder="ระบุเลข" />
+                            <Form.Control type="text" ref={input} onChange={(e) => handleThreeChange(e)} placeholder="ระบุเลข" onKeyDown={handleSkipFocus} />
                         </Form.Group>
                     </Col>
                     <Col sm>
@@ -221,7 +245,7 @@ const ThreeLottery = (props) => {
                         <Form.Group controlId="formNumber">
                             <Row>
                                 <Button variant="light" onClick={() => convertPositionNumber()}>
-                                    🔁 กลับเลข
+                                    กลับเลข
                                 </Button>
                             </Row>
                         </Form.Group>
@@ -252,7 +276,7 @@ const ThreeLottery = (props) => {
                         <Form.Label style={{ color: 'transparent' }}>กลับ</Form.Label>
                         <Row>
                             <Button variant="success" type="sumbit" tabIndex="0" onKeyDown={(e) => handleKeyDown(e)}>
-                                🎰 เพิ่มบิล
+                                เพิ่มบิล
                             </Button>
                         </Row>
                     </Col>

@@ -277,7 +277,7 @@ function LotteryPage() {
                 </Container>
               </Container>
               <Container fluid style={{ paddingTop: 16, paddingLeft: 16, paddingRight: 16, paddingBottom: 16, backgroundColor: "#FFFFFF" }}>
-                <Comment comment={comment} setComment={setComment} lotteryType={lotteryType} price={price} setPrice={setPrice} />
+                <Comment comment={comment} setComment={setComment} lotteryType={lotteryType} showList={showList} setShowList={setShowList} price={price} setPrice={setPrice} />
               </Container>
             </Col>
             <Col sm={6}>

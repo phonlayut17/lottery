@@ -41,7 +41,7 @@ const TypeLottery = (props) => {
                 <br />
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <h4>
-                        [หวยรายวัน] - &nbsp;
+                        [หวยต่างประเทศ] - &nbsp;
                         {myLottery === "hanoi-normal" ? "ฮานอย" :
                             myLottery === "hanoi-privilege" ? "ฮานอย พิเศษ" :
                                 myLottery === "hanoi-vip" ? "ฮานอย VIP" :

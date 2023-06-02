@@ -31,7 +31,10 @@ const SixBackLottery = (props) => {
             e.preventDefault();
             setSixList([...sixList, input.current.value]);
             let data = input.current.value;
-            if (data.charAt(0) !== data.charAt(1) && data.charAt(0) !== data.charAt(2) && data.charAt(1) !== data.charAt(2)) {
+            if (data.charAt(0) === data.charAt(1) && data.charAt(0) === data.charAt(2) && data.charAt(1) === data.charAt(2)) {
+                input.current.value = "";
+                return;
+            } else if (data.charAt(0) !== data.charAt(1) && data.charAt(0) !== data.charAt(2) && data.charAt(1) !== data.charAt(2)) {
                 convertPositionNumber(data, 1);
             } else if (data.charAt(0) === data.charAt(1) || data.charAt(0) === data.charAt(2) || data.charAt(1) === data.charAt(2)) {
                 convertPositionNumber(data, 2);
@@ -39,9 +42,10 @@ const SixBackLottery = (props) => {
             input.current.value = "";
         } else if (e.target.value.length > 3) {
             const inputValue = e.target.value;
-            const regex = /[.\-\/+=]/g;
+            const regex = /[.\-\/+=*,x\s]/g;
             const substrings = inputValue.split(regex).filter(Boolean);
-            substrings.forEach((subData) => {
+            const filteredList = substrings.filter((item) => /^\d{3}$/.test(item) && item.length === 3);
+            filteredList.forEach((subData) => {
                 if (subData.charAt(0) === subData.charAt(1) && subData.charAt(0) === subData.charAt(2) && subData.charAt(1) === subData.charAt(2)) {
                     setSixList([...sixList, subData[0] + subData[0] + subData[0]]);
                     sixList.push(subData[0] + subData[0] + subData[0]);
@@ -76,8 +80,8 @@ const SixBackLottery = (props) => {
         e.preventDefault();
         if (sixList !== null && sixList.length !== 0) {
             if (sixList !== null && sixList.length !== 0 && inputTop.current.value !== 0 && inputTop.current.value.trim() !== "") {
-                const regex = /[.\-\/+=*]/g;
-                const filteredList = sixList.filter((item) => !regex.test(item));
+                // const regex = /[.\-\/+=*,x\s]/g;
+                const filteredList = sixList.filter((item) => /^\d{3}$/.test(item) && item.length === 3);
                 props.setShowList([
                     ...props.showList,
                     {
@@ -171,7 +175,7 @@ const SixBackLottery = (props) => {
                         {Array.isArray(sixList) && sixList.length > 0 && (
                             <Row>
                                 <Button variant="light" onClick={() => handleSixRemoveAll()}>
-                                    🗑️ ลบเลขทั้งหมด
+                                    ลบเลขทั้งหมด
                                 </Button>
                             </Row>
                         )}
@@ -201,7 +205,7 @@ const SixBackLottery = (props) => {
                         <Form.Group controlId="formNumber">
                             <Row>
                                 <Button variant="success" type="sumbit" tabIndex="0" onKeyDown={(e) => handleKeyDown(e)}>
-                                    🎰 เพิ่มบิล
+                                    เพิ่มบิล
                                 </Button>
                             </Row>
                         </Form.Group>

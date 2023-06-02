@@ -8,6 +8,7 @@ import laosVip from '../images/laos-vip.png';
 import vietnam from '../images/vietnam.png';
 import vietnamPrivilege from '../images/vietnam-privilege.png';
 import vietnamVip from '../images/vietnam-vip.png';
+import Button from 'react-bootstrap/Button';
 
 const Comment = (props) => {
 
@@ -15,6 +16,10 @@ const Comment = (props) => {
 
     const handleCommentChange = () => {
         // props.setComment([...props.comment, inputComment.current.value]);
+    }
+
+    const removeAll = () => {
+        props.setShowList([]);
     };
 
     return (
@@ -73,6 +78,19 @@ const Comment = (props) => {
                     <h2 align="center"><b>รวม {props.price} บาท</b></h2>
                 </Row>
             </Container>
+            <br />
+            <Row className="justify-content-center">
+                <Col xs="auto">
+                    <Button variant="danger" onClick={() => removeAll()}>
+                        ล้างตาราง
+                    </Button>
+                </Col>
+                <Col xs="auto">
+                    <Button variant="primary">
+                        บันทึก
+                    </Button>
+                </Col>
+            </Row>
         </Col>
     );
 }

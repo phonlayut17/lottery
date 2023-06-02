@@ -54,21 +54,34 @@ const NumberRunLottery = (props) => {
     const addToList = e => {
         e.preventDefault();
         if (Array.isArray(oneList)) {
-            if (oneList !== null && oneList.length !== 0 && inputTop.current.value !== 0 && inputBottom.current.value !== 0 && inputTop.current.value.trim() !== "" && inputBottom.current.value.trim() !== "") {
-                props.setShowList([
-                    ...props.showList,
-                    {
-                        id: "5",
-                        number: oneList,
-                        top: inputTop.current.value,
-                        bottom: inputBottom.current.value,
-                        toot: 0
+            if (oneList !== null && oneList.length !== 0 && inputTop.current.value !== 0) {
+                if (inputTop.current.value.trim() !== "" || inputBottom.current.value.trim() !== "") {
+                    if (inputTop.current.value !== 0 || inputBottom.current.value !== 0) {
+                        if (inputTop.current.value.trim() == "") {
+                            inputTop.current.value = 0;
+                        }
+                        if (inputBottom.current.value.trim() == "") {
+                            inputBottom.current.value = 0;
+                        }
+                        props.setShowList([
+                            ...props.showList,
+                            {
+                                id: "5",
+                                number: oneList,
+                                top: inputTop.current.value,
+                                bottom: inputBottom.current.value,
+                                toot: 0
+                            }
+                        ]);
+                        props.calculatePrice(parseInt(inputTop.current.value) + parseInt(inputBottom.current.value), parseInt(oneList.length));
+                        inputTop.current.value = "";
+                        inputBottom.current.value = "";
+                        handleOneRemoveAll();
                     }
-                ]);
-                props.calculatePrice(parseInt(inputTop.current.value) + parseInt(inputBottom.current.value), parseInt(oneList.length));
-                inputTop.current.value = "";
-                inputBottom.current.value = "";
-                handleOneRemoveAll();
+                } else {
+                    setShowError(...showError, 'กรุณากรอกราคาที่จะเล่น');
+                    handleShowModal();
+                }
             } else if (inputTop.current.value.trim() === "" || inputBottom.current.value.trim() === "") {
                 setShowError(...showError, 'กรุณากรอกราคาที่จะเล่น');
                 handleShowModal();
@@ -104,7 +117,7 @@ const NumberRunLottery = (props) => {
                         {Array.isArray(oneList) && oneList.length > 0 && (
                             <Row>
                                 <Button variant="light" onClick={() => handleOneRemoveAll()}>
-                                    🗑️ ลบเลขทั้งหมด
+                                    ลบเลขทั้งหมด
                                 </Button>
                             </Row>
                         )}
@@ -145,7 +158,7 @@ const NumberRunLottery = (props) => {
                         <Form.Group controlId="formNumber">
                             <Row>
                                 <Button variant="success" type="sumbit" tabIndex="0" onKeyDown={(e) => handleKeyDown(e)}>
-                                    🎰 เพิ่มบิล
+                                    เพิ่มบิล
                                 </Button>
                             </Row>
                         </Form.Group>
