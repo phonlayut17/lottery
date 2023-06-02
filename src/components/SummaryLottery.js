@@ -77,49 +77,51 @@ const SummaryLottery = ({ summaryList, setSummaryList, setTotal, showList, setSh
                 <Col>
                     {showList.map((item, index) => (
                         <Row key={index} align="center">
-                            <Col sm={4}>
+                            <Col>
                                 {item.id === "1" && (
-                                    <h5>2 ตัว</h5>
+                                    <h7>2 ตัว</h7>
                                 )}
                                 {item.id === "2" && (
-                                    <h5>3 ตัว</h5>
+                                    <h7>3 ตัว</h7>
                                 )}
                                 {item.id === "3" && (
-                                    <h5>3 ตัว</h5>
+                                    <h7>3 ตัว</h7>
                                 )}
                                 {item.id === "4" && (
-                                    <h5>2 ตัว</h5>
+                                    <h7>2 ตัว</h7>
                                 )}
                                 {item.id === "5" && (
-                                    <h5>เลขวิ่ง</h5>
+                                    <h7>เลขวิ่ง</h7>
                                 )}
                                 {item.id === "6" && (
-                                    <h5>วินเลข</h5>
+                                    <h7>วินเลข</h7>
                                 )}
                                 {item.id === "7" && (
-                                    <h5>วินเลข</h5>
+                                    <h7>วินเลข</h7>
                                 )}
+                                <br />
                                 {item.id === "1" && (
-                                    <h5>บน x ล่าง</h5>
+                                    <h7>บน x ล่าง</h7>
                                 )}
                                 {item.id === "2" && (
-                                    <h5>บน x ล่าง x โต๊ด</h5>
+                                    <h7>บน x ล่าง x โต๊ด</h7>
                                 )}
                                 {item.id === "3" && (
-                                    <h5>บน x ล่าง</h5>
+                                    <h7>บน x ล่าง</h7>
                                 )}
                                 {item.id === "4" && (
-                                    <h5>บน x ล่าง</h5>
+                                    <h7>บน x ล่าง</h7>
                                 )}
                                 {item.id === "5" && (
-                                    <h5>วิ่งบน x วิ่งล่าง</h5>
+                                    <h7>วิ่งบน x วิ่งล่าง</h7>
                                 )}
                                 {item.id === "6" && (
-                                    <h5>บน x ล่าง</h5>
+                                    <h7>บน x ล่าง</h7>
                                 )}
                                 {item.id === "7" && (
-                                    <h5>บน x ล่าง x โต๊ด</h5>
+                                    <h7>บน x ล่าง x โต๊ด</h7>
                                 )}
+                                <br />
                                 <b>{item.id === "1" ? `${item.top} x ${item.bottom}` : item.id === "2" ? `${item.top} x ${item.bottom} x ${item.toot}` : item.id === "3" ? `${item.top} x ${item.bottom}` : item.id === "7" ? `${item.top} x ${item.bottom} x ${item.toot}` : `${item.top} x ${item.bottom}`}</b>
                             </Col>
 

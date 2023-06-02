@@ -8,13 +8,13 @@ import { Modal } from "react-bootstrap";
 import '../index.js';
 const TwoLottery = (props) => {
 
-    const input = useRef();
+    // const input = useRef();
 
     const inputTop = useRef();
 
     const inputBottom = useRef();
 
-    const [twoList, setTwoList] = useState([]);
+    // const [twoList, setTwoList] = useState([]);
 
     const [showModal, setShowModal] = useState(false);
 
@@ -31,42 +31,42 @@ const TwoLottery = (props) => {
     const handleTwoChange = (e) => {
         if (e.target.value.length === 2) {
             e.preventDefault();
-            setTwoList([...twoList, input.current.value]);
-            input.current.value = "";
+            props.setTwoList([...props.twoList, props.inputTwo.current.value]);
+            props.inputTwo.current.value = "";
         } else if (e.target.value.length > 2) {
             const inputValue = e.target.value;
             const regex = /[.\-\/+=*,x\s]/g;
             const substrings = inputValue.split(regex).filter(Boolean);
             const filteredList = substrings.filter((item) => /^\d{2}$/.test(item) && !regex.test(item));
-            setTwoList((prevList) => [...prevList, ...filteredList]);
-            input.current.value = "";
+            props.setTwoList((prevList) => [...prevList, ...filteredList]);
+            props.inputTwo.current.value = "";
         }
     };
 
     const handleTwoRemoveAll = () => {
-        setTwoList([]);
+        props.setTwoList([]);
     };
 
     const handleTwoRemove = (index) => {
-        const list = [...twoList];
+        const list = [...props.twoList];
         list.splice(index, 1);
-        setTwoList(list);
+        props.setTwoList(list);
     };
 
     const addToList = e => {
         e.preventDefault();
-        if (twoList !== null && twoList.length !== 0) {
-            if (twoList !== null && twoList.length !== 0) {
+        if (props.twoList !== null && props.twoList.length !== 0) {
+            if (props.twoList !== null && props.twoList.length !== 0) {
                 if (inputTop.current.value.trim() !== "" || inputBottom.current.value.trim() !== "") {
                     if (inputTop.current.value !== 0 || inputBottom.current.value !== 0) {
-                        if (inputTop.current.value.trim() == "") {
+                        if (inputTop.current.value.trim() === "") {
                             inputTop.current.value = 0;
                         }
-                        if (inputBottom.current.value.trim() == "") {
+                        if (inputBottom.current.value.trim() === "") {
                             inputBottom.current.value = 0;
                         }
                         const regex = /[.\-\/+=*,x\s]/g;
-                        const filteredList = twoList.filter((item) => /^\d{2}$/.test(item) && !regex.test(item));
+                        const filteredList = props.twoList.filter((item) => /^\d{2}$/.test(item) && !regex.test(item));
                         props.setShowList([
                             ...props.showList,
                             {
@@ -111,7 +111,7 @@ const TwoLottery = (props) => {
     ]
 
     const addDoubleToList = () => {
-        setTwoList([...twoList, ...dataDoubleSet]);
+        props.setTwoList([...props.twoList, ...dataDoubleSet]);
     };
 
     useEffect(() => {
@@ -135,12 +135,12 @@ const TwoLottery = (props) => {
     };
 
     const convertPositionNumber = () => {
-        twoList.forEach((twoData) => {
+        props.twoList.forEach((twoData) => {
             // setTwoList([...twoList, ...twoData]);
             if (twoData[0] !== twoData[1]) {
                 // let newData = twoData[1] + twoData[0];
-                setTwoList([...twoList, twoData[1] + twoData[0]]);
-                twoList.push(twoData[1] + twoData[0]);
+                props.setTwoList([...props.twoList, twoData[1] + twoData[0]]);
+                props.twoList.push(twoData[1] + twoData[0]);
             }
         });
     };
@@ -158,7 +158,7 @@ const TwoLottery = (props) => {
     return (
         <Col>
             <Row>
-                {twoList.map((item, b) => (
+                {props.twoList.map((item, b) => (
                     <Col sm={1} onClick={() => handleTwoRemove(b)}>
                         <Button variant="danger" onClick={() => handleTwoRemove(b)}>
                             {item}
@@ -179,7 +179,7 @@ const TwoLottery = (props) => {
                         </Col>
                         <Col sm></Col>
                         <Col align="right" sm>
-                            {Array.isArray(twoList) && twoList.length > 0 && (
+                            {Array.isArray(props.twoList) && props.twoList.length > 0 && (
                                 <Row>
                                     <Button variant="light" onClick={() => handleTwoRemoveAll()}>
                                         ลบเลขทั้งหมด
@@ -193,7 +193,7 @@ const TwoLottery = (props) => {
                         <Col sm>
                             <Form.Label style={{ color: 'black' }}>ใส่เลข</Form.Label>
                             <Form.Group controlId="formNumber">
-                                <Form.Control type="text" pattern="[0-9]" ref={input} onChange={(e) => handleTwoChange(e)} placeholder="ระบุเลข" onKeyDown={handleSkipFocus} />
+                                <Form.Control type="text" pattern="[0-9]" ref={props.inputTwo} onChange={(e) => handleTwoChange(e)} placeholder="ระบุเลข" onKeyDown={handleSkipFocus} />
                             </Form.Group>
                         </Col>
                         <Col sm>
@@ -227,7 +227,8 @@ const TwoLottery = (props) => {
                                     ref={inputBottom}
                                     id="numberBottom"
                                     min={0}
-                                    placeholder="ระบุเลข" />
+                                    placeholder="ระบุเลข"
+                                    onKeyDown={(e) => handleKeyDown(e)} />
                             </Form.Group>
                         </Col>
                         <Col sm>

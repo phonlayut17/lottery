@@ -8,13 +8,13 @@ import { Modal } from "react-bootstrap";
 import '../index.js';
 const ThreeLottery = (props) => {
 
-    const input = useRef();
+    // const input = useRef();
 
     const inputTop = useRef();
 
     const inputDouble = useRef();
 
-    const [threeList, setThreeList] = useState([]);
+    // const [threeList, setThreeList] = useState([]);
 
     const [showModal, setShowModal] = useState(false);
 
@@ -31,15 +31,15 @@ const ThreeLottery = (props) => {
     const handleThreeChange = (e) => {
         if (e.target.value.length === 3) {
             e.preventDefault();
-            setThreeList([...threeList, input.current.value]);
-            input.current.value = "";
+            props.setThreeList([...props.threeList, props.inputThree.current.value]);
+            props.inputThree.current.value = "";
         } else if (e.target.value.length > 3) {
             const inputValue = e.target.value;
             const regex = /[.\-\/+=*,x\s]/g;
             const substrings = inputValue.split(regex).filter(Boolean);
             const filteredList = substrings.filter((item) => /^\d{3}$/.test(item) && !regex.test(item));
-            setThreeList((prevList) => [...prevList, ...filteredList]);
-            input.current.value = "";
+            props.setThreeList((prevList) => [...prevList, ...filteredList]);
+            props.inputThree.current.value = "";
         }
     };
 
@@ -50,13 +50,13 @@ const ThreeLottery = (props) => {
     // };
 
     const handleThreeRemoveAll = () => {
-        setThreeList([]);
+        props.setThreeList([]);
     };
 
     const handleThreeRemove = (index) => {
-        const list = [...threeList];
+        const list = [...props.threeList];
         list.splice(index, 1);
-        setThreeList(list);
+        props.setThreeList(list);
     };
 
     const handleSkipFocus = (e) => {
@@ -69,8 +69,8 @@ const ThreeLottery = (props) => {
 
     const addToList = e => {
         e.preventDefault();
-        if (threeList !== null && threeList.length !== 0) {
-            if (threeList !== null && threeList.length !== 0) {
+        if (props.threeList !== null && props.threeList.length !== 0) {
+            if (props.threeList !== null && props.threeList.length !== 0) {
                 if (inputTop.current.value.trim() !== "" || inputDouble.current.value.trim() !== "") {
                     if (inputTop.current.value !== 0 || inputDouble.current.value !== 0) {
                         if (inputTop.current.value.trim() == "") {
@@ -80,7 +80,7 @@ const ThreeLottery = (props) => {
                             inputDouble.current.value = 0;
                         }
                         const regex = /[.\-\/+=*,x\s]/g;
-                        const filteredList = threeList.filter((item) => /^\d{3}$/.test(item) && !regex.test(item) && item.length === 3);
+                        const filteredList = props.threeList.filter((item) => /^\d{3}$/.test(item) && !regex.test(item) && item.length === 3);
                         props.setShowList([
                             ...props.showList,
                             {
@@ -125,7 +125,7 @@ const ThreeLottery = (props) => {
     ]
 
     const addDoubleToList = () => {
-        setThreeList([...threeList, ...dataDoubleSet]);
+        props.setThreeList([...props.threeList, ...dataDoubleSet]);
     };
 
     useEffect(() => {
@@ -143,7 +143,7 @@ const ThreeLottery = (props) => {
     });
 
     const convertPositionNumber = () => {
-        threeList.forEach((threeData) => {
+        props.threeList.forEach((threeData) => {
             if (threeData[0] === threeData[1] && threeData[0] === threeData[2] && threeData[1] === threeData[2]) {
                 return;
             }
@@ -159,38 +159,38 @@ const ThreeLottery = (props) => {
         if (type === 1) {
             // setThreeList([...threeList, data[0] + data[1] + data[2]]);
             // threeList.push(data[0] + data[1] + data[2]);
-            setThreeList([...threeList, data[0] + data[2] + data[1]]);
-            threeList.push(data[0] + data[2] + data[1]);
-            setThreeList([...threeList, data[1] + data[0] + data[2]]);
-            threeList.push(data[1] + data[0] + data[2]);
-            setThreeList([...threeList, data[1] + data[2] + data[0]]);
-            threeList.push(data[1] + data[2] + data[0]);
-            setThreeList([...threeList, data[2] + data[1] + data[0]]);
-            threeList.push(data[2] + data[2] + data[0]);
-            setThreeList([...threeList, data[2] + data[0] + data[1]]);
-            threeList.push(data[2] + data[0] + data[1]);
+            props.setThreeList([...props.threeList, data[0] + data[2] + data[1]]);
+            props.threeList.push(data[0] + data[2] + data[1]);
+            props.setThreeList([...props.threeList, data[1] + data[0] + data[2]]);
+            props.threeList.push(data[1] + data[0] + data[2]);
+            props.setThreeList([...props.threeList, data[1] + data[2] + data[0]]);
+            props.threeList.push(data[1] + data[2] + data[0]);
+            props.setThreeList([...props.threeList, data[2] + data[1] + data[0]]);
+            props.threeList.push(data[2] + data[2] + data[0]);
+            props.setThreeList([...props.threeList, data[2] + data[0] + data[1]]);
+            props.threeList.push(data[2] + data[0] + data[1]);
         } else if (type === 2) {
             if (data[0] === data[1]) {
                 // setThreeList([...threeList, data[0] + data[0] + data[2]]);
                 // threeList.push(data[0] + data[0] + data[2]);
-                setThreeList([...threeList, data[0] + data[2] + data[0]]);
-                threeList.push(data[0] + data[2] + data[0]);
-                setThreeList([...threeList, data[2] + data[0] + data[0]]);
-                threeList.push(data[2] + data[0] + data[0]);
+                props.setThreeList([...props.threeList, data[0] + data[2] + data[0]]);
+                props.threeList.push(data[0] + data[2] + data[0]);
+                props.setThreeList([...props.threeList, data[2] + data[0] + data[0]]);
+                props.threeList.push(data[2] + data[0] + data[0]);
             } else if (data[1] === data[2]) {
-                setThreeList([...threeList, data[2] + data[2] + data[0]]);
-                threeList.push(data[2] + data[2] + data[0]);
-                setThreeList([...threeList, data[2] + data[0] + data[2]]);
-                threeList.push(data[2] + data[0] + data[2]);
+                props.setThreeList([...props.threeList, data[2] + data[2] + data[0]]);
+                props.threeList.push(data[2] + data[2] + data[0]);
+                props.setThreeList([...props.threeList, data[2] + data[0] + data[2]]);
+                props.threeList.push(data[2] + data[0] + data[2]);
                 // setThreeList([...threeList, data[0] + data[2] + data[2]]);
                 // threeList.push(data[0] + data[2] + data[2]);
             } else {
-                setThreeList([...threeList, data[2] + data[2] + data[1]]);
-                threeList.push(data[2] + data[2] + data[1]);
+                props.setThreeList([...props.threeList, data[2] + data[2] + data[1]]);
+                props.threeList.push(data[2] + data[2] + data[1]);
                 // setThreeList([...threeList, data[2] + data[1] + data[2]]);
                 // threeList.push(data[2] + data[1] + data[2]);
-                setThreeList([...threeList, data[1] + data[2] + data[2]]);
-                threeList.push(data[1] + data[2] + data[2]);
+                props.setThreeList([...props.threeList, data[1] + data[2] + data[2]]);
+                props.threeList.push(data[1] + data[2] + data[2]);
             }
         }
     }
@@ -204,7 +204,7 @@ const ThreeLottery = (props) => {
     return (
         <Col>
             <Row>
-                {threeList.map((item, b) => (
+                {props.threeList.map((item, b) => (
                     <Col align="center" sm={1} onClick={() => handleThreeRemove(b)}>
                         <Button variant="danger" onClick={() => handleThreeRemove(b)}>
                             {item}
@@ -224,7 +224,7 @@ const ThreeLottery = (props) => {
                     </Col>
                     <Col sm></Col>
                     <Col align="right" sm>
-                        {Array.isArray(threeList) && threeList.length > 0 && (
+                        {Array.isArray(props.threeList) && props.threeList.length > 0 && (
                             <Row>
                                 <Button variant="light" onClick={() => handleThreeRemoveAll()}>
                                     ลบเลขทั้งหมด
@@ -238,7 +238,7 @@ const ThreeLottery = (props) => {
                     <Col sm>
                         <Form.Label style={{ color: 'black' }}>ใส่เลข</Form.Label>
                         <Form.Group controlId="formNumber">
-                            <Form.Control type="text" ref={input} onChange={(e) => handleThreeChange(e)} placeholder="ระบุเลข" onKeyDown={handleSkipFocus} />
+                            <Form.Control type="text" ref={props.inputThree} onChange={(e) => handleThreeChange(e)} placeholder="ระบุเลข" onKeyDown={handleSkipFocus} />
                         </Form.Group>
                     </Col>
                     <Col sm>
@@ -270,7 +270,8 @@ const ThreeLottery = (props) => {
                                 maxLength={3} min={0}
                                 ref={inputDouble}
                                 id="numberDouble"
-                                placeholder="ระบุเลข" />
+                                placeholder="ระบุเลข"
+                                onKeyDown={(e) => handleKeyDown(e)} />
                         </Form.Group>
                     </Col>
                     <Col sm>

@@ -8,7 +8,7 @@ import '../index.js';
 
 const NineteenDoorLottery = (props) => {
 
-    const input = useRef();
+    // const input = useRef();
 
     const inputTop = useRef();
 
@@ -31,10 +31,12 @@ const NineteenDoorLottery = (props) => {
     const handleNineteenChange = (e) => {
         if (e.target.value.length === 1) {
             e.preventDefault();
-            matchingPositionNumber(input.current.value);
+            matchingPositionNumber(props.inputNineteen.current.value);
             // setNineteenList([...nineteenList, input.current.value]);
             orderByList();
-            input.current.value = "";
+            props.setNineteenList((prevList) => [...prevList, ...nineteenList]);
+            props.inputNineteen.current.value = "";
+            setNineteenList([]);
         }
     };
 
@@ -44,13 +46,13 @@ const NineteenDoorLottery = (props) => {
     };
 
     const handleNineteenRemoveAll = () => {
-        setNineteenList([]);
+        props.setNineteenList([]);
     };
 
     const handleNineteenRemove = (index) => {
-        const list = [...nineteenList];
+        const list = [...props.nineteenList];
         list.splice(index, 1);
-        setNineteenList(list);
+        props.setNineteenList(list);
     };
 
     const handleKeyDown = (e) => {
@@ -65,10 +67,10 @@ const NineteenDoorLottery = (props) => {
             if (nineteenList !== null && nineteenList.length !== 0) {
                 if (inputTop.current.value.trim() !== "" || inputBottom.current.value.trim() !== "") {
                     if (inputTop.current.value !== 0 || inputBottom.current.value !== 0) {
-                        if (inputTop.current.value.trim() == "") {
+                        if (inputTop.current.value.trim() === "") {
                             inputTop.current.value = 0;
                         }
-                        if (inputBottom.current.value.trim() == "") {
+                        if (inputBottom.current.value.trim() === "") {
                             inputBottom.current.value = 0;
                         }
                         props.setShowList([
@@ -135,7 +137,7 @@ const NineteenDoorLottery = (props) => {
     return (
         <Col>
             <Row>
-                {nineteenList.map((item, b) => (
+                {props.nineteenList.map((item, b) => (
                     <Col sm={1} onClick={() => handleNineteenRemove(b)}>
                         <Button variant="danger" onClick={() => handleNineteenRemove(b)}>
                             {item}
@@ -152,7 +154,7 @@ const NineteenDoorLottery = (props) => {
                     </Col>
                     <Col sm></Col>
                     <Col sm align="right">
-                        {Array.isArray(nineteenList) && nineteenList.length > 0 && (
+                        {Array.isArray(props.nineteenList) && props.nineteenList.length > 0 && (
                             <Row>
                                 <Button variant="light" onClick={() => handleNineteenRemoveAll()}>
                                     ลบเลขทั้งหมด
@@ -165,7 +167,7 @@ const NineteenDoorLottery = (props) => {
                 <Row>
                     <Col sm>
                         <Form.Label style={{ color: 'black' }}>ใส่เลข</Form.Label>
-                        <Form.Control type="text" ref={input} onChange={(e) => handleNineteenChange(e)} placeholder="ระบุเลข" maxLength={2} />
+                        <Form.Control type="text" ref={props.inputNineteen} onChange={(e) => handleNineteenChange(e)} placeholder="ระบุเลข" maxLength={2} />
                     </Col>
                     <Col sm>
                         <Form.Label style={{ color: 'black' }}>บน</Form.Label>

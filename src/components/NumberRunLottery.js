@@ -7,13 +7,13 @@ import { Modal } from "react-bootstrap";
 import '../index.js';
 const NumberRunLottery = (props) => {
 
-    const input = useRef();
+    // const input = useRef();
 
     const inputTop = useRef();
 
     const inputBottom = useRef();
 
-    const [oneList, setOneList] = useState([]);
+    // const [oneList, setOneList] = useState([]);
 
     const [showModal, setShowModal] = useState(false);
 
@@ -30,19 +30,19 @@ const NumberRunLottery = (props) => {
     const handleOneChange = (e) => {
         if (e.target.value.length === 1) {
             e.preventDefault();
-            setOneList([...oneList, input.current.value]);
-            input.current.value = "";
+            props.setOneList([...props.oneList, props.inputNumber.current.value]);
+            props.inputNumber.current.value = "";
         }
     };
 
     const handleOneRemoveAll = () => {
-        setOneList([]);
+        props.setOneList([]);
     };
 
     const handleOneRemove = (index) => {
-        const list = [...oneList];
+        const list = [...props.oneList];
         list.splice(index, 1);
-        setOneList(list);
+        props.setOneList(list);
     };
 
     const handleKeyDown = (e) => {
@@ -53,8 +53,8 @@ const NumberRunLottery = (props) => {
 
     const addToList = e => {
         e.preventDefault();
-        if (Array.isArray(oneList)) {
-            if (oneList !== null && oneList.length !== 0 && inputTop.current.value !== 0) {
+        if (Array.isArray(props.oneList)) {
+            if (props.oneList !== null && props.oneList.length !== 0 && inputTop.current.value !== 0) {
                 if (inputTop.current.value.trim() !== "" || inputBottom.current.value.trim() !== "") {
                     if (inputTop.current.value !== 0 || inputBottom.current.value !== 0) {
                         if (inputTop.current.value.trim() == "") {
@@ -67,13 +67,13 @@ const NumberRunLottery = (props) => {
                             ...props.showList,
                             {
                                 id: "5",
-                                number: oneList,
+                                number: props.oneList,
                                 top: inputTop.current.value,
                                 bottom: inputBottom.current.value,
                                 toot: 0
                             }
                         ]);
-                        props.calculatePrice(parseInt(inputTop.current.value) + parseInt(inputBottom.current.value), parseInt(oneList.length));
+                        props.calculatePrice(parseInt(inputTop.current.value) + parseInt(inputBottom.current.value), parseInt(props.oneList.length));
                         inputTop.current.value = "";
                         inputBottom.current.value = "";
                         handleOneRemoveAll();
@@ -96,7 +96,7 @@ const NumberRunLottery = (props) => {
     return (
         <Col>
             <Row>
-                {oneList.map((item, b) => (
+                {props.oneList.map((item, b) => (
                     <Col sm={1} onClick={() => handleOneRemove(b)}>
                         <Button variant="danger" onClick={() => handleOneRemove(b)}>
                             {item}
@@ -114,7 +114,7 @@ const NumberRunLottery = (props) => {
                     </Col>
                     <Col sm></Col>
                     <Col sm>
-                        {Array.isArray(oneList) && oneList.length > 0 && (
+                        {Array.isArray(props.oneList) && props.oneList.length > 0 && (
                             <Row>
                                 <Button variant="light" onClick={() => handleOneRemoveAll()}>
                                     ลบเลขทั้งหมด
@@ -128,7 +128,7 @@ const NumberRunLottery = (props) => {
                     <Col sm>
                         <Form.Label style={{ color: 'black' }}>ใส่เลข</Form.Label>
                         <Form.Group controlId="formNumber">
-                            <Form.Control type="text" ref={input} onChange={(e) => handleOneChange(e)} placeholder="ระบุเลข" maxLength={2} />
+                            <Form.Control type="text" ref={props.inputNumber} onChange={(e) => handleOneChange(e)} placeholder="ระบุเลข" maxLength={2} />
                         </Form.Group>
                     </Col>
                     <Col sm>
@@ -150,7 +150,8 @@ const NumberRunLottery = (props) => {
                                 maxLength={3}
                                 ref={inputBottom}
                                 id="numberBottom"
-                                placeholder="ระบุเลข" />
+                                placeholder="ระบุเลข"
+                                onKeyDown={(e) => handleKeyDown(e)} />
                         </Form.Group>
                     </Col>
                     <Col sm>

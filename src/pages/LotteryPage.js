@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Header from "../../src/components/Header";
 // import Footer from "../../src/components/Footer";
 import TwoLottery from "../../src/components/TwoLottery";
@@ -16,6 +16,11 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
+import laos from '../images/laos.png';
+import laosVip from '../images/laos-vip.png';
+import vietnam from '../images/vietnam.png';
+import vietnamPrivilege from '../images/vietnam-privilege.png';
+import vietnamVip from '../images/vietnam-vip.png';
 
 function LotteryPage() {
   const [key, setKey] = useState('two-lottery');
@@ -26,10 +31,62 @@ function LotteryPage() {
   const [comment, setComment] = useState("");
   const [price, setPrice] = useState(0.00);
   const [totalPrice, setTotalPrice] = useState(0.00);
+  const [twoList, setTwoList] = useState([]);
+  const [threeList, setThreeList] = useState([]);
+  const [sixList, setSixList] = useState([]);
+  const [nineteenList, setNineteenList] = useState([]);
+  const [oneList, setOneList] = useState([]);
+  const [thaiTime, setThaiTime] = useState('');
+  const inputTwo = useRef();
+  const inputThree = useRef();
+  const inputSix = useRef();
+  const inputNineteen = useRef();
+  const inputNumber = useRef();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const options = {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        hour12: false,
+        timeZone: 'Asia/Bangkok',
+      };
+      const thTime = new Intl.DateTimeFormat('th-TH', options).format(new Date());
+      setThaiTime(thTime);
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   const handleTabSelect = (k) => {
     setKey(k);
+    focusInput();
   };
+
+  const focusInput = () => {
+    if (key == 'two-lottery') {
+      inputTwo.current.focus();
+      inputTwo.current.select();
+    } else if (key == 'three-lottery') {
+      inputThree.current.focus();
+      inputThree.current.select();
+    } else if (key == 'six-back') {
+      inputSix.current.focus();
+      inputSix.current.select();
+    } else if (key == 'nineteen-door') {
+      inputNineteen.current.focus();
+      inputNineteen.current.select();
+    } else if (key == 'number-run') {
+      inputNumber.current.focus();
+      inputNumber.current.select();
+    }
+  }
 
   const calculatePrice = (price, length) => {
     const sum = parseFloat(price) * parseFloat(length);
@@ -43,6 +100,14 @@ function LotteryPage() {
     const newTotalPrice = totalPrice - parseFloat(data);
     setPrice(newPrice);
     setTotalPrice(newTotalPrice);
+  };
+
+  const clearAll = () => {
+    setTwoList([]);
+    setThreeList([]);
+    setSixList([]);
+    setNineteenList([]);
+    setOneList([]);
   };
 
   const clearPrice = () => {
@@ -216,60 +281,81 @@ function LotteryPage() {
               <Container fluid style={{ borderRadius: '10px', paddingTop: 16, paddingLeft: 16, paddingRight: 16, paddingBottom: 16, backgroundColor: lotteryType === "hanoi-normal" ? "#E8988B" : lotteryType === "hanoi-privilege" ? "#D3E0EA" : lotteryType === "hanoi-vip" ? "#A1CAE2" : lotteryType === "lao-normal" ? "#E4A0F7" : "#FBEDBE" }}>
                 <Container>
                   <Col>
-                    <Row className="d-flex justify-content-between align-items-center">
-                      <div className="mb-3">
-                        <Button
-                          variant={key === 'two-lottery' ? 'danger' : 'light'}
-                          onClick={() => handleTabSelect('two-lottery')}
-                          style={{ marginRight: '16px' }}
-                        >
-                          2 ตัว
-                        </Button>
-                        <Button
-                          variant={key === 'three-lottery' ? 'danger' : 'light'}
-                          onClick={() => handleTabSelect('three-lottery')}
-                          style={{ marginRight: '16px' }}
-                        >
-                          3 ตัว
-                        </Button>
-                        <Button
-                          variant={key === 'six-back' ? 'danger' : 'light'}
-                          onClick={() => handleTabSelect('six-back')}
-                          style={{ marginRight: '16px' }}
-                        >
-                          6 กลับ
-                        </Button>
-                        <Button
-                          variant={key === 'nineteen-door' ? 'danger' : 'light'}
-                          onClick={() => handleTabSelect('nineteen-door')}
-                          style={{ marginRight: '16px' }}
-                        >
-                          19 ประตู
-                        </Button>
-                        <Button
-                          variant={key === 'number-run' ? 'danger' : 'light'}
-                          onClick={() => handleTabSelect('number-run')}
-                          style={{ marginRight: '16px' }}
-                        >
-                          เลขวิ่ง
-                        </Button>
-                        {/* <Button
+                    <Row>
+                      <Col sm={8}>
+                        <Row className="d-flex justify-content-between align-items-center">
+                          <div className="mb-3">
+                            <Button
+                              variant={key === 'two-lottery' ? 'danger' : 'light'}
+                              onClick={() => handleTabSelect('two-lottery')}
+                              style={{ marginRight: '16px' }}
+                            >
+                              2 ตัว
+                            </Button>
+                            <Button
+                              variant={key === 'three-lottery' ? 'danger' : 'light'}
+                              onClick={() => handleTabSelect('three-lottery')}
+                              style={{ marginRight: '16px' }}
+                            >
+                              3 ตัว
+                            </Button>
+                            <Button
+                              variant={key === 'six-back' ? 'danger' : 'light'}
+                              onClick={() => handleTabSelect('six-back')}
+                              style={{ marginRight: '16px' }}
+                            >
+                              6 กลับ
+                            </Button>
+                            <Button
+                              variant={key === 'nineteen-door' ? 'danger' : 'light'}
+                              onClick={() => handleTabSelect('nineteen-door')}
+                              style={{ marginRight: '16px' }}
+                            >
+                              19 ประตู
+                            </Button>
+                            <Button
+                              variant={key === 'number-run' ? 'danger' : 'light'}
+                              onClick={() => handleTabSelect('number-run')}
+                              style={{ marginRight: '16px' }}
+                            >
+                              เลขวิ่ง
+                            </Button>
+                            {/* <Button
                           variant={key === 'win-number' ? 'danger' : 'light'}
                           onClick={() => handleTabSelect('win-number')}
                           style={{ marginRight: '16px' }}
                         >
                           วินเลข
                         </Button> */}
-                      </div>
+                          </div>
+                        </Row>
+                      </Col>
+                      <Col sm align="right">
+                        <img
+                          align="top"
+                          src={
+                            lotteryType === "hanoi-normal" ? vietnam :
+                              lotteryType === "hanoi-privilege" ? vietnamPrivilege :
+                                lotteryType === "hanoi-vip" ? vietnamVip :
+                                  lotteryType === "lao-normal" ? laos :
+                                    lotteryType === "lao-vip" ? laosVip : ""
+                          }
+                          alt=""
+                          width={40}
+                          height={40}
+                        />
+                        <br />
+                        <h5>{thaiTime}</h5>
+                      </Col>
                     </Row>
                     <br />
                     <Container fluid style={{ paddingTop: 16, paddingBottom: 16 }}>
                       <div className="">
-                        {key === 'two-lottery' && <TwoLottery setSummaryList={setSummaryList} showList={showList} setShowList={setShowList} calculatePrice={calculatePrice} />}
-                        {key === 'three-lottery' && <ThreeLottery setSummaryList={setSummaryList} showList={showList} setShowList={setShowList} calculatePrice={calculatePrice} />}
-                        {key === 'six-back' && <SixBackLottery setSummaryList={setSummaryList} showList={showList} setShowList={setShowList} calculatePrice={calculatePrice} />}
-                        {key === 'nineteen-door' && <NineteenDoorLottery setSummaryList={setSummaryList} showList={showList} setShowList={setShowList} calculatePrice={calculatePrice} />}
-                        {key === 'number-run' && <NumberRunLottery setSummaryList={setSummaryList} showList={showList} setShowList={setShowList} calculatePrice={calculatePrice} />}
+                        {key === 'two-lottery' && <TwoLottery setSummaryList={setSummaryList} showList={showList} setShowList={setShowList} calculatePrice={calculatePrice} twoList={twoList} setTwoList={setTwoList} inputTwo={inputTwo} />}
+                        {key === 'three-lottery' && <ThreeLottery setSummaryList={setSummaryList} showList={showList} setShowList={setShowList} calculatePrice={calculatePrice} threeList={threeList} setThreeList={setThreeList} inputThree={inputThree} />}
+                        {key === 'six-back' && <SixBackLottery setSummaryList={setSummaryList} showList={showList} setShowList={setShowList} calculatePrice={calculatePrice} sixList={sixList} setSixList={setSixList} inputSix={inputSix} />}
+                        {key === 'nineteen-door' && <NineteenDoorLottery setSummaryList={setSummaryList} showList={showList} setShowList={setShowList} calculatePrice={calculatePrice} nineteenList={nineteenList} setNineteenList={setNineteenList} inputNineteen={inputNineteen} />}
+                        {key === 'number-run' && <NumberRunLottery setSummaryList={setSummaryList} showList={showList} setShowList={setShowList} calculatePrice={calculatePrice} oneList={oneList} setOneList={setOneList} inputNumber={inputNumber} />}
                         {/* {key === 'win-number' && <WinNummberLottery setSummaryList={setSummaryList} showList={showList} setShowList={setShowList} calculatePrice={calculatePrice} />} */}
                       </div>
                     </Container>
@@ -282,7 +368,7 @@ function LotteryPage() {
                 </Container>
               </Container>
               <Container fluid style={{ paddingTop: 16, paddingLeft: 16, paddingRight: 16, paddingBottom: 16, backgroundColor: "#FFFFFF" }}>
-                <Comment comment={comment} setComment={setComment} lotteryType={lotteryType} showList={showList} setShowList={setShowList} price={price} setPrice={setPrice} clearPrice={clearPrice} />
+                <Comment comment={comment} setComment={setComment} lotteryType={lotteryType} showList={showList} setShowList={setShowList} price={price} setPrice={setPrice} clearPrice={clearPrice} clearAll={clearAll} />
               </Container>
             </Col>
             <Col sm={6}>

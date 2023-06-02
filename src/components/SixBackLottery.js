@@ -8,11 +8,11 @@ import { Modal } from "react-bootstrap";
 import '../index.js';
 const SixBackLottery = (props) => {
 
-    const input = useRef();
+    // const input = useRef();
 
     const inputTop = useRef();
 
-    const [sixList, setSixList] = useState([]);
+    // const [sixList, setSixList] = useState([]);
 
     const [showModal, setShowModal] = useState(false);
 
@@ -29,17 +29,17 @@ const SixBackLottery = (props) => {
     const handleThreeChange = (e) => {
         if (e.target.value.length === 3) {
             e.preventDefault();
-            setSixList([...sixList, input.current.value]);
-            let data = input.current.value;
+            props.setSixList([...props.sixList, props.inputSix.current.value]);
+            let data = props.inputSix.current.value;
             if (data.charAt(0) === data.charAt(1) && data.charAt(0) === data.charAt(2) && data.charAt(1) === data.charAt(2)) {
-                input.current.value = "";
+                props.inputSix.current.value = "";
                 return;
             } else if (data.charAt(0) !== data.charAt(1) && data.charAt(0) !== data.charAt(2) && data.charAt(1) !== data.charAt(2)) {
                 convertPositionNumber(data, 1);
             } else if (data.charAt(0) === data.charAt(1) || data.charAt(0) === data.charAt(2) || data.charAt(1) === data.charAt(2)) {
                 convertPositionNumber(data, 2);
             }
-            input.current.value = "";
+            props.inputSix.current.value = "";
         } else if (e.target.value.length > 3) {
             const inputValue = e.target.value;
             const regex = /[.\-\/+=*,x\s]/g;
@@ -47,8 +47,8 @@ const SixBackLottery = (props) => {
             const filteredList = substrings.filter((item) => /^\d{3}$/.test(item) && item.length === 3);
             filteredList.forEach((subData) => {
                 if (subData.charAt(0) === subData.charAt(1) && subData.charAt(0) === subData.charAt(2) && subData.charAt(1) === subData.charAt(2)) {
-                    setSixList([...sixList, subData[0] + subData[0] + subData[0]]);
-                    sixList.push(subData[0] + subData[0] + subData[0]);
+                    props.setSixList([...props.sixList, subData[0] + subData[0] + subData[0]]);
+                    props.sixList.push(subData[0] + subData[0] + subData[0]);
                 }
                 else if (subData.charAt(0) !== subData.charAt(1) && subData.charAt(0) !== subData.charAt(2) && subData.charAt(1) !== subData.charAt(2)) {
                     convertPositionNumber(subData, 1);
@@ -56,18 +56,18 @@ const SixBackLottery = (props) => {
                     convertPositionNumber(subData, 2);
                 }
             });
-            input.current.value = "";
+            props.inputSix.current.value = "";
         }
     };
 
     const handleSixRemoveAll = () => {
-        setSixList([]);
+        props.setSixList([]);
     };
 
     const handleSixRemove = (index) => {
-        const list = [...sixList];
+        const list = [...props.sixList];
         list.splice(index, 1);
-        setSixList(list);
+        props.setSixList(list);
     };
 
     // const handleSixDataRemove = (index) => {
@@ -78,10 +78,10 @@ const SixBackLottery = (props) => {
 
     const addToList = e => {
         e.preventDefault();
-        if (sixList !== null && sixList.length !== 0) {
-            if (sixList !== null && sixList.length !== 0 && inputTop.current.value !== 0 && inputTop.current.value.trim() !== "") {
+        if (props.sixList !== null && props.sixList.length !== 0) {
+            if (props.sixList !== null && props.sixList.length !== 0 && inputTop.current.value !== 0 && inputTop.current.value.trim() !== "") {
                 const regex = /[.\-\/+=*,x\s]/g;
-                const filteredList = sixList.filter((item) => /^\d{3}$/.test(item) && !regex.test(item) && item.length === 3);
+                const filteredList = props.sixList.filter((item) => /^\d{3}$/.test(item) && !regex.test(item) && item.length === 3);
                 props.setShowList([
                     ...props.showList,
                     {
@@ -113,40 +113,40 @@ const SixBackLottery = (props) => {
 
     function convertPositionNumber(data, type) {
         if (type === 1) {
-            setSixList([...sixList, data[0] + data[1] + data[2]]);
-            sixList.push(data[0] + data[1] + data[2]);
-            setSixList([...sixList, data[0] + data[2] + data[1]]);
-            sixList.push(data[0] + data[2] + data[1]);
-            setSixList([...sixList, data[1] + data[0] + data[2]]);
-            sixList.push(data[1] + data[0] + data[2]);
-            setSixList([...sixList, data[1] + data[2] + data[0]]);
-            sixList.push(data[1] + data[2] + data[0]);
-            setSixList([...sixList, data[2] + data[1] + data[0]]);
-            sixList.push(data[2] + data[2] + data[0]);
-            setSixList([...sixList, data[2] + data[0] + data[1]]);
-            sixList.push(data[2] + data[0] + data[1]);
+            props.setSixList([...props.sixList, data[0] + data[1] + data[2]]);
+            props.sixList.push(data[0] + data[1] + data[2]);
+            props.setSixList([...props.sixList, data[0] + data[2] + data[1]]);
+            props.sixList.push(data[0] + data[2] + data[1]);
+            props.setSixList([...props.sixList, data[1] + data[0] + data[2]]);
+            props.sixList.push(data[1] + data[0] + data[2]);
+            props.setSixList([...props.sixList, data[1] + data[2] + data[0]]);
+            props.sixList.push(data[1] + data[2] + data[0]);
+            props.setSixList([...props.sixList, data[2] + data[1] + data[0]]);
+            props.sixList.push(data[2] + data[2] + data[0]);
+            props.setSixList([...props.sixList, data[2] + data[0] + data[1]]);
+            props.sixList.push(data[2] + data[0] + data[1]);
         } else if (type === 2) {
             if (data[0] === data[1]) {
-                setSixList([...sixList, data[0] + data[0] + data[2]]);
-                sixList.push(data[0] + data[0] + data[2]);
-                setSixList([...sixList, data[0] + data[2] + data[0]]);
-                sixList.push(data[0] + data[2] + data[0]);
-                setSixList([...sixList, data[2] + data[0] + data[0]]);
-                sixList.push(data[2] + data[0] + data[0]);
+                props.setSixList([...props.sixList, data[0] + data[0] + data[2]]);
+                props.sixList.push(data[0] + data[0] + data[2]);
+                props.setSixList([...props.sixList, data[0] + data[2] + data[0]]);
+                props.sixList.push(data[0] + data[2] + data[0]);
+                props.setSixList([...props.sixList, data[2] + data[0] + data[0]]);
+                props.sixList.push(data[2] + data[0] + data[0]);
             } else if (data[1] === data[2]) {
-                setSixList([...sixList, data[2] + data[2] + data[0]]);
-                sixList.push(data[2] + data[2] + data[0]);
-                setSixList([...sixList, data[2] + data[0] + data[2]]);
-                sixList.push(data[2] + data[0] + data[2]);
-                setSixList([...sixList, data[0] + data[2] + data[2]]);
-                sixList.push(data[0] + data[2] + data[2]);
+                props.setSixList([...props.sixList, data[2] + data[2] + data[0]]);
+                props.sixList.push(data[2] + data[2] + data[0]);
+                props.setSixList([...props.sixList, data[2] + data[0] + data[2]]);
+                props.sixList.push(data[2] + data[0] + data[2]);
+                props.setSixList([...props.sixList, data[0] + data[2] + data[2]]);
+                props.sixList.push(data[0] + data[2] + data[2]);
             } else {
-                setSixList([...sixList, data[2] + data[2] + data[1]]);
-                sixList.push(data[2] + data[2] + data[1]);
-                setSixList([...sixList, data[2] + data[1] + data[2]]);
-                sixList.push(data[2] + data[1] + data[2]);
-                setSixList([...sixList, data[1] + data[2] + data[2]]);
-                sixList.push(data[1] + data[2] + data[2]);
+                props.setSixList([...props.sixList, data[2] + data[2] + data[1]]);
+                props.sixList.push(data[2] + data[2] + data[1]);
+                props.setSixList([...props.sixList, data[2] + data[1] + data[2]]);
+                props.sixList.push(data[2] + data[1] + data[2]);
+                props.setSixList([...props.sixList, data[1] + data[2] + data[2]]);
+                props.sixList.push(data[1] + data[2] + data[2]);
             }
         }
     };
@@ -155,7 +155,7 @@ const SixBackLottery = (props) => {
     return (
         <Col>
             <Row>
-                {sixList.map((item, b) => (
+                {props.sixList.map((item, b) => (
                     <Col sm={1} onClick={() => handleSixRemove(b)}>
                         <Button variant="danger" onClick={() => handleSixRemove(b)}>
                             {item}
@@ -172,7 +172,7 @@ const SixBackLottery = (props) => {
                     </Col>
                     <Col sm></Col>
                     <Col sm align="right">
-                        {Array.isArray(sixList) && sixList.length > 0 && (
+                        {Array.isArray(props.sixList) && props.sixList.length > 0 && (
                             <Row>
                                 <Button variant="light" onClick={() => handleSixRemoveAll()}>
                                     ลบเลขทั้งหมด
@@ -186,7 +186,7 @@ const SixBackLottery = (props) => {
                     <Col sm>
                         <Form.Label style={{ color: 'black' }}>ใส่เลข</Form.Label>
                         <Form.Group controlId="formNumber">
-                            <Form.Control type="text" ref={input} onChange={(e) => handleThreeChange(e)} placeholder="ระบุเลข" />
+                            <Form.Control type="text" ref={props.inputSix} onChange={(e) => handleThreeChange(e)} placeholder="ระบุเลข" />
                         </Form.Group>
                     </Col>
                     <Col sm>
@@ -197,7 +197,8 @@ const SixBackLottery = (props) => {
                                 id="numberTop"
                                 ref={inputTop}
                                 maxLength={3}
-                                placeholder="ระบุเลข" />
+                                placeholder="ระบุเลข"
+                                onKeyDown={(e) => handleKeyDown(e)} />
                         </Form.Group>
                     </Col>
                     <Col sm>

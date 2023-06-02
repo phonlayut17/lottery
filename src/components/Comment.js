@@ -21,6 +21,7 @@ const Comment = (props) => {
     const removeAll = () => {
         props.setShowList([]);
         props.clearPrice();
+        props.clearAll();
     };
 
     return (
