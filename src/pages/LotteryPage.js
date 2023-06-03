@@ -281,7 +281,7 @@ function LotteryPage() {
                     <Row>
                       <Col sm={8}>
                         <Row className="d-flex justify-content-between align-items-center row">
-                          <div className="mb-3 d-flex">
+                          <div className="mb-3">
                             <Button
                               variant={key === 'two-lottery' ? 'danger' : 'light'}
                               onClick={() => handleTabSelect('two-lottery')}
