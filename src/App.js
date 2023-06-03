@@ -13,7 +13,7 @@ function App() {
           <Switch>
             <Route exact path="/" render={() => <LoginPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
             <Protected
-              path="/lottery"
+              path="/main"
               component={LotteryPage}
               isLoggedIn={isLoggedIn}
             />

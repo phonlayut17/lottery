@@ -279,8 +279,8 @@ function LotteryPage() {
                 <Container>
                   <Col>
                     <Row>
-                      <Col sm={8}>
-                        <Row className="d-flex justify-content-between align-items-center row">
+                      <Col sm>
+                        <Row className="d-flex align-items-center row">
                           <div className="mb-3">
                             <Button
                               variant={key === 'two-lottery' ? 'danger' : 'light'}

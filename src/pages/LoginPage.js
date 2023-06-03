@@ -12,7 +12,7 @@ function LoginPage({ isLoggedIn, setIsLoggedIn }) {
 
         // Simulating a successful login
         setIsLoggedIn(true);
-        history.push('/lottery');
+        history.push('/main');
     };
 
     return (
