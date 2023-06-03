@@ -83,7 +83,7 @@ const NineteenDoorLottery = (props) => {
                                 toot: 0
                             }
                         ]);
-                        props.calculatePrice(parseInt(inputTop.current.value) + parseInt(inputBottom.current.value), parseInt(nineteenList.length));
+                        props.calculatePrice(parseInt(inputTop.current.value) + parseInt(inputBottom.current.value), parseInt(props.nineteenList.length));
                         inputTop.current.value = "";
                         inputBottom.current.value = "";
                         handleNineteenRemoveAll();
