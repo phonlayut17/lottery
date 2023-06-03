@@ -33,7 +33,7 @@ const TypeLottery = (props) => {
                             <option value="hanoi-privilege">ฮานอย พิเศษ 🇻🇳</option>
                             <option value="hanoi-normal">ฮานอย 🇻🇳</option>
                             <option value="hanoi-vip">ฮานอย VIP 🇻🇳 🅥🅘🅟</option>
-                            <option value="lao-normal">ลาว 🇱🇦</option>
+                            <option value="lao-normal">ลาวพัฒนา 🇱🇦</option>
                             <option value="lao-vip">ลาว VIP 🇱🇦 🅥🅘🅟</option>
                         </Form.Select>
                     </form>
@@ -45,7 +45,7 @@ const TypeLottery = (props) => {
                         {myLottery === "hanoi-normal" ? "ฮานอย" :
                             myLottery === "hanoi-privilege" ? "ฮานอย พิเศษ" :
                                 myLottery === "hanoi-vip" ? "ฮานอย VIP" :
-                                    myLottery === "lao-normal" ? "ลาว" :
+                                    myLottery === "lao-normal" ? "ลาวพัฒนา" :
                                         "ลาว VIP"}
                     </h4>
                     &nbsp;

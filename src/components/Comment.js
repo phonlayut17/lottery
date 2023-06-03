@@ -56,7 +56,7 @@ const Comment = (props) => {
                     {props.lotteryType === "hanoi-normal" ? "ฮานอย" :
                         props.lotteryType === "hanoi-privilege" ? "ฮานอย พิเศษ" :
                             props.lotteryType === "hanoi-vip" ? "ฮานอย VIP" :
-                                props.lotteryType === "lao-normal" ? "ลาว" :
+                                props.lotteryType === "lao-normal" ? "ลาวพัฒนา" :
                                     "ลาว VIP"}
                 </h3>
                 &nbsp;

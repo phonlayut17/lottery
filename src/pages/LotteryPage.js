@@ -49,9 +49,6 @@ function LotteryPage() {
         day: 'numeric',
         month: 'short',
         year: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric',
         hour12: false,
         timeZone: 'Asia/Bangkok',
       };
