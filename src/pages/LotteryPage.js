@@ -112,6 +112,25 @@ function LotteryPage() {
     setTotalPrice(0.00);
   };
 
+  const [isResized, setIsResized] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 1200) {
+        setIsResized(true);
+      } else {
+        setIsResized(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   const addToSummaryList = () => {
     setSummaryList([]);
     showList.forEach((showListData) => {
@@ -269,8 +288,8 @@ function LotteryPage() {
             />
           </Container>
         ) : (
-          <Row style={{ paddingTop: 100, paddingLeft: 16, paddingRight: 16 }}>
-            <Col sm={12}>
+          <Row className="row" style={{ paddingTop: 100, paddingLeft: 16, paddingRight: 16 }}>
+            <div class="col">
               <Container fluid style={{ borderRadius: '10px', paddingTop: 16, paddingLeft: 16, paddingRight: 16, paddingBottom: 16, backgroundColor: lotteryType === "hanoi-normal" ? "#E8988B" : lotteryType === "hanoi-privilege" ? "#D3E0EA" : lotteryType === "hanoi-vip" ? "#A1CAE2" : lotteryType === "lao-normal" ? "#E4A0F7" : "#FBEDBE" }}>
                 <TypeLottery setSummaryList={setSummaryList} setLotteryType={setLotteryType} lotteryType={lotteryType} />
               </Container>
@@ -279,7 +298,7 @@ function LotteryPage() {
                 <Container>
                   <Col>
                     <Row>
-                      <Col sm={12}>
+                      <Col sm>
                         <Row className="d-flex align-items-center row">
                           <div className="mb-3">
                             <Button
@@ -318,12 +337,12 @@ function LotteryPage() {
                               เลขวิ่ง
                             </Button>
                             {/* <Button
-                          variant={key === 'win-number' ? 'danger' : 'light'}
-                          onClick={() => handleTabSelect('win-number')}
-                          style={{ marginRight: '16px' }}
-                        >
-                          วินเลข
-                        </Button> */}
+                    variant={key === 'win-number' ? 'danger' : 'light'}
+                    onClick={() => handleTabSelect('win-number')}
+                    style={{ marginRight: '16px' }}
+                  >
+                    วินเลข
+                  </Button> */}
                             <img
                               align="right"
                               src={
@@ -340,23 +359,6 @@ function LotteryPage() {
                           </div>
                         </Row>
                       </Col>
-                      {/* <Col sm align="right">
-                        <img
-                          align="top"
-                          src={
-                            lotteryType === "hanoi-normal" ? vietnam :
-                              lotteryType === "hanoi-privilege" ? vietnamPrivilege :
-                                lotteryType === "hanoi-vip" ? vietnamVip :
-                                  lotteryType === "lao-normal" ? laos :
-                                    lotteryType === "lao-vip" ? laosVip : ""
-                          }
-                          alt=""
-                          width={60}
-                          height={60}
-                        />
-                        <br />
-                        <h5>{thaiTime}</h5>
-                      </Col> */}
                     </Row>
                     <Row align="right">
                       <h5>{thaiTime}</h5>
@@ -383,14 +385,16 @@ function LotteryPage() {
               <Container fluid style={{ paddingTop: 16, paddingLeft: 16, paddingRight: 16, paddingBottom: 16, backgroundColor: "#FFFFFF" }}>
                 <Comment comment={comment} setComment={setComment} lotteryType={lotteryType} showList={showList} setShowList={setShowList} price={price} setPrice={setPrice} clearPrice={clearPrice} clearAll={clearAll} />
               </Container>
-            </Col>
-            <Col sm={12}>
-              <Container fluid style={{ paddingLeft: 16, paddingRight: 16, paddingBottom: 16 }}>
-                <Container>
-                  <History />
+            </div>
+            {!isResized && (
+              <div class="col">
+                <Container fluid style={{ paddingLeft: 16, paddingRight: 16, paddingBottom: 16 }}>
+                  <Container>
+                    <History />
+                  </Container>
                 </Container>
-              </Container>
-            </Col>
+              </div>
+            )}
           </Row>
         )}
       </body >
