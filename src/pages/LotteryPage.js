@@ -273,7 +273,7 @@ function LotteryPage() {
           </Container>
         ) : (
           <Row style={{ paddingTop: 100, paddingLeft: 16, }}>
-            <Col sm={6}>
+            <Col sm={12}>
               <Container fluid style={{ borderRadius: '10px', paddingTop: 16, paddingLeft: 16, paddingRight: 16, paddingBottom: 16, backgroundColor: lotteryType === "hanoi-normal" ? "#E8988B" : lotteryType === "hanoi-privilege" ? "#D3E0EA" : lotteryType === "hanoi-vip" ? "#A1CAE2" : lotteryType === "lao-normal" ? "#E4A0F7" : "#FBEDBE" }}>
                 <TypeLottery setSummaryList={setSummaryList} setLotteryType={setLotteryType} lotteryType={lotteryType} />
               </Container>
@@ -283,8 +283,8 @@ function LotteryPage() {
                   <Col>
                     <Row>
                       <Col sm={8}>
-                        <Row className="d-flex justify-content-between align-items-center">
-                          <div className="mb-3">
+                        <Row className="d-flex justify-content-between align-items-center row">
+                          <div className="mb-3 d-flex">
                             <Button
                               variant={key === 'two-lottery' ? 'danger' : 'light'}
                               onClick={() => handleTabSelect('two-lottery')}
@@ -371,7 +371,7 @@ function LotteryPage() {
                 <Comment comment={comment} setComment={setComment} lotteryType={lotteryType} showList={showList} setShowList={setShowList} price={price} setPrice={setPrice} clearPrice={clearPrice} clearAll={clearAll} />
               </Container>
             </Col>
-            <Col sm={6}>
+            <Col sm={12}>
               <Container fluid style={{ paddingLeft: 16, paddingRight: 16, paddingBottom: 16 }}>
                 <Container>
                   <History />
