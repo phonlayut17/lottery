@@ -59,8 +59,8 @@ const TypeLottery = (props) => {
                                             props.lotteryType === "lao-vip" ? laosVip : ""
                         }
                         alt=""
-                        width={40}
-                        height={40}
+                        width={60}
+                        height={60}
                     />
                 </div>
             </Col>

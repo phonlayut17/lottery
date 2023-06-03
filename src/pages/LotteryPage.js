@@ -338,8 +338,8 @@ function LotteryPage() {
                                     lotteryType === "lao-vip" ? laosVip : ""
                           }
                           alt=""
-                          width={40}
-                          height={40}
+                          width={60}
+                          height={60}
                         />
                         <br />
                         <h5>{thaiTime}</h5>

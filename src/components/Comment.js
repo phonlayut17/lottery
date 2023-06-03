@@ -46,7 +46,7 @@ const Comment = (props) => {
                     {/* {
                         <h2 align="left">{props.lotteryType === "hanoi-normal" ? "🇻🇳" : props.lotteryType === "hanoi-privilege" ? "🇻🇳 🅟🅡🅘" : props.lotteryType === "hanoi-vip" ? "🇻🇳 🅥🅘🅟" : props.lotteryType === "lao-normal" ? "🇱🇦" : props.lotteryType === "lao-vip" ? "🇱🇦 🅥🅘🅟" : ""}</h2>
                     } */}
-                    {<img align="top" src={props.lotteryType === "hanoi-normal" ? vietnam : props.lotteryType === "hanoi-privilege" ? vietnamPrivilege : props.lotteryType === "hanoi-vip" ? vietnamVip : props.lotteryType === "lao-normal" ? laos : props.lotteryType === "lao-vip" ? laosVip : ""} alt="" width={40} height={40} />}
+                    {<img align="top" src={props.lotteryType === "hanoi-normal" ? vietnam : props.lotteryType === "hanoi-privilege" ? vietnamPrivilege : props.lotteryType === "hanoi-vip" ? vietnamVip : props.lotteryType === "lao-normal" ? laos : props.lotteryType === "lao-vip" ? laosVip : ""} alt="" width={60} height={60} />}
                 </Col>
             </Row>
             <br />
@@ -70,8 +70,8 @@ const Comment = (props) => {
                                         props.lotteryType === "lao-vip" ? laosVip : ""
                     }
                     alt=""
-                    width={40}
-                    height={40}
+                    width={60}
+                    height={60}
                 />
             </div>
             <br />
