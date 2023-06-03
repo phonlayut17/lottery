@@ -279,41 +279,41 @@ function LotteryPage() {
                 <Container>
                   <Col>
                     <Row>
-                      <Col sm>
+                      <Col sm={12}>
                         <Row className="d-flex align-items-center row">
                           <div className="mb-3">
                             <Button
                               variant={key === 'two-lottery' ? 'danger' : 'light'}
                               onClick={() => handleTabSelect('two-lottery')}
-                              style={{ marginRight: '16px' }}
+                              style={{ marginRight: '8px' }}
                             >
                               2 ตัว
                             </Button>
                             <Button
                               variant={key === 'three-lottery' ? 'danger' : 'light'}
                               onClick={() => handleTabSelect('three-lottery')}
-                              style={{ marginRight: '16px' }}
+                              style={{ marginRight: '8px' }}
                             >
                               3 ตัว
                             </Button>
                             <Button
                               variant={key === 'six-back' ? 'danger' : 'light'}
                               onClick={() => handleTabSelect('six-back')}
-                              style={{ marginRight: '16px' }}
+                              style={{ marginRight: '8px' }}
                             >
                               6 กลับ
                             </Button>
                             <Button
                               variant={key === 'nineteen-door' ? 'danger' : 'light'}
                               onClick={() => handleTabSelect('nineteen-door')}
-                              style={{ marginRight: '16px' }}
+                              style={{ marginRight: '8px' }}
                             >
                               19 ประตู
                             </Button>
                             <Button
                               variant={key === 'number-run' ? 'danger' : 'light'}
                               onClick={() => handleTabSelect('number-run')}
-                              style={{ marginRight: '16px' }}
+                              style={{ marginRight: '8px' }}
                             >
                               เลขวิ่ง
                             </Button>
@@ -324,10 +324,23 @@ function LotteryPage() {
                         >
                           วินเลข
                         </Button> */}
+                            <img
+                              align="right"
+                              src={
+                                lotteryType === "hanoi-normal" ? vietnam :
+                                  lotteryType === "hanoi-privilege" ? vietnamPrivilege :
+                                    lotteryType === "hanoi-vip" ? vietnamVip :
+                                      lotteryType === "lao-normal" ? laos :
+                                        lotteryType === "lao-vip" ? laosVip : ""
+                              }
+                              alt=""
+                              width={60}
+                              height={60}
+                            />
                           </div>
                         </Row>
                       </Col>
-                      <Col sm align="right">
+                      {/* <Col sm align="right">
                         <img
                           align="top"
                           src={
@@ -343,7 +356,10 @@ function LotteryPage() {
                         />
                         <br />
                         <h5>{thaiTime}</h5>
-                      </Col>
+                      </Col> */}
+                    </Row>
+                    <Row align="right">
+                      <h5>{thaiTime}</h5>
                     </Row>
                     <br />
                     <Container fluid style={{ paddingTop: 16, paddingBottom: 16 }}>
