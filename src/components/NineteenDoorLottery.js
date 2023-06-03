@@ -63,8 +63,8 @@ const NineteenDoorLottery = (props) => {
 
     const addToList = e => {
         e.preventDefault();
-        if (nineteenList !== null && nineteenList.length !== 0) {
-            if (nineteenList !== null && nineteenList.length !== 0) {
+        if (props.nineteenList !== null && props.nineteenList.length !== 0) {
+            if (props.nineteenList !== null && props.nineteenList.length !== 0) {
                 if (inputTop.current.value.trim() !== "" || inputBottom.current.value.trim() !== "") {
                     if (inputTop.current.value !== 0 || inputBottom.current.value !== 0) {
                         if (inputTop.current.value.trim() === "") {
@@ -77,7 +77,7 @@ const NineteenDoorLottery = (props) => {
                             ...props.showList,
                             {
                                 id: "4",
-                                number: nineteenList,
+                                number: props.nineteenList,
                                 top: inputTop.current.value,
                                 bottom: inputBottom.current.value,
                                 toot: 0
@@ -167,7 +167,7 @@ const NineteenDoorLottery = (props) => {
                 <Row>
                     <Col sm>
                         <Form.Label style={{ color: 'black' }}>ใส่เลข</Form.Label>
-                        <Form.Control type="text" ref={props.inputNineteen} onChange={(e) => handleNineteenChange(e)} placeholder="ระบุเลข" maxLength={2} autoFocus/>
+                        <Form.Control type="text" ref={props.inputNineteen} onChange={(e) => handleNineteenChange(e)} placeholder="ระบุเลข" maxLength={2} autoFocus />
                     </Col>
                     <Col sm>
                         <Form.Label style={{ color: 'black' }}>บน</Form.Label>

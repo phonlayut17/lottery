@@ -272,7 +272,7 @@ function LotteryPage() {
             />
           </Container>
         ) : (
-          <Row style={{ paddingTop: 100, paddingLeft: 16, }}>
+          <Row style={{ paddingTop: 100, paddingLeft: 16, paddingRight: 16 }}>
             <Col sm={12}>
               <Container fluid style={{ borderRadius: '10px', paddingTop: 16, paddingLeft: 16, paddingRight: 16, paddingBottom: 16, backgroundColor: lotteryType === "hanoi-normal" ? "#E8988B" : lotteryType === "hanoi-privilege" ? "#D3E0EA" : lotteryType === "hanoi-vip" ? "#A1CAE2" : lotteryType === "lao-normal" ? "#E4A0F7" : "#FBEDBE" }}>
                 <TypeLottery setSummaryList={setSummaryList} setLotteryType={setLotteryType} lotteryType={lotteryType} />
