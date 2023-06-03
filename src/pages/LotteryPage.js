@@ -36,7 +36,7 @@ function LotteryPage() {
   const [sixList, setSixList] = useState([]);
   const [nineteenList, setNineteenList] = useState([]);
   const [oneList, setOneList] = useState([]);
-  const [thaiTime, setThaiTime] = useState('');
+  const [thaiTime, setUKTime] = useState('');
   const inputTwo = useRef();
   const inputThree = useRef();
   const inputSix = useRef();
@@ -50,10 +50,10 @@ function LotteryPage() {
         month: 'short',
         year: 'numeric',
         hour12: false,
-        timeZone: 'Asia/Bangkok',
+        timeZone: 'Europe/London',
       };
-      const thTime = new Intl.DateTimeFormat('th-TH', options).format(new Date());
-      setThaiTime(thTime);
+      const ukTime = new Intl.DateTimeFormat('en-GB', options).format(new Date());
+      setUKTime(ukTime);
     }, 1000);
 
     return () => {
