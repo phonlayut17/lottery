@@ -116,7 +116,7 @@ function LotteryPage() {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 1200) {
+      if (window.innerWidth < 1000) {
         setIsResized(true);
       } else {
         setIsResized(false);
@@ -129,6 +129,7 @@ function LotteryPage() {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
+    // console.log(window.innerWidth);
   }, []);
 
   const addToSummaryList = () => {
