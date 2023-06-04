@@ -116,7 +116,7 @@ function LotteryPage() {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 1000) {
+      if (window.innerWidth < 1200) {
         setIsResized(true);
       } else {
         setIsResized(false);
@@ -295,7 +295,7 @@ function LotteryPage() {
                 <TypeLottery setSummaryList={setSummaryList} setLotteryType={setLotteryType} lotteryType={lotteryType} />
               </Container>
               <br />
-              <Container fluid style={{ borderRadius: '10px', paddingTop: 16, paddingLeft: 16, paddingRight: 16, paddingBottom: 16, backgroundColor: lotteryType === "hanoi-normal" ? "#E8988B" : lotteryType === "hanoi-privilege" ? "#D3E0EA" : lotteryType === "hanoi-vip" ? "#A1CAE2" : lotteryType === "lao-normal" ? "#E4A0F7" : "#FBEDBE" }}>
+              <Container fluid style={{ borderRadius: '10px', paddingTop: 16, paddingLeft: 16, paddingRight: 16, backgroundColor: lotteryType === "hanoi-normal" ? "#E8988B" : lotteryType === "hanoi-privilege" ? "#D3E0EA" : lotteryType === "hanoi-vip" ? "#A1CAE2" : lotteryType === "lao-normal" ? "#E4A0F7" : "#FBEDBE" }}>
                 <Container>
                   <Col>
                     <Row>
@@ -365,7 +365,7 @@ function LotteryPage() {
                       <h5>{thaiTime}</h5>
                     </Row>
                     <br />
-                    <Container fluid style={{ paddingTop: 16, paddingBottom: 16 }}>
+                    <Container fluid>
                       <div className="">
                         {key === 'two-lottery' && <TwoLottery setSummaryList={setSummaryList} showList={showList} setShowList={setShowList} calculatePrice={calculatePrice} twoList={twoList} setTwoList={setTwoList} inputTwo={inputTwo} />}
                         {key === 'three-lottery' && <ThreeLottery setSummaryList={setSummaryList} showList={showList} setShowList={setShowList} calculatePrice={calculatePrice} threeList={threeList} setThreeList={setThreeList} inputThree={inputThree} />}
@@ -375,10 +375,7 @@ function LotteryPage() {
                         {/* {key === 'win-number' && <WinNummberLottery setSummaryList={setSummaryList} showList={showList} setShowList={setShowList} calculatePrice={calculatePrice} />} */}
                       </div>
                     </Container>
-                    <br />
-                    <Container>
-                      <SummaryLottery summaryList={summaryList} setSummaryList={setSummaryList} lotteryType={lotteryType} setTotal={setTotal} showList={showList} setShowList={setShowList} addToSummaryList={addToSummaryList} minusPrice={minusPrice} />
-                    </Container>
+                    <SummaryLottery summaryList={summaryList} setSummaryList={setSummaryList} lotteryType={lotteryType} setTotal={setTotal} showList={showList} setShowList={setShowList} addToSummaryList={addToSummaryList} minusPrice={minusPrice} />
                     <br />
                   </Col>
                 </Container>
