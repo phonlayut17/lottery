@@ -194,8 +194,9 @@ const TwoLottery = (props) => {
                             <Form.Label style={{ color: 'black' }}>ใส่เลข</Form.Label>
                             <Form.Group controlId="formNumber">
                                 <Form.Control
-                                    type="text"
-                                    pattern="[0-9]"
+                                    type="number"
+                                    pattern="[0-9]*"
+                                    min={0}
                                     ref={props.inputTwo}
                                     onChange={(e) => handleTwoChange(e)}
                                     placeholder="ระบุเลข"
@@ -218,10 +219,10 @@ const TwoLottery = (props) => {
                             <Form.Label style={{ color: 'black' }}>บน</Form.Label>
                             <Form.Group controlId="formNumberTop">
                                 <Form.Control name="numberTop"
-                                    type="text"
+                                    type="number"
                                     id="numberTop"
                                     ref={inputTop}
-                                    maxLength={3}
+                                    maxLength={4}
                                     min={0}
                                     placeholder="ระบุเลข" />
                             </Form.Group>
@@ -230,8 +231,8 @@ const TwoLottery = (props) => {
                             <Form.Label style={{ color: 'black' }}>ล่าง</Form.Label>
                             <Form.Group controlId="formNumberBottom">
                                 <Form.Control name="numberBottom"
-                                    type="text"
-                                    maxLength={3}
+                                    type="number"
+                                    maxLength={4}
                                     ref={inputBottom}
                                     id="numberBottom"
                                     min={0}

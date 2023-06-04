@@ -238,7 +238,7 @@ const ThreeLottery = (props) => {
                     <Col sm>
                         <Form.Label style={{ color: 'black' }}>ใส่เลข</Form.Label>
                         <Form.Group controlId="formNumber">
-                            <Form.Control type="text" ref={props.inputThree} onChange={(e) => handleThreeChange(e)} placeholder="ระบุเลข" onKeyDown={handleSkipFocus} autoFocus/>
+                            <Form.Control type="number" ref={props.inputThree} min={0} onChange={(e) => handleThreeChange(e)} placeholder="ระบุเลข" onKeyDown={handleSkipFocus} autoFocus />
                         </Form.Group>
                     </Col>
                     <Col sm>
@@ -255,10 +255,10 @@ const ThreeLottery = (props) => {
                         <Form.Label style={{ color: 'black' }}>บน</Form.Label>
                         <Form.Group controlId="formNumberTop">
                             <Form.Control name="numberTop"
-                                type="text"
+                                type="number"
                                 id="numberTop"
                                 ref={inputTop}
-                                maxLength={3} min={0}
+                                maxLength={4} min={0}
                                 placeholder="ระบุเลข" />
                         </Form.Group>
                     </Col>
@@ -266,8 +266,8 @@ const ThreeLottery = (props) => {
                         <Form.Label style={{ color: 'black' }}>โต๊ด</Form.Label>
                         <Form.Group controlId="formNumberDouble">
                             <Form.Control name="numberDouble"
-                                type="text"
-                                maxLength={3} min={0}
+                                type="number"
+                                maxLength={4} min={0}
                                 ref={inputDouble}
                                 id="numberDouble"
                                 placeholder="ระบุเลข"

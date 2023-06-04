@@ -122,7 +122,7 @@ const SixBackLottery = (props) => {
             props.setSixList([...props.sixList, data[1] + data[2] + data[0]]);
             props.sixList.push(data[1] + data[2] + data[0]);
             props.setSixList([...props.sixList, data[2] + data[1] + data[0]]);
-            props.sixList.push(data[2] + data[2] + data[0]);
+            props.sixList.push(data[2] + data[1] + data[0]);
             props.setSixList([...props.sixList, data[2] + data[0] + data[1]]);
             props.sixList.push(data[2] + data[0] + data[1]);
         } else if (type === 2) {
@@ -186,17 +186,18 @@ const SixBackLottery = (props) => {
                     <Col sm>
                         <Form.Label style={{ color: 'black' }}>ใส่เลข</Form.Label>
                         <Form.Group controlId="formNumber">
-                            <Form.Control type="text" ref={props.inputSix} onChange={(e) => handleThreeChange(e)} placeholder="ระบุเลข" autoFocus/>
+                            <Form.Control type="number" ref={props.inputSix} min={0} onChange={(e) => handleThreeChange(e)} placeholder="ระบุเลข" autoFocus />
                         </Form.Group>
                     </Col>
                     <Col sm>
                         <Form.Label style={{ color: 'black' }}>บน</Form.Label>
                         <Form.Group controlId="formNumberTop">
                             <Form.Control name="numberTop"
-                                type="text"
+                                type="number"
                                 id="numberTop"
+                                min={0}
                                 ref={inputTop}
-                                maxLength={3}
+                                maxLength={4}
                                 placeholder="ระบุเลข"
                                 onKeyDown={(e) => handleKeyDown(e)} />
                         </Form.Group>
