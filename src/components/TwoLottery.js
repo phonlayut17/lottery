@@ -194,7 +194,7 @@ const TwoLottery = (props) => {
                             <Form.Label style={{ color: 'black' }}>ใส่เลข</Form.Label>
                             <Form.Group controlId="formNumber">
                                 <Form.Control
-                                    type="number"
+                                    type="text"
                                     pattern="[0-9]*"
                                     min={0}
                                     ref={props.inputTwo}
