@@ -67,7 +67,6 @@ const Comment = (props) => {
                         {/* {<img align="top" src={props.lotteryType === "hanoi-normal" ? vietnam : props.lotteryType === "hanoi-privilege" ? vietnamPrivilege : props.lotteryType === "hanoi-vip" ? vietnamVip : props.lotteryType === "lao-normal" ? laos : props.lotteryType === "lao-vip" ? laosVip : ""} alt="" width={60} height={60} />} */}
                     </Col>
                 </Row>
-                <br />
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <h3 align="center">
                         [หวยต่างประเทศ] - &nbsp;
@@ -92,12 +91,7 @@ const Comment = (props) => {
                         height={60}
                     />
                 </div>
-                <br />
-                <Container style={{ backgroundColor: '#ffffff' }}>
-                    <Row>
-                        <h2 align="center"><b>รวม {props.price} บาท</b></h2>
-                    </Row>
-                </Container>
+                <h2 align="center"><b>รวม {props.price} บาท</b></h2>
                 <br />
                 <Row className="justify-content-center">
                     <Col xs="auto">
