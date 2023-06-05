@@ -32,13 +32,12 @@ const TwoLottery = (props) => {
         if (e.target.value.length === 2) {
             e.preventDefault();
             props.setTwoList([...props.twoList, props.inputTwo.current.value]);
+            console.log(props.inputTwo.current.value);
             props.inputTwo.current.value = "";
         } else if (e.target.value.length > 2) {
-            const inputValue = e.target.value;
-            const regex = /[.\-\/+=,x\s]/g;
-            const substrings = inputValue.split(regex).filter(Boolean);
-            const filteredList = substrings.filter((item) => /^\d{2}$/.test(item) && !regex.test(item));
-            props.setTwoList((prevList) => [...prevList, ...filteredList]);
+            const dataArray = e.target.value.match(/\b\d{2}(?:\b|[+*/-])/g);
+            console.log('data -> ' + dataArray);
+            props.setTwoList((prevList) => [...prevList, ...dataArray]);
             props.inputTwo.current.value = "";
         }
     };

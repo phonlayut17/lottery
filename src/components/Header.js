@@ -6,6 +6,12 @@ import { useState, useEffect } from 'react';
 
 function Header(props) {
     const history = useHistory();
+    const handleSearch = () => {
+        history.push('/search');
+    };
+    const handleHome = () => {
+        history.push('/main');
+    };
     const handleLogout = () => {
         history.push('/');
     };
@@ -31,12 +37,18 @@ function Header(props) {
         <Navbar style={{ backgroundColor: '#D50000', color: '#FFFFFF' }}>
             <Container>
                 <Navbar.Brand href="">
-                    <h5 className="text-center" style={{ color: '#FFFFFF' }}>หวยออนไลน์ - {thaiTime}</h5>
+                    <h5 className="text-center" style={{ color: '#FFFFFF' }} onClick={handleHome} >หวยออนไลน์ - {thaiTime}</h5>
                 </Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
                     <div className="d-flex align-items-center">
                         <h6 className="mr-3">สวัสดีคุณ - {props.user}</h6> &nbsp;
+                        <Navbar.Text>
+                            <Button variant="light" onClick={handleSearch}>
+                                🔍 ค้นหา
+                            </Button>
+                        </Navbar.Text>
+                        &nbsp;
                         <Navbar.Text>
                             <Button variant="light" onClick={handleLogout}>
                                 🚪 ออกจากระบบ

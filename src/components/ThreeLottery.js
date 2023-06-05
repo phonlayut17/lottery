@@ -34,11 +34,15 @@ const ThreeLottery = (props) => {
             props.setThreeList([...props.threeList, props.inputThree.current.value]);
             props.inputThree.current.value = "";
         } else if (e.target.value.length > 3) {
-            const inputValue = e.target.value;
-            const regex = /[.\-\/+=,x\s]/g;
-            const substrings = inputValue.split(regex).filter(Boolean);
-            const filteredList = substrings.filter((item) => /^\d{3}$/.test(item) && !regex.test(item));
-            props.setThreeList((prevList) => [...prevList, ...filteredList]);
+            const numbers = e.target.value.replace(/\D/g, ' ').split(' ');
+            const result = [];
+            for (let i = 0; i < numbers.length; i++) {
+                const number = numbers[i];
+                if (number.length === 3) {
+                    result.push(number);
+                }
+            }
+            props.setThreeList((prevList) => [...prevList, ...result]);
             props.inputThree.current.value = "";
         }
     };

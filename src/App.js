@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import LoginPage from '../src/pages/LoginPage';
 import LotteryPage from '../src/pages/LotteryPage';
+import SearchPage from '../src/pages/SearchPage';
 import Protected from '../src/components/Protected';
 
 function App() {
@@ -22,6 +23,11 @@ function App() {
               setUser={setUser}
               userType={userType}
               setUserType={setUserType}
+            />
+            <Protected
+              path="/search"
+              component={() => <SearchPage user={user} userType={userType} />}
+              isLoggedIn={isLoggedIn}
             />
           </Switch>
         </Router>
