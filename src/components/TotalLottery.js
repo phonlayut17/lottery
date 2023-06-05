@@ -6,12 +6,18 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { IoTrashBinOutline } from "react-icons/io5";
 
-const TotalLottery = ({ summaryList, setSummaryList, lotteryType, setTotal, setShowList, comment }) => {
+const TotalLottery = ({ summaryList, setSummaryList, lotteryType, setTotal, setShowList, comment, clearPrice, totalPrice, setTotalPrice }) => {
 
-    const handleServiceRemove = (index) => {
+    const handleServiceRemove = (index, price) => {
         const list = [...summaryList];
         list.splice(index, 1);
         setSummaryList(list);
+        minusPrice(price);
+    };
+
+    const minusPrice = (data) => {
+        const newTotalPrice = totalPrice - parseFloat(data);
+        setTotalPrice(newTotalPrice);
     };
 
     const showTotal = () => {
@@ -22,6 +28,7 @@ const TotalLottery = ({ summaryList, setSummaryList, lotteryType, setTotal, setS
         setSummaryList([]);
         setShowList([]);
         setTotal(false);
+        clearPrice();
     };
 
     const print = () => {
@@ -54,9 +61,7 @@ const TotalLottery = ({ summaryList, setSummaryList, lotteryType, setTotal, setS
             <br />
             <h2 align="center">ประเภทหวย - {lotteryType === "hanoi-normal" ? "ฮานอย 🇻🇳" : lotteryType === "hanoi-privilege" ? "ฮานอย พิเศษ 🇻🇳" : lotteryType === "hanoi-vip" ? "ฮานอย VIP 🇻🇳 🅥🅘🅟" : "ลาว VIP 🇱🇦 🅥🅘🅟"}</h2>
             <br />
-            <h4 style={{ textAlign: "center" }}>
-                หมายเหตุ {comment === "" ? "-" : comment}
-            </h4>
+            <h2 align="center">กรุณายืนยันรายการ</h2>
             <br />
             <table class="table table-striped">
                 <thead class="text-center">
@@ -81,12 +86,22 @@ const TotalLottery = ({ summaryList, setSummaryList, lotteryType, setTotal, setS
                                 {/* <Button variant="danger" onClick={() => handleServiceRemove(index)}>
                                     ❌ ลบบิล
                                 </Button> */}
-                                <IoTrashBinOutline size={35} style={{ color: '#D50000' }} onClick={() => handleServiceRemove(index)} />
+                                <IoTrashBinOutline size={35} style={{ color: '#D50000' }} onClick={() => handleServiceRemove(index, item.amount)} />
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
+            <br />
+            <h4 style={{ textAlign: "center" }}>
+                หมายเหตุ {comment === "" ? " - " : " - " + comment}
+            </h4>
+            <br />
+            <h2 align="center"><b>ยอดเดิมพัน {totalPrice} บาท</b></h2>
+            <br />
+            <h2 align="center"><b>ส่วนลด 0.00 บาท</b></h2>
+            <br />
+            <h2 align="center"><b>รวม {totalPrice} บาท</b></h2>
             <br />
             <Row className="justify-content-center">
                 <Col xs="auto">

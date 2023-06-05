@@ -166,7 +166,7 @@ const ThreeLottery = (props) => {
             props.setThreeList([...props.threeList, data[1] + data[2] + data[0]]);
             props.threeList.push(data[1] + data[2] + data[0]);
             props.setThreeList([...props.threeList, data[2] + data[1] + data[0]]);
-            props.threeList.push(data[2] + data[2] + data[0]);
+            props.threeList.push(data[2] + data[1] + data[0]);
             props.setThreeList([...props.threeList, data[2] + data[0] + data[1]]);
             props.threeList.push(data[2] + data[0] + data[1]);
         } else if (type === 2) {

@@ -22,7 +22,7 @@ import vietnam from '../images/vietnam.png';
 import vietnamPrivilege from '../images/vietnam-privilege.png';
 import vietnamVip from '../images/vietnam-vip.png';
 
-function LotteryPage() {
+function LotteryPage(props) {
   const [key, setKey] = useState('two-lottery');
   const [showList, setShowList] = useState([]);
   const [summaryList, setSummaryList] = useState([]);
@@ -272,7 +272,7 @@ function LotteryPage() {
   return (
     <>
       <header style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100 }}>
-        <Header />
+        <Header user={props.user} userType={props.userType} />
       </header>
       <body>
         {total === true ? (
@@ -286,6 +286,9 @@ function LotteryPage() {
               setShowList={setShowList}
               comment={comment}
               setComment={setComment}
+              clearPrice={clearPrice}
+              totalPrice={totalPrice}
+              setTotalPrice={setTotalPrice}
             />
           </Container>
         ) : (
@@ -300,6 +303,7 @@ function LotteryPage() {
                   <Col>
                     <Row>
                       <Col sm>
+                        <h3>{props.user}</h3>
                         <Row className="d-flex align-items-center row">
                           <div className="mb-3">
                             <Button
@@ -381,7 +385,7 @@ function LotteryPage() {
                 </Container>
               </Container>
               <Container fluid style={{ paddingTop: 16, paddingLeft: 16, paddingRight: 16, paddingBottom: 16, backgroundColor: "#FFFFFF" }}>
-                <Comment comment={comment} setComment={setComment} lotteryType={lotteryType} showList={showList} setShowList={setShowList} price={price} setPrice={setPrice} clearPrice={clearPrice} clearAll={clearAll} />
+                <Comment comment={comment} setComment={setComment} lotteryType={lotteryType} showList={showList} setShowList={setShowList} price={price} setPrice={setPrice} setTotal={setTotal} summaryList={summaryList} clearPrice={clearPrice} clearAll={clearAll} addToSummaryList={addToSummaryList}/>
               </Container>
             </div>
             {!isResized && (

@@ -3,10 +3,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import axios from 'axios';
 
-function Login({ onLogin }) {
-    const [password, setPassword] = useState("password888");
-    const [email, setEmail] = useState("admin888");
+function Login(props) {
+    const [password, setPassword] = useState("godofwebsite777");
+    const [email, setEmail] = useState("admin777");
     const [passwordError, setpasswordError] = useState("");
     const [emailError, setemailError] = useState("");
 
@@ -38,11 +39,26 @@ function Login({ onLogin }) {
         return formIsValid;
     };
 
-    const loginSubmit = (e) => {
+    // const loginSubmit = (e) => {
+    //     e.preventDefault();
+    //     if (handleValidation()) {
+    //         // Call the onLogin function passed from the LoginPage
+    //         onLogin();
+    //     }
+    // };
+
+    const loginSubmit = async (e) => {
         e.preventDefault();
         if (handleValidation()) {
-            // Call the onLogin function passed from the LoginPage
-            onLogin();
+            try {
+                const response = await axios.post('http://localhost:8081/login', { email, password });
+                const data = response.data;
+                props.setUser(data.user);
+                props.setUserType(data.user_type);
+                props.onLogin();
+            } catch (error) {
+                console.log(error);
+            }
         }
     };
 

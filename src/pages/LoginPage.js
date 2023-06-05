@@ -3,16 +3,14 @@ import Container from 'react-bootstrap/Container';
 import Login from '../components/Login';
 import { useHistory } from 'react-router-dom';
 
-function LoginPage({ isLoggedIn, setIsLoggedIn }) {
+function LoginPage({ setIsLoggedIn, user, setUser, userType, setUserType }) {
     const history = useHistory();
 
     const handleLogin = () => {
-        // Perform login logic here
-        // For example, check username and password against a database or API
-
-        // Simulating a successful login
         setIsLoggedIn(true);
         history.push('/main');
+        setUser(user);
+        setUserType(userType);
     };
 
     return (
@@ -31,7 +29,7 @@ function LoginPage({ isLoggedIn, setIsLoggedIn }) {
 
             }}
         >
-            <Login onLogin={handleLogin} />
+            <Login onLogin={handleLogin} user={user} setUser={setUser} userType={userType} setUserType={setUserType} />
         </Container>
     );
 }

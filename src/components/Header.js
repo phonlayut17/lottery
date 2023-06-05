@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import { useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-function Header() {
+function Header(props) {
     const history = useHistory();
     const handleLogout = () => {
         history.push('/');
@@ -30,14 +30,19 @@ function Header() {
     return (
         <Navbar style={{ backgroundColor: '#D50000', color: '#FFFFFF' }}>
             <Container>
-                <Navbar.Brand href=""><h5 className="text-center" style={{ color: '#FFFFFF' }}>หวยออนไลน์ - {thaiTime}</h5></Navbar.Brand>
+                <Navbar.Brand href="">
+                    <h5 className="text-center" style={{ color: '#FFFFFF' }}>หวยออนไลน์ - {thaiTime}</h5>
+                </Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text>
-                        <Button variant="light" onClick={() => handleLogout()}>
-                            🚪 ออกจากระบบ
-                        </Button>
-                    </Navbar.Text>
+                    <div className="d-flex align-items-center">
+                        <h6 className="mr-3">สวัสดีคุณ - {props.user}</h6> &nbsp;
+                        <Navbar.Text>
+                            <Button variant="light" onClick={handleLogout}>
+                                🚪 ออกจากระบบ
+                            </Button>
+                        </Navbar.Text>
+                    </div>
                 </Navbar.Collapse>
             </Container>
         </Navbar>

@@ -2,16 +2,28 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import React, { useRef, useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form';
-import Container from 'react-bootstrap/Container';
 import laos from '../images/laos.png';
 import laosVip from '../images/laos-vip.png';
 import vietnam from '../images/vietnam.png';
 import vietnamPrivilege from '../images/vietnam-privilege.png';
 import vietnamVip from '../images/vietnam-vip.png';
 import Button from 'react-bootstrap/Button';
+import { Modal } from "react-bootstrap";
 
 const Comment = (props) => {
     const [thaiTime, setUKTime] = useState('');
+
+    const [showModal, setShowModal] = useState(false);
+
+    const [showError, setShowError] = useState('');
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
+
+    const handleShowModal = () => {
+        setShowModal(true);
+    };
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -41,6 +53,18 @@ const Comment = (props) => {
         props.setShowList([]);
         props.clearPrice();
         props.clearAll();
+    };
+
+    const showTotal = () => {
+        console.log(props.summaryList);
+        if (props.showList === null || props.showList.length === 0) {
+            setShowError(...showError, 'กรุณากรอกหวย');
+            handleShowModal();
+        } else {
+            props.addToSummaryList();
+            props.setComment(inputComment.current.value);
+            props.setTotal(true);
+        }
     };
 
     return (
@@ -100,12 +124,26 @@ const Comment = (props) => {
                         </Button>
                     </Col>
                     <Col xs="auto">
-                        <Button variant="primary">
+                        <Button variant="primary" onClick={() => showTotal()}>
                             บันทึก
                         </Button>
                     </Col>
                 </Row>
             </b>
+            <Modal show={showModal} onHide={handleCloseModal} centered>
+                {/* <Modal.Header closeButton>
+                    <Modal.Title>Modal Title</Modal.Title>
+                </Modal.Header> */}
+                <Modal.Body>
+                    {/* Modal content */}
+                    <p>{showError}</p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="danger" onClick={handleCloseModal}>
+                        ปิด
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </Col>
     );
 }
