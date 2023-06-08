@@ -44,11 +44,6 @@ function SearchPage(props) {
         console.log('To:', toDate);
     };
 
-    const formatDate = (date) => {
-        const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-        return date.toLocaleDateString('en-US', options);
-    };
-
     const getCurrentDate = () => {
         const currentDate = new Date();
         const year = currentDate.getFullYear();
