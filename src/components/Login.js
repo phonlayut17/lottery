@@ -3,13 +3,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-// import axios from 'axios';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 function Login(props) {
     const [password, setPassword] = useState("godofwebsite777");
     const [email, setEmail] = useState("admin777");
     const [passwordError, setpasswordError] = useState("");
     const [emailError, setemailError] = useState("");
+    const history = useHistory();
 
     const handleValidation = () => {
         let formIsValid = true;
@@ -39,28 +41,29 @@ function Login(props) {
         return formIsValid;
     };
 
-    const loginSubmit = (e) => {
-        e.preventDefault();
-        if (handleValidation()) {
-            // Call the onLogin function passed from the LoginPage
-            props.onLogin();
-        }
-    };
-
-    // const loginSubmit = async (e) => {
+    // const loginSubmit = (e) => {
     //     e.preventDefault();
     //     if (handleValidation()) {
-    //         try {
-    //             const response = await axios.post('http://localhost:8081/login', { email, password });
-    //             const data = response.data;
-    //             props.setUser(data.user);
-    //             props.setUserType(data.user_type);
-    //             props.onLogin();
-    //         } catch (error) {
-    //             console.log(error);
-    //         }
+    //         // Call the onLogin function passed from the LoginPage
+    //         props.onLogin();
     //     }
     // };
+
+    const loginSubmit = async (e) => {
+        e.preventDefault();
+        if (handleValidation()) {
+            try {
+                const response = await axios.post('https://afternoon-sea-27548.herokuapp.com/login', { email, password });
+                const data = response.data;
+                props.setUser(data.user);
+                props.setUserType(data.user_type);
+                history.push('/main', { user: data.user, userType: data.user_type });
+                props.onLogin();
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    };
 
     return (
         <Card style={{ width: '18rem' }}>

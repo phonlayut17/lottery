@@ -1,40 +1,45 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import LoginPage from '../src/pages/LoginPage';
-import LotteryPage from '../src/pages/LotteryPage';
-import SearchPage from '../src/pages/SearchPage';
-import Protected from '../src/components/Protected';
+import LoginPage from './pages/LoginPage';
+import LotteryPage from './pages/LotteryPage';
+import SearchPage from './pages/SearchPage';
+import Protected from './components/Protected';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState("ทดสอบ");
+  const [user, setUser] = useState("godFather");
   const [userType, setUserType] = useState("T");
+
   return (
-    <>
-      <body>
-        <Router>
-          <Switch>
-            <Route exact path="/" render={() => <LoginPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} user={user} setUser={setUser} userType={userType} setUserType={setUserType} />} />
-            <Protected
-              path="/main"
-              component={() => <LotteryPage user={user} userType={userType} />}
-              isLoggedIn={isLoggedIn}
-              user={user}
-              setUser={setUser}
-              userType={userType}
-              setUserType={setUserType}
-            />
-            <Protected
-              path="/search"
-              component={() => <SearchPage user={user} userType={userType} />}
-              isLoggedIn={isLoggedIn}
-            />
-          </Switch>
-        </Router>
-      </body>
-    </>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <LoginPage
+            isLoggedIn={isLoggedIn}
+            setIsLoggedIn={setIsLoggedIn}
+            user={user}
+            setUser={setUser}
+            userType={userType}
+            setUserType={setUserType}
+          />
+        </Route>
+        <Protected
+          path="/main"
+          isLoggedIn={isLoggedIn}
+          setUser={setUser}
+          setUserType={setUserType}
+          component={LotteryPage}
+        />
+        <Protected
+          path="/search"
+          isLoggedIn={isLoggedIn}
+          user={user}
+          userType={userType}
+          component={SearchPage}
+        />
+      </Switch>
+    </Router>
   );
 }
 
 export default App;
-

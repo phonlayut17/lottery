@@ -7,10 +7,10 @@ import { useState, useEffect } from 'react';
 function Header(props) {
     const history = useHistory();
     const handleSearch = () => {
-        history.push('/search');
+        history.push('/search', { user: props.user, userType: props.userType });
     };
     const handleHome = () => {
-        history.push('/main');
+        history.push('/main', { user: props.user, userType: props.userType });
     };
     const handleLogout = () => {
         history.push('/');
@@ -43,11 +43,15 @@ function Header(props) {
                 <Navbar.Collapse className="justify-content-end">
                     <div className="d-flex align-items-center">
                         <h6 className="mr-3">สวัสดีคุณ - {props.user}</h6> &nbsp;
-                        <Navbar.Text>
-                            <Button variant="light" onClick={handleSearch}>
-                                🔍 ค้นหา
-                            </Button>
-                        </Navbar.Text>
+                        {props.userType === "ad" ? (
+                            <Navbar.Text>
+                                <Button variant="light" onClick={handleSearch}>
+                                    🔍 ค้นหา
+                                </Button>
+                            </Navbar.Text>
+                        ) : (
+                            <p></p>
+                        )}
                         &nbsp;
                         <Navbar.Text>
                             <Button variant="light" onClick={handleLogout}>

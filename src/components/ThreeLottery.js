@@ -40,6 +40,7 @@ const ThreeLottery = (props) => {
                 const number = numbers[i];
                 if (number.length === 3) {
                     result.push(number);
+                    console.log(number);
                 }
             }
             props.setThreeList((prevList) => [...prevList, ...result]);

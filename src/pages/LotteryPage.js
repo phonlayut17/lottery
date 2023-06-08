@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Header from "../../src/components/Header";
+import { useLocation } from 'react-router-dom';
 // import Footer from "../../src/components/Footer";
 import TwoLottery from "../../src/components/TwoLottery";
 import ThreeLottery from "../../src/components/ThreeLottery";
@@ -21,8 +22,9 @@ import laosVip from '../images/laos-vip.png';
 import vietnam from '../images/vietnam.png';
 import vietnamPrivilege from '../images/vietnam-privilege.png';
 import vietnamVip from '../images/vietnam-vip.png';
+import axios from 'axios';
 
-function LotteryPage(props) {
+function LotteryPage({ isLoggedIn, setUser, setUserType }) {
   const [key, setKey] = useState('two-lottery');
   const [showList, setShowList] = useState([]);
   const [summaryList, setSummaryList] = useState([]);
@@ -37,11 +39,61 @@ function LotteryPage(props) {
   const [nineteenList, setNineteenList] = useState([]);
   const [oneList, setOneList] = useState([]);
   const [thaiTime, setUKTime] = useState('');
+  const [data, setData] = useState([]);
   const inputTwo = useRef();
   const inputThree = useRef();
   const inputSix = useRef();
   const inputNineteen = useRef();
   const inputNumber = useRef();
+  const location = useLocation();
+  const { user, userType } = location.state || {};
+
+  // useEffect(() => {
+  //   getByUser();
+  // }, []); // Empty dependency array ensures the effect runs only once
+
+  const getByUser = useCallback(async () => {
+    try {
+      const body = {
+        user: user,
+      };
+      const response = await axios.post('https://afternoon-sea-27548.herokuapp.com/get-list-by-user', body);
+      const data = response.data;
+      if (data.success) {
+        setData(data.data);
+      } else {
+        setData([]);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    fetchData()
+      .then(data => {
+        // Process the fetched data
+        console.log(data);
+      })
+      .catch(error => {
+        // Handle errors
+        console.log(error);
+      });
+  }, []);
+
+  const fetchData = () => {
+    return new Promise((resolve, reject) => {
+      axios
+        .get('afternoon-sea-27548.herokuapp.com/test-api')
+        .then(response => {
+          // Process the fetched data
+          const processedData = response.data;
+          resolve(processedData);
+        })
+        .catch(error => {
+          // Handle errors
+          reject(error);
+        });
+    });
+  };
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -129,6 +181,7 @@ function LotteryPage(props) {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
+
     // console.log(window.innerWidth);
   }, []);
 
@@ -144,6 +197,8 @@ function LotteryPage(props) {
               type: "2 ตัวบน",
               data: numberData,
               amount: showListData.top,
+              bet: 0.00,
+              discount: 0.00,
             };
             setSummaryList((prevState) => [...prevState, updatedList]);
           }
@@ -153,6 +208,8 @@ function LotteryPage(props) {
               type: "2 ตัวล่าง",
               data: numberData,
               amount: showListData.bottom,
+              bet: 0.00,
+              discount: 0.00,
             };
             setSummaryList((prevState) => [...prevState, updatedList]);
           }
@@ -163,6 +220,8 @@ function LotteryPage(props) {
               type: "3 ตัวบน",
               data: numberData,
               amount: showListData.top,
+              bet: 0.00,
+              discount: 0.00,
             };
             setSummaryList((prevState) => [...prevState, updatedList]);
           }
@@ -172,6 +231,8 @@ function LotteryPage(props) {
               type: "3 ตัวโต๊ด",
               data: numberData,
               amount: showListData.toot,
+              bet: 0.00,
+              discount: 0.00,
             };
             setSummaryList((prevState) => [...prevState, updatedList]);
           }
@@ -183,6 +244,8 @@ function LotteryPage(props) {
               type: "3 ตัวบน",
               data: numberData,
               amount: showListData.top,
+              bet: 0.00,
+              discount: 0.00,
             };
             setSummaryList((prevState) => [...prevState, updatedList]);
           }
@@ -193,6 +256,8 @@ function LotteryPage(props) {
               type: "2 ตัวบน",
               data: numberData,
               amount: showListData.top,
+              bet: 0.00,
+              discount: 0.00,
             };
             setSummaryList((prevState) => [...prevState, updatedList]);
           }
@@ -202,6 +267,8 @@ function LotteryPage(props) {
               type: "2 ตัวล่าง",
               data: numberData,
               amount: showListData.bottom,
+              bet: 0.00,
+              discount: 0.00,
             };
             setSummaryList((prevState) => [...prevState, updatedList]);
           }
@@ -212,6 +279,8 @@ function LotteryPage(props) {
               type: "วิ่งบน",
               data: numberData,
               amount: showListData.top,
+              bet: 0.00,
+              discount: 0.00,
             };
             setSummaryList((prevState) => [...prevState, updatedList]);
           }
@@ -221,6 +290,8 @@ function LotteryPage(props) {
               type: "วิ่งล่าง",
               data: numberData,
               amount: showListData.bottom,
+              bet: 0.00,
+              discount: 0.00,
             };
             setSummaryList((prevState) => [...prevState, updatedList]);
           }
@@ -231,6 +302,8 @@ function LotteryPage(props) {
               type: "2 ตัวบน",
               data: numberData,
               amount: showListData.top,
+              bet: 0.00,
+              discount: 0.00,
             };
             setSummaryList((prevState) => [...prevState, updatedList]);
           }
@@ -240,6 +313,8 @@ function LotteryPage(props) {
               type: "2 ตัวล่าง",
               data: numberData,
               amount: showListData.bottom,
+              bet: 0.00,
+              discount: 0.00,
             };
             setSummaryList((prevState) => [...prevState, updatedList]);
           }
@@ -250,6 +325,8 @@ function LotteryPage(props) {
               type: "3 ตัวบน",
               data: numberData,
               amount: showListData.top,
+              bet: 0.00,
+              discount: 0.00,
             };
             setSummaryList((prevState) => [...prevState, updatedList]);
           }
@@ -259,6 +336,8 @@ function LotteryPage(props) {
               type: "3 ตัวโต๊ด",
               data: numberData,
               amount: showListData.toot,
+              bet: 0.00,
+              discount: 0.00,
             };
             setSummaryList((prevState) => [...prevState, updatedList]);
           }
@@ -272,7 +351,7 @@ function LotteryPage(props) {
   return (
     <>
       <header style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100 }}>
-        <Header user={props.user} userType={props.userType} />
+        <Header user={user} userType={userType} getByUser={getByUser} />
       </header>
       <body>
         {total === true ? (
@@ -289,6 +368,7 @@ function LotteryPage(props) {
               clearPrice={clearPrice}
               totalPrice={totalPrice}
               setTotalPrice={setTotalPrice}
+              user={user}
             />
           </Container>
         ) : (
@@ -303,7 +383,6 @@ function LotteryPage(props) {
                   <Col>
                     <Row>
                       <Col sm>
-                        <h3>{props.user}</h3>
                         <Row className="d-flex align-items-center row">
                           <div className="mb-3">
                             <Button
@@ -385,14 +464,14 @@ function LotteryPage(props) {
                 </Container>
               </Container>
               <Container fluid style={{ paddingTop: 16, paddingLeft: 16, paddingRight: 16, paddingBottom: 16, backgroundColor: "#FFFFFF" }}>
-                <Comment comment={comment} setComment={setComment} lotteryType={lotteryType} showList={showList} setShowList={setShowList} price={price} setPrice={setPrice} setTotal={setTotal} summaryList={summaryList} clearPrice={clearPrice} clearAll={clearAll} addToSummaryList={addToSummaryList}/>
+                <Comment comment={comment} setComment={setComment} lotteryType={lotteryType} showList={showList} setShowList={setShowList} price={price} setPrice={setPrice} setTotal={setTotal} summaryList={summaryList} clearPrice={clearPrice} clearAll={clearAll} addToSummaryList={addToSummaryList} />
               </Container>
             </div>
             {!isResized && (
               <div class="col">
                 <Container fluid style={{ paddingLeft: 16, paddingRight: 16, paddingBottom: 16 }}>
                   <Container>
-                    <History />
+                    <History data={data} setData={setData} />
                   </Container>
                 </Container>
               </div>

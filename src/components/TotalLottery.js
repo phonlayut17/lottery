@@ -1,12 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { IoTrashBinOutline } from "react-icons/io5";
+import axios from 'axios';
+import { Modal } from "react-bootstrap";
 
-const TotalLottery = ({ summaryList, setSummaryList, lotteryType, setTotal, setShowList, comment, clearPrice, totalPrice, setTotalPrice }) => {
+const TotalLottery = ({ summaryList, setSummaryList, lotteryType, setTotal, setShowList, comment, clearPrice, totalPrice, setTotalPrice, user }) => {
+
+    const [showModal, setShowModal] = useState(false);
+
+    const [showError, setShowError] = useState('');
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
+
+    const handleShowModal = () => {
+        setShowModal(true);
+    };
+
+    const [showModalSuccess, setShowModalSuccess] = useState(false);
+
+    const [showSuccess, setShowSuccess] = useState('');
+
+    const handleCloseSuccess = () => {
+        setShowModalSuccess(false);
+        setSummaryList([]);
+        setShowList([]);
+        clearPrice();
+        setTotal(false);
+    };
+
+    const handleShowSuccess = () => {
+        setShowModalSuccess(true);
+    };
 
     const handleServiceRemove = (index, price) => {
         const list = [...summaryList];
@@ -29,6 +59,93 @@ const TotalLottery = ({ summaryList, setSummaryList, lotteryType, setTotal, setS
         setShowList([]);
         setTotal(false);
         clearPrice();
+    };
+
+    const getLastBill = async () => {
+        try {
+            const response = await axios.post('https://afternoon-sea-27548.herokuapp.com/get-last-lot');
+            const data = response.data;
+            console.log("data: " + data.success);
+
+            if (data.success === false) {
+                return "lot0001";
+            } else {
+                const substring = data.id.substring(3);
+                const newNumber = String(parseInt(substring, 10) + 1).padStart(substring.length, '0');
+                const newLotNumber = 'lot' + newNumber;
+                return newLotNumber;
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const saveHeader = async (id) => {
+        try {
+            const body = {
+                id: id,
+                type: lotteryType === "hanoi-normal" ? "ฮานอย" : lotteryType === "hanoi-privilege" ? "ฮานอย พิเศษ" : lotteryType === "hanoi-vip" ? "ฮานอย VIP" : lotteryType === "lao-normal" ? "ลาวพัฒนา" : "ลาว VIP",
+                date: new Date(),
+                user: user,
+                price: totalPrice,
+                comment: comment
+            };
+            const response = await axios.post('https://afternoon-sea-27548.herokuapp.com/add-header', body);
+            const data = response.data;
+            console.log(data);
+            if (data.success) {
+                // setShowSuccess(...showError, 'บันทึกสำเร็จ');
+                // handleShowSuccess();
+            } else {
+                setShowError(...showError, data.message);
+                handleShowModal();
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const saveBody = async (id) => {
+        summaryList.forEach(async (summaryData) => {
+            try {
+                const body = {
+                    id: id,
+                    type: summaryData.type,
+                    number: summaryData.data,
+                    type_price: summaryData.type,
+                    discount: summaryData.discount,
+                    bet: summaryData.bet,
+                    price: summaryData.amount,
+                    date: new Date(),
+                    user: user
+                };
+                const response = await axios.post('https://afternoon-sea-27548.herokuapp.com/add-body', body);
+                const data = response.data;
+                console.log(data);
+                if (data.success) {
+                    // setShowError(...showError, 'บันทึกสำเร็จ');
+                    // handleShowModal();
+                } else {
+                    setShowError(...showError, data.message);
+                    handleShowModal();
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    const save = async () => {
+        if (summaryList === null || summaryList === 0) {
+            setShowError(...showError, 'ไม่มีข้อมูลให้บันทึก');
+            handleShowModal();
+        } else {
+            const id = await getLastBill();
+            saveHeader(id);
+            saveBody(id);
+            setShowSuccess(...showSuccess, 'บันทึกสำเร็จ');
+            handleShowSuccess();
+        }
     };
 
     const print = () => {
@@ -80,8 +197,8 @@ const TotalLottery = ({ summaryList, setSummaryList, lotteryType, setTotal, setS
                             <th scope="row">{item.type}</th>
                             <th scope="row">{item.data}</th>
                             <td>{item.amount}</td>
-                            <td>99.00</td>
-                            <td>0.00</td>
+                            <td>{item.bet}</td>
+                            <td>{item.discount}</td>
                             <td>
                                 {/* <Button variant="danger" onClick={() => handleServiceRemove(index)}>
                                     ❌ ลบบิล
@@ -115,11 +232,44 @@ const TotalLottery = ({ summaryList, setSummaryList, lotteryType, setTotal, setS
                     </Button>
                 </Col>
                 <Col xs="auto">
+                    <Button variant="success" onClick={save}>
+                        💾 บันทึก
+                    </Button>
+                </Col>
+                <Col xs="auto">
                     <Button variant="primary" onClick={print}>
                         🖨️ พิมพ์
                     </Button>
                 </Col>
             </Row>
+            <Modal show={showModal} onHide={handleCloseModal} centered>
+                {/* <Modal.Header closeButton>
+                    <Modal.Title>Modal Title</Modal.Title>
+                </Modal.Header> */}
+                <Modal.Body>
+                    {/* Modal content */}
+                    <p>{showError}</p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="danger" onClick={handleCloseModal}>
+                        ปิด
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            <Modal show={showModalSuccess} onHide={handleCloseSuccess} centered>
+                {/* <Modal.Header closeButton>
+                    <Modal.Title>Modal Title</Modal.Title>
+                </Modal.Header> */}
+                <Modal.Body>
+                    {/* Modal content */}
+                    <p>{showSuccess}</p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={handleCloseSuccess}>
+                        กลับหน้าแรก
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </Col>
     );
 }
