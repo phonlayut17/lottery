@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Header from "../../src/components/Header";
 import { useLocation } from 'react-router-dom';
 // import Footer from "../../src/components/Footer";
@@ -24,7 +24,7 @@ import vietnamPrivilege from '../images/vietnam-privilege.png';
 import vietnamVip from '../images/vietnam-vip.png';
 import axios from 'axios';
 
-function LotteryPage({ isLoggedIn, setUser, setUserType }) {
+function LotteryPage({ isLoggedIn, user, setUser, setUserType }) {
   const [key, setKey] = useState('two-lottery');
   const [showList, setShowList] = useState([]);
   const [summaryList, setSummaryList] = useState([]);
@@ -46,54 +46,45 @@ function LotteryPage({ isLoggedIn, setUser, setUserType }) {
   const inputNineteen = useRef();
   const inputNumber = useRef();
   const location = useLocation();
-  const { user, userType } = location.state || {};
+  const { userName, userType } = location.state || {};
+  // const [isLoading, setIsLoading] = useState(false);
 
-  // useEffect(() => {
-  //   getByUser();
-  // }, []); // Empty dependency array ensures the effect runs only once
-
-  const getByUser = useCallback(async () => {
-    try {
-      const body = {
-        user: user,
-      };
-      const response = await axios.post('https://afternoon-sea-27548.herokuapp.com/get-list-by-user', body);
-      const data = response.data;
-      if (data.success) {
-        setData(data.data);
-      } else {
-        setData([]);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-    fetchData()
-      .then(data => {
-        // Process the fetched data
-        console.log(data);
-      })
-      .catch(error => {
-        // Handle errors
-        console.log(error);
-      });
-  }, []);
-
-  const fetchData = () => {
-    return new Promise((resolve, reject) => {
-      axios
-        .get('afternoon-sea-27548.herokuapp.com/test-api')
-        .then(response => {
-          // Process the fetched data
-          const processedData = response.data;
-          resolve(processedData);
-        })
-        .catch(error => {
-          // Handle errors
-          reject(error);
-        });
-    });
+  function timeout(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   };
 
+  const getData = async () => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    const { data } = await axios.post('https://luckynumber-777-hhbuvnb5vq-uc.a.run.app/get-list-by-user', {
+      user: userName
+    });
+    setData(data.data);
+  };
+
+  // useEffect(async () => {
+  //   let isLoading = false;
+  //   await timeout(1000);
+  //   if (!isLoading) {
+  //     getData();
+  //   }
+
+  //   return () => {
+  //     isLoading = true;
+  //   };
+  // }, [data]);
+
+  //     const responseData = response.data;
+  //     if (responseData.success) {
+  //       setData(responseData.data);
+  //       console.log(responseData.data);
+  //     } else {
+  //       console.log(responseData.message);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -351,7 +342,7 @@ function LotteryPage({ isLoggedIn, setUser, setUserType }) {
   return (
     <>
       <header style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100 }}>
-        <Header user={user} userType={userType} getByUser={getByUser} />
+        <Header user={userName} userType={userType} />
       </header>
       <body>
         {total === true ? (
@@ -368,7 +359,7 @@ function LotteryPage({ isLoggedIn, setUser, setUserType }) {
               clearPrice={clearPrice}
               totalPrice={totalPrice}
               setTotalPrice={setTotalPrice}
-              user={user}
+              user={userName}
             />
           </Container>
         ) : (

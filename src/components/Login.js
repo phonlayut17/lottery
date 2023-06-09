@@ -53,11 +53,11 @@ function Login(props) {
         e.preventDefault();
         if (handleValidation()) {
             try {
-                const response = await axios.post('https://afternoon-sea-27548.herokuapp.com/login', { email, password });
+                const response = await axios.post('https://luckynumber-777-hhbuvnb5vq-uc.a.run.app/login', { email, password });
                 const data = response.data;
                 props.setUser(data.user);
                 props.setUserType(data.user_type);
-                history.push('/main', { user: data.user, userType: data.user_type });
+                history.push('/main', { userName: data.user, userType: data.user_type });
                 props.onLogin();
             } catch (error) {
                 console.log(error);

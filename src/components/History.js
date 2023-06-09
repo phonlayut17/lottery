@@ -24,7 +24,7 @@ const History = (props) => {
 
     const confirmDelete = async () => {
         try {
-            const response = await axios.post('https://afternoon-sea-27548.herokuapp.com/delete-by-id', { id: id });
+            const response = await axios.post('https://luckynumber-777-hhbuvnb5vq-uc.a.run.app/delete-by-id', { id: id });
             const data = response.data;
             if (data.success) {
                 setShowModal(false);
@@ -35,6 +35,12 @@ const History = (props) => {
             console.log(error);
         }
     };
+
+    const show = () => {
+        console.log(props.data);
+    };
+
+    const isDataArray = Array.isArray(props.data);
 
     return (
         <Col>
@@ -50,23 +56,24 @@ const History = (props) => {
                     </tr>
                 </thead>
                 <tbody class="text-center">
-                    {props.data === null || props.data.length === 0 ? (
+                    {isDataArray && props.data.length === 0 ? (
                         <tr>
-                            <td colspan="7">❌ ไม่มีข้อมูล ❌</td>
+                            <td colSpan="7">❌ ไม่มีข้อมูล ❌</td>
                         </tr>
+                    ) : isDataArray ? (
+                        props.data.map((item, b) => (
+                            <tr key={b}>
+                                <td>{new Date(item.data_dtl_date).toLocaleDateString('th-TH')}</td>
+                                <td>{item.data_hdr_lot_type}</td>
+                                <td>{item.data_dtl_price}</td>
+                                <td>{item.data_hdr_comment}</td>
+                                <td><IoTrashBinOutline size={20} style={{ color: '#D50000' }} onClick={handleShowModal(item.data_hdr_id)} /></td>
+                            </tr>
+                        ))
                     ) : (
-                        <>
-                            {props.data.map((item, b) => (
-                                <tr key={b}>
-                                    <td>{b + 1}</td>
-                                    <td>{new Date(item.data_dtl_date).toLocaleDateString('th-TH')}</td>
-                                    <td>{item.data_hdr_lot_type}</td>
-                                    <td>{item.data_dtl_price}</td>
-                                    <td>{item.data_hdr_comment}</td>
-                                    <td><IoTrashBinOutline size={20} style={{ color: '#D50000' }} onClick={handleShowModal(item.data_hdr_id)} /></td>
-                                </tr>
-                            ))}
-                        </>
+                        <tr>
+                            <td colSpan="7" onClick={show()}>Invalid data format</td>
+                        </tr>
                     )}
                 </tbody>
             </table>

@@ -93,7 +93,7 @@ function SearchPage(props) {
                     date_from: inputDateFrom.current.value,
                     date_to: inputDateTo.current.value,
                 };
-                const response = await axios.post('https://afternoon-sea-27548.herokuapp.com/search-by-date', body);
+                const response = await axios.post('https://luckynumber-777-hhbuvnb5vq-uc.a.run.app/search-by-date', body);
                 const data = response.data;
                 console.log(data);
                 if (data.success) {
@@ -112,7 +112,7 @@ function SearchPage(props) {
                     date_from: inputDateFrom.current.value,
                     date_to: inputDateTo.current.value,
                 };
-                const response = await axios.post('https://afternoon-sea-27548.herokuapp.com/search', body);
+                const response = await axios.post('https://luckynumber-777-hhbuvnb5vq-uc.a.run.app/search', body);
                 const data = response.data;
                 console.log(data);
                 if (data.success) {

@@ -26,6 +26,7 @@ function App() {
         <Protected
           path="/main"
           isLoggedIn={isLoggedIn}
+          user={user}
           setUser={setUser}
           setUserType={setUserType}
           component={LotteryPage}
