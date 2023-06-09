@@ -57,7 +57,7 @@ function Login(props) {
                 const data = response.data;
                 props.setUser(data.user);
                 props.setUserType(data.user_type);
-                history.push('/main', { userName: data.user, userType: data.user_type });
+                history.push('/main', { user: data.user, userType: data.user_type });
                 props.onLogin();
             } catch (error) {
                 console.log(error);

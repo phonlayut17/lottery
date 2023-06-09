@@ -23,7 +23,7 @@ import vietnam from '../images/vietnam.png';
 import vietnamPrivilege from '../images/vietnam-privilege.png';
 import vietnamVip from '../images/vietnam-vip.png';
 
-function LotteryPage({ isLoggedIn, user, setUser, setUserType }) {
+function LotteryPage({ isLoggedIn, setUser, setUserType }) {
   const [key, setKey] = useState('two-lottery');
   const [showList, setShowList] = useState([]);
   const [summaryList, setSummaryList] = useState([]);
@@ -38,14 +38,13 @@ function LotteryPage({ isLoggedIn, user, setUser, setUserType }) {
   const [nineteenList, setNineteenList] = useState([]);
   const [oneList, setOneList] = useState([]);
   const [thaiTime, setUKTime] = useState('');
-  const [data, setData] = useState([]);
   const inputTwo = useRef();
   const inputThree = useRef();
   const inputSix = useRef();
   const inputNineteen = useRef();
   const inputNumber = useRef();
   const location = useLocation();
-  const { userName, userType } = location.state || {};
+  const { user, userType } = location.state || {};
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -303,7 +302,7 @@ function LotteryPage({ isLoggedIn, user, setUser, setUserType }) {
   return (
     <>
       <header style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100 }}>
-        <Header user={userName} userType={userType} />
+        <Header user={user} userType={userType} />
       </header>
       <body>
         {total === true ? (
@@ -320,7 +319,7 @@ function LotteryPage({ isLoggedIn, user, setUser, setUserType }) {
               clearPrice={clearPrice}
               totalPrice={totalPrice}
               setTotalPrice={setTotalPrice}
-              user={userName}
+              user={user}
             />
           </Container>
         ) : (
@@ -423,7 +422,7 @@ function LotteryPage({ isLoggedIn, user, setUser, setUserType }) {
               <div class="col">
                 <Container fluid style={{ paddingLeft: 16, paddingRight: 16, paddingBottom: 16 }}>
                   <Container>
-                    <History user={userName} />
+                    <History user={user} />
                   </Container>
                 </Container>
               </div>
