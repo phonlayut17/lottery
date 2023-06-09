@@ -47,44 +47,24 @@ function LotteryPage({ isLoggedIn, user, setUser, setUserType }) {
   const inputNumber = useRef();
   const location = useLocation();
   const { userName, userType } = location.state || {};
-  // const [isLoading, setIsLoading] = useState(false);
 
-  function timeout(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  };
-
+  useEffect(() => {
+    (async () => {
+      await getData();
+    })();
+  });
   const getData = async () => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    const { data } = await axios.post('https://luckynumber-777-hhbuvnb5vq-uc.a.run.app/get-list-by-user', {
+    const res = await axios.post('https://luckynumber-777-hhbuvnb5vq-uc.a.run.app/get-list-by-user', {
       user: userName
     });
-    setData(data.data);
+    const dataRes = res.data;
+    if (dataRes.success) {
+      setData(dataRes.data);
+    } else {
+      console.log(dataRes.message);
+    }
+
   };
-
-  // useEffect(async () => {
-  //   let isLoading = false;
-  //   await timeout(1000);
-  //   if (!isLoading) {
-  //     getData();
-  //   }
-
-  //   return () => {
-  //     isLoading = true;
-  //   };
-  // }, [data]);
-
-  //     const responseData = response.data;
-  //     if (responseData.success) {
-  //       setData(responseData.data);
-  //       console.log(responseData.data);
-  //     } else {
-  //       console.log(responseData.message);
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   useEffect(() => {
     const interval = setInterval(() => {
