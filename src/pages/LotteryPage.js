@@ -22,7 +22,6 @@ import laosVip from '../images/laos-vip.png';
 import vietnam from '../images/vietnam.png';
 import vietnamPrivilege from '../images/vietnam-privilege.png';
 import vietnamVip from '../images/vietnam-vip.png';
-import axios from 'axios';
 
 function LotteryPage({ isLoggedIn, user, setUser, setUserType }) {
   const [key, setKey] = useState('two-lottery');
@@ -47,24 +46,6 @@ function LotteryPage({ isLoggedIn, user, setUser, setUserType }) {
   const inputNumber = useRef();
   const location = useLocation();
   const { userName, userType } = location.state || {};
-
-  useEffect(() => {
-    (async () => {
-      await getData();
-    })();
-  });
-  const getData = async () => {
-    const res = await axios.post('https://luckynumber-777-hhbuvnb5vq-uc.a.run.app/get-list-by-user', {
-      user: userName
-    });
-    const dataRes = res.data;
-    if (dataRes.success) {
-      setData(dataRes.data);
-    } else {
-      console.log(dataRes.message);
-    }
-
-  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -442,7 +423,7 @@ function LotteryPage({ isLoggedIn, user, setUser, setUserType }) {
               <div class="col">
                 <Container fluid style={{ paddingLeft: 16, paddingRight: 16, paddingBottom: 16 }}>
                   <Container>
-                    <History data={data} setData={setData} />
+                    <History user={userName} />
                   </Container>
                 </Container>
               </div>
