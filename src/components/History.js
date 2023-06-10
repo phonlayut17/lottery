@@ -49,10 +49,6 @@ const History = (props) => {
         getData();
     }, []);
 
-    const show = () => {
-        console.log(data);
-    };
-
     const confirmDelete = async () => {
         handleShowSpinner();
         try {

@@ -70,19 +70,19 @@ function LotteryPage({ isLoggedIn, setUser, setUserType }) {
   };
 
   const focusInput = () => {
-    if (key == 'two-lottery') {
+    if (key === 'two-lottery') {
       inputTwo.current.focus();
       inputTwo.current.select();
-    } else if (key == 'three-lottery') {
+    } else if (key === 'three-lottery') {
       inputThree.current.focus();
       inputThree.current.select();
-    } else if (key == 'six-back') {
+    } else if (key === 'six-back') {
       inputSix.current.focus();
       inputSix.current.select();
-    } else if (key == 'nineteen-door') {
+    } else if (key === 'nineteen-door') {
       inputNineteen.current.focus();
       inputNineteen.current.select();
-    } else if (key == 'number-run') {
+    } else if (key === 'number-run') {
       inputNumber.current.focus();
       inputNumber.current.select();
     }
