@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Col from 'react-bootstrap/Col';
 import { IoTrashBinOutline } from "react-icons/io5";
 import axios from 'axios';
-import { Modal } from "react-bootstrap";
+import { Modal, Spinner } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 
 const History = (props) => {
@@ -11,6 +11,15 @@ const History = (props) => {
     const [id, setId] = useState('');
     const [data, setData] = useState([]);
     const [showButton, setShowButton] = useState(true);
+    const [showSpinner, setShowSpinner] = useState(false);
+
+    const handleCloseSpinner = () => {
+        setShowSpinner(false);
+    };
+
+    const handleShowSpinner = () => {
+        setShowSpinner(true);
+    };
 
     const handleCloseModal = () => {
         setShowModal(false);
@@ -45,12 +54,14 @@ const History = (props) => {
     };
 
     const confirmDelete = async () => {
+        handleShowSpinner();
         try {
             const response = await axios.post('https://luckynumber-777-hhbuvnb5vq-uc.a.run.app/delete-by-id', { id: id });
             const data = response.data;
             if (data.success) {
                 setShowButton(false);
                 setShowModal(false);
+                handleCloseSpinner();
                 setShowMessage(...showMessage, 'ลบข้อมูลสำเร็จ');
                 setShowModal(true);
                 getData();
@@ -113,6 +124,14 @@ const History = (props) => {
                         ปิด
                     </Button>
                 </Modal.Footer>
+            </Modal>
+            <Modal show={showSpinner} onHide={handleCloseSpinner} centered>
+                <Modal.Body align="center">
+                    <Spinner animation="border" role="status">
+                    </Spinner>
+                    <br />
+                    <h4>รอสักครู่...</h4>
+                </Modal.Body>
             </Modal>
         </Col >
     );

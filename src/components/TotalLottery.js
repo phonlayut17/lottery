@@ -110,7 +110,7 @@ const TotalLottery = ({ summaryList, setSummaryList, lotteryType, setTotal, setS
             try {
                 const body = {
                     id: id,
-                    type: summaryData.type,
+                    type: summaryData.id,
                     number: summaryData.data,
                     type_price: summaryData.type,
                     discount: summaryData.discount,
@@ -186,8 +186,8 @@ const TotalLottery = ({ summaryList, setSummaryList, lotteryType, setTotal, setS
                         <th scope="col"><h3>ประเภท</h3></th>
                         <th scope="col"><h3>หมายเลข</h3></th>
                         <th scope="col"><h3>ยอดเดิมพัน</h3></th>
-                        <th scope="col"><h3>เรทจ่าย</h3></th>
-                        <th scope="col"><h3>ส่วนลด</h3></th>
+                        {/* <th scope="col"><h3>เรทจ่าย</h3></th>
+                        <th scope="col"><h3>ส่วนลด</h3></th> */}
                         <th scope="col"><h3>ลบ</h3></th>
                     </tr>
                 </thead>
@@ -196,8 +196,8 @@ const TotalLottery = ({ summaryList, setSummaryList, lotteryType, setTotal, setS
                         <tr>
                             <th scope="row">{item.type}</th>
                             <th scope="row">{item.data}</th>
-                            <td>{item.amount}</td>
-                            <td>{item.bet}</td>
+                            {/* <td>{item.amount}</td>
+                            <td>{item.bet}</td> */}
                             <td>{item.discount}</td>
                             <td>
                                 {/* <Button variant="danger" onClick={() => handleServiceRemove(index)}>
@@ -214,10 +214,10 @@ const TotalLottery = ({ summaryList, setSummaryList, lotteryType, setTotal, setS
                 หมายเหตุ {comment === "" ? " - " : " - " + comment}
             </h4>
             <br />
-            <h2 align="center"><b>ยอดเดิมพัน {totalPrice} บาท</b></h2>
+            {/* <h2 align="center"><b>ยอดเดิมพัน {totalPrice} บาท</b></h2>
             <br />
             <h2 align="center"><b>ส่วนลด 0.00 บาท</b></h2>
-            <br />
+            <br /> */}
             <h2 align="center"><b>รวม {totalPrice} บาท</b></h2>
             <br />
             <Row className="justify-content-center">

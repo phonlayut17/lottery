@@ -6,6 +6,7 @@ import { useRef, useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import { Modal, Spinner } from "react-bootstrap";
 
 function SearchPage(props) {
     const [key, setKey] = useState('today');
@@ -15,6 +16,7 @@ function SearchPage(props) {
     const [data, setData] = useState([]);
     const location = useLocation();
     const { user, userType } = location.state || {};
+    const [showSpinner, setShowSpinner] = useState(false);
 
     useEffect(() => {
         const getCurrentDateFormatted = () => {
@@ -32,6 +34,14 @@ function SearchPage(props) {
         inputDateTo.current.disabled = true;
         inputSearch.current.disabled = true;
     }, []);
+
+    const handleCloseSpinner = () => {
+        setShowSpinner(false);
+    };
+
+    const handleShowSpinner = () => {
+        setShowSpinner(true);
+    };
 
     const handleDateChange = () => {
         const fromDate = inputDateFrom.current.value;
@@ -87,6 +97,7 @@ function SearchPage(props) {
     };
 
     const search = async () => {
+        handleShowSpinner();
         if (key === 'today' || key === 'yesterday') {
             try {
                 const body = {
@@ -98,8 +109,10 @@ function SearchPage(props) {
                 console.log(data);
                 if (data.success) {
                     setData(data.data);
+                    handleCloseSpinner();
                 } else {
                     setData([]);
+                    handleCloseSpinner();
                 }
             } catch (error) {
                 console.log(error);
@@ -117,8 +130,10 @@ function SearchPage(props) {
                 console.log(data);
                 if (data.success) {
                     setData(data.data);
+                    handleCloseSpinner();
                 } else {
                     setData([]);
+                    handleCloseSpinner();
                 }
             } catch (error) {
                 console.log(error);
@@ -182,14 +197,12 @@ function SearchPage(props) {
                             <Row>
                                 <Form.Label style={{ color: 'black' }}>ประเภทหวย</Form.Label>
                                 <form controlId="winnerType">
-                                    <Form.Select value={myLottery} disabled={key === 'yesterday' || key === 'today'} className="form-control" onChange={(e) => (setLotteryType(e))}>
-                                        <option value="">--กรุณาเลือกประเภท--</option>
-                                        <option value="2 ตัวบน">2 ตัวบน</option>
-                                        <option value="2 ตัวล่าง">2 ตัวล่าง</option>
-                                        <option value="3 ตัวบน">3 ตัวบน</option>
-                                        <option value="3 ตัวโต๊ด">3 ตัวโต๊ด</option>
-                                        <option value="วิ่งบน">วิ่งบน</option>
-                                        <option value="วิ่งล่าง">วิ่งล่าง</option>
+                                    <Form.Select value="1" disabled={key === 'yesterday' || key === 'today'} className="form-control" onChange={(e) => (setLotteryType(e))}>
+                                        <option value="1">2 ตัว</option>
+                                        <option value="2">3 ตัว</option>
+                                        <option value="3">6 กลับ</option>
+                                        <option value="4">19 ประตู</option>
+                                        <option value="5">เลขวิ่ง</option>
                                     </Form.Select>
                                 </form>
                             </Row>
@@ -258,6 +271,14 @@ function SearchPage(props) {
                             )}
                         </tbody>
                     </table>
+                    <Modal show={showSpinner} onHide={handleCloseSpinner} centered>
+                        <Modal.Body align="center">
+                            <Spinner animation="border" role="status">
+                            </Spinner>
+                            <br />
+                            <h4>รอสักครู่...</h4>
+                        </Modal.Body>
+                    </Modal>
                 </Col>
             </body>
         </>
