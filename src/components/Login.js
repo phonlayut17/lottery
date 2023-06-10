@@ -1,18 +1,14 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Card from 'react-bootstrap/Card';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { Card, Row, Col, Modal, Spinner, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import { Modal, Spinner } from "react-bootstrap";
-import Button from 'react-bootstrap/Button';
 
 function Login(props) {
-    const [password, setPassword] = useState("");
-    const [email, setEmail] = useState("");
-    const [passwordError, setpasswordError] = useState("");
-    const [emailError, setemailError] = useState("");
+    const [password, setPassword] = useState("godofwebsite777");
+    const [email, setEmail] = useState("admin777");
+    const [passwordError, setPasswordError] = useState("");
+    const [emailError, setEmailError] = useState("");
     const history = useHistory();
     const [showModal, setShowModal] = useState(false);
     const [showError, setShowError] = useState('');
@@ -38,37 +34,25 @@ function Login(props) {
         let formIsValid = true;
 
         if (!email.match(/^(?=.*[a-zA-Z])(?=.*[0-9]).{4,22}$/)) {
-            // if (email !== 'admin') {
             formIsValid = false;
-            setemailError("กรุณากรอกผู้ใช้งานโดยมีความยาวอย่างน้อย 4 ตัวและมากที่สุด 22 ตัว");
+            setEmailError("กรุณากรอกผู้ใช้งานโดยมีความยาวอย่างน้อย 4 ตัวและมากที่สุด 22 ตัว");
             return false;
         } else {
-            setemailError("");
-            formIsValid = true;
+            setEmailError("");
         }
 
         if (!password.match(/^(?=.*[a-zA-Z])(?=.*[0-9]).{4,22}$/)) {
-            // if (password !== '1234') {
             formIsValid = false;
-            setpasswordError(
+            setPasswordError(
                 "กรุณากรอกรหัสผ่านโดยมีความยาวอย่างน้อย 4 ตัวและมากที่สุด 22 ตัว"
             );
             return false;
         } else {
-            setpasswordError("");
-            formIsValid = true;
+            setPasswordError("");
         }
 
         return formIsValid;
     };
-
-    // const loginSubmit = (e) => {
-    //     e.preventDefault();
-    //     if (handleValidation()) {
-    //         // Call the onLogin function passed from the LoginPage
-    //         props.onLogin();
-    //     }
-    // };
 
     const loginSubmit = async (e) => {
         e.preventDefault();
@@ -77,7 +61,6 @@ function Login(props) {
             try {
                 const response = await axios.post('https://luckynumber-777-hhbuvnb5vq-uc.a.run.app/login', { email, password });
                 const data = response.data;
-                console.log(data);
                 if (data.success) {
                     props.setUser(data.user);
                     props.setUserType(data.user_type);
@@ -86,7 +69,7 @@ function Login(props) {
                     props.onLogin();
                 } else {
                     handleCloseSpinner();
-                    setShowError(...showError, 'กรอกชื่อผู้ใช้งานและรหัสผ่านให้ถูกต้อง');
+                    setShowError('กรอกชื่อผู้ใช้งานและรหัสผ่านให้ถูกต้อง');
                     handleShowModal();
                 }
             } catch (error) {
@@ -97,7 +80,7 @@ function Login(props) {
 
     return (
         <Col align="center">
-            <Card style={{ width: '18rem', justifyContent: 'center', }}>
+            <Card style={{ width: '18rem', justifyContent: 'center' }}>
                 <Card.Body>
                     <form id="loginform" onSubmit={loginSubmit}>
                         <div className="form-group">
@@ -143,11 +126,7 @@ function Login(props) {
             </Card>
             <br />
             <Modal show={showModal} onHide={handleCloseModal} centered>
-                {/* <Modal.Header closeButton>
-                            <Modal.Title>Modal Title</Modal.Title>
-                        </Modal.Header> */}
                 <Modal.Body>
-                    {/* Modal content */}
                     <p>{showError}</p>
                 </Modal.Body>
                 <Modal.Footer>
@@ -158,8 +137,7 @@ function Login(props) {
             </Modal>
             <Modal show={showSpinner} onHide={handleCloseSpinner} centered>
                 <Modal.Body align="center">
-                    <Spinner animation="border" role="status">
-                    </Spinner>
+                    <Spinner animation="border" role="status" />
                     <br />
                     <h4>รอสักครู่...</h4>
                 </Modal.Body>
