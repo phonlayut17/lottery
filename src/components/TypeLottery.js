@@ -29,7 +29,7 @@ const TypeLottery = (props) => {
                 <Row>
                     <form controlId="winnerType">
                         <Form.Select value={myLottery} className="form-control" onChange={(e) => (setLotteryType(e))}>
-                            <option value="">--กรุณาเลือกประเภท--</option>
+                            {/* <option value="">--กรุณาเลือกประเภท--</option> */}
                             <option value="hanoi-privilege">ฮานอย พิเศษ 🇻🇳</option>
                             <option value="hanoi-normal">ฮานอย 🇻🇳</option>
                             <option value="hanoi-vip">ฮานอย VIP 🇻🇳 🅥🅘🅟</option>

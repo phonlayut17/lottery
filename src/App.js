@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import LotteryPage from './pages/LotteryPage';
 import SearchPage from './pages/SearchPage';
+import SumPage from './pages/SumPage';
 import Protected from './components/Protected';
 
 function App() {
@@ -37,6 +38,13 @@ function App() {
           user={user}
           userType={userType}
           component={SearchPage}
+        />
+        <Protected
+          path="/sum"
+          isLoggedIn={isLoggedIn}
+          user={user}
+          userType={userType}
+          component={SumPage}
         />
       </Switch>
     </Router>

@@ -2,11 +2,11 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import React, { useRef, useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form';
-// import laos from '../images/laos.png';
-// import laosVip from '../images/laos-vip.png';
-// import vietnam from '../images/vietnam.png';
-// import vietnamPrivilege from '../images/vietnam-privilege.png';
-// import vietnamVip from '../images/vietnam-vip.png';
+import laos from '../images/laos.png';
+import laosVip from '../images/laos-vip.png';
+import vietnam from '../images/vietnam.png';
+import vietnamPrivilege from '../images/vietnam-privilege.png';
+import vietnamVip from '../images/vietnam-vip.png';
 import Button from 'react-bootstrap/Button';
 import { Modal } from "react-bootstrap";
 
@@ -91,7 +91,7 @@ const Comment = (props) => {
                         {/* {<img align="top" src={props.lotteryType === "hanoi-normal" ? vietnam : props.lotteryType === "hanoi-privilege" ? vietnamPrivilege : props.lotteryType === "hanoi-vip" ? vietnamVip : props.lotteryType === "lao-normal" ? laos : props.lotteryType === "lao-vip" ? laosVip : ""} alt="" width={60} height={60} />} */}
                     </Col>
                 </Row>
-                {/* <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <h3 align="center">
                         [หวยต่างประเทศ] - &nbsp;
                         {props.lotteryType === "hanoi-normal" ? "ฮานอย" :
@@ -114,7 +114,7 @@ const Comment = (props) => {
                         width={60}
                         height={60}
                     />
-                </div> */}
+                </div>
                 <h2 align="center"><b>รวม {props.price} บาท</b></h2>
                 <br />
                 <Row className="justify-content-center">

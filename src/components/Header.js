@@ -9,6 +9,9 @@ function Header(props) {
     const handleSearch = () => {
         history.push('/search', { user: props.user, userType: props.userType });
     };
+    const handleSum = () => {
+        history.push('/sum', { user: props.user, userType: props.userType });
+    };
     const handleHome = () => {
         history.push('/main', { user: props.user, userType: props.userType });
     };
@@ -47,6 +50,10 @@ function Header(props) {
                             <Navbar.Text>
                                 <Button variant="light" onClick={handleSearch}>
                                     🔍 ค้นหา
+                                </Button>
+                                &nbsp;
+                                <Button variant="light" onClick={handleSum}>
+                                    📝 สรุป
                                 </Button>
                             </Navbar.Text>
                         ) : (
