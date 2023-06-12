@@ -5,8 +5,8 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
 function Login(props) {
-    const [password, setPassword] = useState("godofwebsite777");
-    const [email, setEmail] = useState("admin777");
+    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [emailError, setEmailError] = useState("");
     const history = useHistory();
