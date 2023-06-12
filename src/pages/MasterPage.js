@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import React from 'react';
 //สร้าง Component Master Page
 const MasterPage = (props) => {
 

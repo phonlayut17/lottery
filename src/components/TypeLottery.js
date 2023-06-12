@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
-import laos from '../images/laos.png';
-import laosVip from '../images/laos-vip.png';
-import vietnam from '../images/vietnam.png';
-import vietnamPrivilege from '../images/vietnam-privilege.png';
-import vietnamVip from '../images/vietnam-vip.png';
+// import laos from '../images/laos.png';
+// import laosVip from '../images/laos-vip.png';
+// import vietnam from '../images/vietnam.png';
+// import vietnamPrivilege from '../images/vietnam-privilege.png';
+// import vietnamVip from '../images/vietnam-vip.png';
 
 const TypeLottery = (props) => {
 
@@ -38,7 +38,7 @@ const TypeLottery = (props) => {
                         </Form.Select>
                     </form>
                 </Row>
-                <br />
+                {/* <br />
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <h4>
                         [หวยต่างประเทศ] - &nbsp;
@@ -62,7 +62,7 @@ const TypeLottery = (props) => {
                         width={60}
                         height={60}
                     />
-                </div>
+                </div> */}
             </Col>
         </Container>
     );
