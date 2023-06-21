@@ -34,7 +34,14 @@ const ThreeLottery = (props) => {
             props.setThreeList([...props.threeList, props.inputThree.current.value]);
             props.inputThree.current.value = "";
         } else if (e.target.value.length > 3) {
+            if (e.target.value.match(/\b\d{3}(?:\b|[+*/-])/g)) {
+                const dataArray = e.target.value.match(/\b\d{3}(?:\b|[+*/-])/g);
+                props.setThreeList((prevList) => [...prevList, ...dataArray]);
+                props.inputThree.current.value = "";
+                return;
+            }
             const numbers = e.target.value.replace(/\D/g, ' ').split(' ');
+            console.log(numbers);
             const result = [];
             for (let i = 0; i < numbers.length; i++) {
                 const number = numbers[i];

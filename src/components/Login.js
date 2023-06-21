@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Card, Row, Col, Modal, Spinner, Button } from 'react-bootstrap';
+import { Card, Row, Col, Modal, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
 function Login(props) {
-    const [password, setPassword] = useState("godofwebsite777");
-    const [email, setEmail] = useState("admin777");
+    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [emailError, setEmailError] = useState("");
     const history = useHistory();
@@ -137,7 +137,7 @@ function Login(props) {
             </Modal>
             <Modal show={showSpinner} onHide={handleCloseSpinner} centered>
                 <Modal.Body align="center">
-                    <Spinner animation="border" role="status" />
+                    <div class="custom-loader"></div>
                     <br />
                     <h4>รอสักครู่...</h4>
                 </Modal.Body>

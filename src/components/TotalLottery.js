@@ -196,9 +196,9 @@ const TotalLottery = ({ summaryList, setSummaryList, lotteryType, setTotal, setS
                         <tr>
                             <th scope="row">{item.type}</th>
                             <th scope="row">{item.data}</th>
-                            {/* <td>{item.amount}</td>
-                            <td>{item.bet}</td> */}
-                            <td>{item.discount}</td>
+                            <td>{item.amount}</td>
+                            {/* <td>{item.bet}</td>
+                            <td>{item.discount}</td> */}
                             <td>
                                 {/* <Button variant="danger" onClick={() => handleServiceRemove(index)}>
                                     ❌ ลบบิล

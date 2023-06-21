@@ -35,7 +35,7 @@ const TwoLottery = (props) => {
             console.log(props.inputTwo.current.value);
             props.inputTwo.current.value = "";
         } else if (e.target.value.length > 2) {
-            const dataArray = e.target.value.match(/\b\d{2}(?:\b|[+*/-])/g);
+            const dataArray = e.target.value.match(/\b\d{2}(?:\b|[+*\/×-])/g);
             console.log('data -> ' + dataArray);
             props.setTwoList((prevList) => [...prevList, ...dataArray]);
             props.inputTwo.current.value = "";

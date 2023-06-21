@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Col from 'react-bootstrap/Col';
 import { IoTrashBinOutline } from "react-icons/io5";
 import axios from 'axios';
-import { Modal, Spinner } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 
 const History = (props) => {
@@ -44,6 +44,7 @@ const History = (props) => {
         setShowMessage(...showMessage, 'แน่ใจหรือไม่ว่าต้องการลบ ?');
         setShowModal(true);
         setId(data);
+        handleCloseDetail();
     };
 
     const getData = async () => {
@@ -140,7 +141,16 @@ const History = (props) => {
                                 <td>{item.data_hdr_lot_type}</td>
                                 <td>{item.data_hdr_total_price}</td>
                                 <td>{item.data_hdr_comment}</td>
-                                <td><IoTrashBinOutline size={20} style={{ color: '#D50000' }} onClick={() => handleShowModal(item.data_hdr_id)} /></td>
+                                <td>
+                                    <IoTrashBinOutline
+                                        size={20}
+                                        style={{ color: '#D50000', cursor: 'pointer' }} // Add cursor: 'pointer' to indicate clickable
+                                        onClick={(e) => {
+                                            e.stopPropagation(); // Prevent event propagation to the parent row click event
+                                            handleShowModal(item.data_hdr_id);
+                                        }}
+                                    />
+                                </td>
                             </tr>
                         ))
                     ) : (
@@ -168,8 +178,7 @@ const History = (props) => {
             </Modal>
             <Modal show={showSpinner} onHide={handleCloseSpinner} centered>
                 <Modal.Body align="center">
-                    <Spinner animation="border" role="status">
-                    </Spinner>
+                    <div class="custom-loader"></div>
                     <br />
                     <h4>รอสักครู่...</h4>
                 </Modal.Body>

@@ -2,15 +2,15 @@ import Header from "../../src/components/Header";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import React,{ useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
-import { Modal, Spinner } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 
 function SearchPage(props) {
     const [key, setKey] = useState('today');
-    const inputSearch = useRef();
+    // const inputSearch = useRef();
     const inputDateFrom = useRef();
     const inputDateTo = useRef();
     const [data, setData] = useState([]);
@@ -32,7 +32,7 @@ function SearchPage(props) {
         inputDateTo.current.value = getCurrentDateFormatted();
         inputDateFrom.current.disabled = true;
         inputDateTo.current.disabled = true;
-        inputSearch.current.disabled = true;
+        // inputSearch.current.disabled = true;
     }, []);
 
     const handleCloseSpinner = () => {
@@ -77,7 +77,7 @@ function SearchPage(props) {
             inputDateTo.current.value = getCurrentDate();
             inputDateFrom.current.disabled = true;
             inputDateTo.current.disabled = true;
-            inputSearch.current.disabled = true;
+            // inputSearch.current.disabled = true;
         }
         else if (k === 'yesterday') {
             setKey(k);
@@ -85,14 +85,14 @@ function SearchPage(props) {
             inputDateTo.current.value = getYesterdayDate();
             inputDateFrom.current.disabled = true;
             inputDateTo.current.disabled = true;
-            inputSearch.current.disabled = true;
+            // inputSearch.current.disabled = true;
         } else {
             setKey(k);
             inputDateFrom.current.value = getCurrentDate();
             inputDateTo.current.value = getCurrentDate();
             inputDateTo.current.disabled = false;
             inputDateFrom.current.disabled = false;
-            inputSearch.current.disabled = false;
+            // inputSearch.current.disabled = false;
         }
     };
 
@@ -118,34 +118,75 @@ function SearchPage(props) {
                 console.log(error);
             }
         } else {
-            try {
-                const body = {
-                    number: inputSearch.current.value,
-                    lottery_type: myLottery,
-                    date_from: inputDateFrom.current.value,
-                    date_to: inputDateTo.current.value,
-                };
-                const response = await axios.post('https://luckynumber-777-hhbuvnb5vq-uc.a.run.app/search', body);
-                const data = response.data;
-                console.log(data);
-                if (data.success) {
-                    setData(data.data);
-                    handleCloseSpinner();
-                } else {
-                    setData([]);
-                    handleCloseSpinner();
+            if (type !== "ทั้งหมด") {
+                console.log('ประเภท ' + type);
+                console.log('แบบ ' + myLottery);
+                searchByType(type);
+            } else {
+                console.log('ทั้งหมด');
+                console.log('แบบ ' + myLottery);
+                try {
+                    const body = {
+                        // number: inputSearch.current.value,
+                        lottery_type: myLottery,
+                        date_from: inputDateFrom.current.value,
+                        date_to: inputDateTo.current.value,
+                    };
+                    const response = await axios.post('https://luckynumber-777-hhbuvnb5vq-uc.a.run.app/search', body);
+                    const data = response.data;
+                    console.log(data);
+                    if (data.success) {
+                        setData(data.data);
+                        handleCloseSpinner();
+                    } else {
+                        setData([]);
+                        handleCloseSpinner();
+                    }
+                } catch (error) {
+                    console.log(error);
                 }
-            } catch (error) {
-                console.log(error);
             }
         }
     };
 
-    const [myLottery, setLottery] = useState("2 ตัวบน");
+    const searchByType = async (type) => {
+        handleShowSpinner();
+        try {
+            const body = {
+                // number: inputSearch.current.value,
+                lottery_type: myLottery,
+                date_from: inputDateFrom.current.value,
+                date_to: inputDateTo.current.value,
+                type: type
+            };
+            const response = await axios.post('https://luckynumber-777-hhbuvnb5vq-uc.a.run.app/search-add-type', body);
+            const data = response.data;
+            console.log(data);
+            if (data.success) {
+                setData(data.data);
+            } else {
+                setData([]);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+        handleCloseSpinner();
+    };
+
+    const [myLottery, setLottery] = useState("1");
 
     const setLotteryType = (event) => {
         const getLottery = event.target.value;
         setLottery(getLottery);
+        console.log(getLottery);
+    }
+
+    const [type, setType] = useState("ทั้งหมด");
+
+    const setLType = (event) => {
+        const getType = event.target.value;
+        setType(getType);
+        console.log(type);
     }
 
     return (
@@ -181,7 +222,7 @@ function SearchPage(props) {
                         </div>
                     </Row>
                     <Row style={{ paddingLeft: 16, paddingRight: 16 }}>
-                        <Col sm>
+                        {/* <Col sm>
                             <Form.Label style={{ color: 'black' }}>ใส่เลข</Form.Label>
                             <Form.Group controlId="formNumber">
                                 <Form.Control
@@ -192,12 +233,12 @@ function SearchPage(props) {
                                     autoFocus
                                 />
                             </Form.Group>
-                        </Col>
+                        </Col> */}
                         <Col sm>
                             <Row>
                                 <Form.Label style={{ color: 'black' }}>ประเภทหวย</Form.Label>
                                 <form controlId="winnerType">
-                                    <Form.Select value="1" disabled={key === 'yesterday' || key === 'today'} className="form-control" onChange={(e) => (setLotteryType(e))}>
+                                    <Form.Select value={myLottery} disabled={key === 'yesterday' || key === 'today'} className="form-control" onChange={(e) => (setLotteryType(e))}>
                                         <option value="1">2 ตัว</option>
                                         <option value="2">3 ตัว</option>
                                         <option value="3">6 กลับ</option>
@@ -228,6 +269,19 @@ function SearchPage(props) {
                                     onChange={handleDateChange}
                                 />
                             </Form.Group>
+                        </Col>
+                        <Col sm>
+                            <Form.Label style={{ color: 'black' }}>ประเภท</Form.Label>
+                            <form controlId="winnerType">
+                                <Form.Select value={type} disabled={key === 'yesterday' || key === 'today'} className="form-control" onChange={(e) => (setLType(e))}>
+                                    <option value="ทั้งหมด">ทั้งหมด</option>
+                                    <option value="ฮานอย พิเศษ">ฮานอย พิเศษ 🇻🇳</option>
+                                    <option value="ฮานอย">ฮานอย 🇻🇳</option>
+                                    <option value="ฮานอย VIP">ฮานอย VIP 🇻🇳 🅥🅘🅟</option>
+                                    <option value="ลาวพัฒนา">ลาวพัฒนา 🇱🇦</option>
+                                    <option value="ลาว VIP">ลาว VIP 🇱🇦 🅥🅘🅟</option>
+                                </Form.Select>
+                            </form>
                         </Col>
                         <Col sm={1}>
                             <Form.Label style={{ color: 'transparent' }}>กลับ</Form.Label>
@@ -273,8 +327,7 @@ function SearchPage(props) {
                     </table>
                     <Modal show={showSpinner} onHide={handleCloseSpinner} centered>
                         <Modal.Body align="center">
-                            <Spinner animation="border" role="status">
-                            </Spinner>
+                            <div class="custom-loader"></div>
                             <br />
                             <h4>รอสักครู่...</h4>
                         </Modal.Body>
