@@ -166,6 +166,7 @@ function SearchPage(props) {
                 setData(data.data);
             } else {
                 setData([]);
+                console.log(data.message);
             }
         } catch (error) {
             console.log(error);
@@ -241,8 +242,8 @@ function SearchPage(props) {
                                     <Form.Select value={myLottery} disabled={key === 'yesterday' || key === 'today'} className="form-control" onChange={(e) => (setLotteryType(e))}>
                                         <option value="1">2 ตัว</option>
                                         <option value="2">3 ตัว</option>
-                                        <option value="3">6 กลับ</option>
-                                        <option value="4">19 ประตู</option>
+                                        {/* <option value="3">6 กลับ</option>
+                                        <option value="4">19 ประตู</option> */}
                                         <option value="5">เลขวิ่ง</option>
                                     </Form.Select>
                                 </form>

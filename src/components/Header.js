@@ -1,8 +1,9 @@
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
+// import Button from 'react-bootstrap/Button';
 import { useHistory } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
 function Header(props) {
     const history = useHistory();
@@ -44,7 +45,19 @@ function Header(props) {
                 </Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
-                    <div className="d-flex align-items-center">
+                    <NavDropdown title={"สวัสดีคุณ - " + props.user} id="basic-nav-dropdown">
+                        {props.userType === "ad" ? (
+                            <>
+                                <NavDropdown.Item onClick={handleSearch}>🔍 ค้นหา</NavDropdown.Item>
+                                <NavDropdown.Item onClick={handleSum}>📝 สรุป</NavDropdown.Item>
+                            </>
+                        ) : (
+                            <p></p>
+                        )}
+                        <NavDropdown.Item onClick={handleLogout}>🚪 ออกจากระบบ</NavDropdown.Item>
+                    </NavDropdown>
+
+                    {/* <div className="d-flex align-items-center">
                         <h6 className="mr-3">สวัสดีคุณ - {props.user}</h6> &nbsp;
                         {props.userType === "ad" ? (
                             <Navbar.Text>
@@ -65,7 +78,7 @@ function Header(props) {
                                 🚪 ออกจากระบบ
                             </Button>
                         </Navbar.Text>
-                    </div>
+                    </div> */}
                 </Navbar.Collapse>
             </Container>
         </Navbar>
