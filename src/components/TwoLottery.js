@@ -29,15 +29,26 @@ const TwoLottery = (props) => {
     };
 
     const handleTwoChange = (e) => {
-        if (e.target.value.length === 2) {
-            e.preventDefault();
-            props.setTwoList([...props.twoList, props.inputTwo.current.value]);
-            console.log(props.inputTwo.current.value);
-            props.inputTwo.current.value = "";
-        } else if (e.target.value.length > 2) {
-            const dataArray = e.target.value.match(/\b\d{2}(?:\b|[+*\/×-])/g);
-            console.log('data -> ' + dataArray);
-            props.setTwoList((prevList) => [...prevList, ...dataArray]);
+        let dataToSet = [];
+
+        if (e.target.value.length >= 2) {
+            if (e.target.value.length === 2) {
+                dataToSet.push(props.inputTwo.current.value);
+            } else {
+                const regex = /[.\-\/+=*,x\s]/g;
+                const data = e.target.value;
+
+                if (data.match(/\b\d{2}(?:\b|[+*/-])/g)) {
+                    const dataSplit = data.split(" ").filter((item) => !regex.test(item));
+                    dataToSet.push(...dataSplit);
+                } else {
+                    const dataArray = data.match(/\b\d{2}(?:\b|[+*\/×-])/g);
+                    console.log('data -> ' + dataArray);
+                    dataToSet.push(...dataArray);
+                }
+            }
+
+            props.setTwoList((prevList) => [...prevList, ...dataToSet]);
             props.inputTwo.current.value = "";
         }
     };

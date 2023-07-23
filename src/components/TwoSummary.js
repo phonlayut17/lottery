@@ -66,7 +66,7 @@ function TwoSummaryPage(props) {
         setSTop(0.00);
         setSBottom(0.00);
         try {
-            const dataRes = await axios.post('https://luckynumber-777-hhbuvnb5vq-uc.a.run.app/get-two-list-by-search', {
+            const dataRes = await axios.post('https://us-central1-lucky-server-2e663.cloudfunctions.net/app/get-two-list-by-search', {
                 type: type,
                 date: inputSearch.current.value
             });
@@ -89,7 +89,7 @@ function TwoSummaryPage(props) {
         setSTop(0.00);
         setSBottom(0.00);
         try {
-            const dataRes = await axios.post('https://luckynumber-777-hhbuvnb5vq-uc.a.run.app/get-two-list-by-date', {
+            const dataRes = await axios.post('https://us-central1-lucky-server-2e663.cloudfunctions.net/app/get-two-list-by-date', {
                 date: inputSearch.current.value
             });
             if (dataRes.data.success) {
@@ -116,7 +116,7 @@ function TwoSummaryPage(props) {
         setSBottom(0.00);
         try {
             let dataRes;
-            dataRes = await axios.post('https://luckynumber-777-hhbuvnb5vq-uc.a.run.app/get-two-list');
+            dataRes = await axios.post('https://us-central1-lucky-server-2e663.cloudfunctions.net/app/get-two-list');
             if (dataRes.data.success) {
                 setData(dataRes.data.data);
                 sumTop(dataRes.data.data);

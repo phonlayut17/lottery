@@ -65,7 +65,7 @@ function ThreeSummaryPage(props) {
         setSTop(0.00);
         setSBottom(0.00);
         try {
-            const dataRes = await axios.post('https://luckynumber-777-hhbuvnb5vq-uc.a.run.app/get-three-list-and-type', {
+            const dataRes = await axios.post('https://us-central1-lucky-server-2e663.cloudfunctions.net/app/get-three-list-and-type', {
                 type: type
             });
             if (dataRes.data.success) {
@@ -91,7 +91,7 @@ function ThreeSummaryPage(props) {
         setSTop(0.00);
         setSBottom(0.00);
         try {
-            const dataRes = await axios.post('https://luckynumber-777-hhbuvnb5vq-uc.a.run.app/get-three-list');
+            const dataRes = await axios.post('https://us-central1-lucky-server-2e663.cloudfunctions.net/app/get-three-list');
             if (dataRes.data.success) {
                 setData(dataRes.data.data);
                 sumTop(dataRes.data.data);
@@ -111,7 +111,7 @@ function ThreeSummaryPage(props) {
         setSTop(0.00);
         setSBottom(0.00);
         try {
-            const dataRes = await axios.post('https://luckynumber-777-hhbuvnb5vq-uc.a.run.app/get-three-list-by-search', {
+            const dataRes = await axios.post('https://us-central1-lucky-server-2e663.cloudfunctions.net/app/get-three-list-by-search', {
                 type: type,
                 date: inputSearch.current.value
             });
@@ -134,7 +134,7 @@ function ThreeSummaryPage(props) {
         setSTop(0.00);
         setSBottom(0.00);
         try {
-            const dataRes = await axios.post('https://luckynumber-777-hhbuvnb5vq-uc.a.run.app/get-three-list-by-date', {
+            const dataRes = await axios.post('https://us-central1-lucky-server-2e663.cloudfunctions.net/app/get-three-list-by-date', {
                 date: inputSearch.current.value
             });
             if (dataRes.data.success) {

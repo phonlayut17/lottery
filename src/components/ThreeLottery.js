@@ -29,31 +29,28 @@ const ThreeLottery = (props) => {
     };
 
     const handleThreeChange = (e) => {
-        if (e.target.value.length === 3) {
-            e.preventDefault();
-            props.setThreeList([...props.threeList, props.inputThree.current.value]);
-            props.inputThree.current.value = "";
-        } else if (e.target.value.length > 3) {
-            if (e.target.value.match(/\b\d{3}(?:\b|[+*/-])/g)) {
-                const dataArray = e.target.value.match(/\b\d{3}(?:\b|[+*/-])/g);
-                props.setThreeList((prevList) => [...prevList, ...dataArray]);
-                props.inputThree.current.value = "";
-                return;
+        const inputValue = e.target.value;
+        const result = [];
+
+        if (inputValue.length >= 3) {
+            if (inputValue.length === 3) {
+                result.push(props.inputThree.current.value);
+            } else {
+                const numbers = inputValue.match(/\b\d{3}(?:\b|[+*/-])/g) || inputValue.replace(/\D/g, ' ').split(' ');
+
+                numbers.forEach((number) => {
+                    if (number.length === 3) {
+                        console.log(number);
+                        result.push(number);
+                    }
+                });
             }
-            const numbers = e.target.value.replace(/\D/g, ' ').split(' ');
-            console.log(numbers);
-            const result = [];
-            for (let i = 0; i < numbers.length; i++) {
-                const number = numbers[i];
-                if (number.length === 3) {
-                    result.push(number);
-                    console.log(number);
-                }
-            }
+
             props.setThreeList((prevList) => [...prevList, ...result]);
             props.inputThree.current.value = "";
         }
     };
+
 
     // const handleThreeDataRemove = (index) => {
     //     const list = [...newListItem];

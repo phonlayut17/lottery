@@ -30,10 +30,14 @@ function Login(props) {
         setShowSpinner(true);
     };
 
+    const validateEmail = (email) => {
+        return email.match(/^(?=.*[a-zA-Z])(?=.*[0-9]).{4,22}$/);
+    };
+
     const handleValidation = () => {
         let formIsValid = true;
 
-        if (!email.match(/^(?=.*[a-zA-Z])(?=.*[0-9]).{4,22}$/)) {
+        if (!validateEmail(email)) {
             formIsValid = false;
             setEmailError("กรุณากรอกผู้ใช้งานโดยมีความยาวอย่างน้อย 4 ตัวและมากที่สุด 22 ตัว");
             return false;
@@ -41,7 +45,7 @@ function Login(props) {
             setEmailError("");
         }
 
-        if (!password.match(/^(?=.*[a-zA-Z])(?=.*[0-9]).{4,22}$/)) {
+        if (!validateEmail(password)) {
             formIsValid = false;
             setPasswordError(
                 "กรุณากรอกรหัสผ่านโดยมีความยาวอย่างน้อย 4 ตัวและมากที่สุด 22 ตัว"
@@ -59,7 +63,7 @@ function Login(props) {
         if (handleValidation()) {
             handleShowSpinner();
             try {
-                const response = await axios.post('https://luckynumber-777-hhbuvnb5vq-uc.a.run.app/login', { email, password });
+                const response = await axios.post('https://us-central1-lucky-server-2e663.cloudfunctions.net/app/login', { email, password });
                 const data = response.data;
                 if (data.success) {
                     props.setUser(data.user);

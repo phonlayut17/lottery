@@ -63,7 +63,7 @@ const TotalLottery = ({ summaryList, setSummaryList, lotteryType, setTotal, setS
 
     const getLastBill = async () => {
         try {
-            const response = await axios.post('https://luckynumber-777-hhbuvnb5vq-uc.a.run.app/get-last-lot');
+            const response = await axios.post('https://us-central1-lucky-server-2e663.cloudfunctions.net/app/get-last-lot');
             const data = response.data;
             console.log("data: " + data.success);
 
@@ -90,7 +90,7 @@ const TotalLottery = ({ summaryList, setSummaryList, lotteryType, setTotal, setS
                 price: totalPrice,
                 comment: comment
             };
-            const response = await axios.post('https://luckynumber-777-hhbuvnb5vq-uc.a.run.app/add-header', body);
+            const response = await axios.post('https://us-central1-lucky-server-2e663.cloudfunctions.net/app/add-header', body);
             const data = response.data;
             console.log(data);
             if (data.success) {
@@ -119,7 +119,7 @@ const TotalLottery = ({ summaryList, setSummaryList, lotteryType, setTotal, setS
                     date: new Date(),
                     user: user
                 };
-                const response = await axios.post('https://luckynumber-777-hhbuvnb5vq-uc.a.run.app/add-body', body);
+                const response = await axios.post('https://us-central1-lucky-server-2e663.cloudfunctions.net/app/add-body', body);
                 const data = response.data;
                 console.log(data);
                 if (data.success) {

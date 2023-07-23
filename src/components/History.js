@@ -50,7 +50,7 @@ const History = (props) => {
     const getData = async () => {
         handleShowSpinner();
         try {
-            const dataRes = await axios.post('https://luckynumber-777-hhbuvnb5vq-uc.a.run.app/get-list-by-user', {
+            const dataRes = await axios.post('https://us-central1-lucky-server-2e663.cloudfunctions.net/app/get-list-by-user', {
                 user: props.user
             });
             console.log(dataRes.data);
@@ -64,7 +64,7 @@ const History = (props) => {
     const getDataById = async (id) => {
         handleShowSpinner();
         try {
-            const dataRes = await axios.post('https://luckynumber-777-hhbuvnb5vq-uc.a.run.app/get-data-by-id', {
+            const dataRes = await axios.post('https://us-central1-lucky-server-2e663.cloudfunctions.net/app/get-data-by-id', {
                 id: id
             });
             if (dataRes.data.success) {
@@ -90,7 +90,7 @@ const History = (props) => {
     const confirmDelete = async () => {
         handleShowSpinner();
         try {
-            const response = await axios.post('https://luckynumber-777-hhbuvnb5vq-uc.a.run.app/delete-by-id', { id: id });
+            const response = await axios.post('https://us-central1-lucky-server-2e663.cloudfunctions.net/app/delete-by-id', { id: id });
             const data = response.data;
             if (data.success) {
                 setShowButton(false);
