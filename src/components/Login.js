@@ -7,8 +7,6 @@ import { useHistory } from 'react-router-dom';
 function Login(props) {
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
-    const [passwordError, setPasswordError] = useState("");
-    const [emailError, setEmailError] = useState("");
     const history = useHistory();
     const [showModal, setShowModal] = useState(false);
     const [showError, setShowError] = useState('');
@@ -30,55 +28,27 @@ function Login(props) {
         setShowSpinner(true);
     };
 
-    const validateEmail = (email) => {
-        return email.match(/^(?=.*[a-zA-Z])(?=.*[0-9]).{4,22}$/);
-    };
-
-    const handleValidation = () => {
-        let formIsValid = true;
-
-        if (!validateEmail(email)) {
-            formIsValid = false;
-            setEmailError("กรุณากรอกผู้ใช้งานโดยมีความยาวอย่างน้อย 4 ตัวและมากที่สุด 22 ตัว");
-            return false;
-        } else {
-            setEmailError("");
-        }
-
-        if (!validateEmail(password)) {
-            formIsValid = false;
-            setPasswordError(
-                "กรุณากรอกรหัสผ่านโดยมีความยาวอย่างน้อย 4 ตัวและมากที่สุด 22 ตัว"
-            );
-            return false;
-        } else {
-            setPasswordError("");
-        }
-
-        return formIsValid;
-    };
-
     const loginSubmit = async (e) => {
         e.preventDefault();
-        if (handleValidation()) {
-            handleShowSpinner();
-            try {
-                const response = await axios.post('https://us-central1-lucky-server-2e663.cloudfunctions.net/app/login', { email, password });
-                const data = response.data;
-                if (data.success) {
-                    props.setUser(data.user);
-                    props.setUserType(data.user_type);
-                    handleCloseSpinner();
-                    history.push('/main', { user: data.user, userType: data.user_type });
-                    props.onLogin();
-                } else {
-                    handleCloseSpinner();
-                    setShowError('กรอกชื่อผู้ใช้งานและรหัสผ่านให้ถูกต้อง');
-                    handleShowModal();
-                }
-            } catch (error) {
-                console.log(error);
+        handleShowSpinner();
+        try {
+            const response = await axios.post('https://us-central1-lucky-server-2e663.cloudfunctions.net/app/login', { email, password });
+            const data = response.data;
+            if (data.success) {
+                props.setUser(data.user);
+                props.setUserType(data.user_type);
+                handleCloseSpinner();
+                console.log('ก่อน');
+                props.onLogin();
+                history.push('/main', { user: data.user, userType: data.user_type });
+                console.log('ทำ');
+            } else {
+                handleCloseSpinner();
+                setShowError('กรอกชื่อผู้ใช้งานและรหัสผ่านให้ถูกต้อง');
+                handleShowModal();
             }
+        } catch (error) {
+            console.log(error);
         }
     };
 
@@ -98,9 +68,6 @@ function Login(props) {
                                 value={email}
                                 onChange={(event) => setEmail(event.target.value)}
                             />
-                            <small id="emailHelp" className="text-danger form-text">
-                                {emailError}
-                            </small>
                         </div>
                         <br />
                         <div className="form-group">
@@ -113,9 +80,6 @@ function Login(props) {
                                 placeholder="ระบุรหัสผ่าน"
                                 onChange={(event) => setPassword(event.target.value)}
                             />
-                            <small id="passworderror" className="text-danger form-text">
-                                {passwordError}
-                            </small>
                         </div>
                         <br />
                         <Row className="justify-content-center">

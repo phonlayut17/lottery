@@ -16,6 +16,9 @@ function Header(props) {
     const handleHome = () => {
         history.push('/main', { user: props.user, userType: props.userType });
     };
+    const handleUser = () => {
+        history.push('/user', { user: props.user, userType: props.userType });
+    };
     const handleLogout = () => {
         history.push('/');
     };
@@ -50,6 +53,7 @@ function Header(props) {
                             <>
                                 <NavDropdown.Item onClick={handleSearch}>🔍 ค้นหา</NavDropdown.Item>
                                 <NavDropdown.Item onClick={handleSum}>📝 สรุป</NavDropdown.Item>
+                                <NavDropdown.Item onClick={handleUser}>🙍‍♂️ พนักงาน</NavDropdown.Item>
                             </>
                         ) : (
                             <p></p>

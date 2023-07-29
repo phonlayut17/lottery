@@ -35,12 +35,23 @@ const TwoLottery = (props) => {
             if (e.target.value.length === 2) {
                 dataToSet.push(props.inputTwo.current.value);
             } else {
-                const regex = /[.\-\/+=*,x\s]/g;
+                const regex = /[.\/+=*,x\s]/g;
                 const data = e.target.value;
 
-                if (data.match(/\b\d{2}(?:\b|[+*/-])/g)) {
+                if (data.match(/\//) || data.match(/-/)) {
+                    const numbers = data.match(/\b\d{2}(?:\b|[+*/-])/g) || data.replace(/\D/g, ' ').split(' ');
+                    numbers.forEach((number) => {
+                        if (number.length === 2) {
+                            console.log("data " + number);
+                            dataToSet.push(number);
+                        }
+                    });
+                }
+
+                else if (data.match(/\b\d{2}(?:\b|[+*/])/g)) {
                     const dataSplit = data.split(" ").filter((item) => !regex.test(item));
                     dataToSet.push(...dataSplit);
+                    console.log('data split -> ' + dataSplit);
                 } else {
                     const dataArray = data.match(/\b\d{2}(?:\b|[+*\/×-])/g);
                     console.log('data -> ' + dataArray);

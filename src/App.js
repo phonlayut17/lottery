@@ -4,6 +4,7 @@ import LoginPage from './pages/LoginPage';
 import LotteryPage from './pages/LotteryPage';
 import SearchPage from './pages/SearchPage';
 import SumPage from './pages/SumPage';
+import UserWorkPage from './pages/UserWorkPage';
 import Protected from './components/Protected';
 
 function App() {
@@ -45,6 +46,13 @@ function App() {
           user={user}
           userType={userType}
           component={SumPage}
+        />
+        <Protected
+          path="/user"
+          isLoggedIn={isLoggedIn}
+          user={user}
+          userType={userType}
+          component={UserWorkPage}
         />
       </Switch>
     </Router>
