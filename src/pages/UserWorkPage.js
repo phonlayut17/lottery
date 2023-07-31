@@ -21,7 +21,7 @@ function UserWorkPage(props) {
         handleShowSpinner();
         try {
             let dataRes;
-            dataRes = await axios.post('http://localhost:8889/get-list-user');
+            dataRes = await axios.post('https://us-central1-lucky-server-2e663.cloudfunctions.net/app/get-list-user');
             if (dataRes.data.success) {
                 console.log(dataRes.data.success);
                 setData(dataRes.data.user);
@@ -38,10 +38,12 @@ function UserWorkPage(props) {
         handleCloseSpinner();
     };
     const getByDate = async () => {
+        setBill([]);
         handleShowSpinner();
         try {
+            console.log(inputSearch.current.value);
             let dataRes;
-            dataRes = await axios.post('http://localhost:8889/get-sum-bill-by-date', {
+            dataRes = await axios.post('https://us-central1-lucky-server-2e663.cloudfunctions.net/app/get-sum-bill-by-date', {
                 date: inputSearch.current.value
             });
             if (dataRes.data.success) {
@@ -60,7 +62,7 @@ function UserWorkPage(props) {
         handleShowSpinner();
         try {
             let dataRes;
-            dataRes = await axios.post('http://localhost:8889/get-sum-bill-by-user-and-date', {
+            dataRes = await axios.post('https://us-central1-lucky-server-2e663.cloudfunctions.net/app/get-sum-bill-by-user-and-date', {
                 user: myUser, date: inputSearch.current.value
             });
             if (dataRes.data.success) {
